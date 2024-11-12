@@ -1,0 +1,24 @@
+{
+    "name": "autodoctor/vkmodule-socket",
+    "type": "library",
+    "description": "PHP driver library for use with VKmodule 'Socket-N' type electronic devices.",
+    "homepage": "https://github.com/Igor-ad/vkmodule-socket",
+    "keywords": ["vkmodule", "smart-home", "remote-control", "php-driver", "library", "Client"],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "psr/log": "^3.0",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Autodoctor\\ModuleSocket\\": "src/ModuleSocket"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    }
+}
