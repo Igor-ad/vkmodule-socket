@@ -287,7 +287,7 @@ Response:
         "data": {
             "input": {
                 "inputNumber": 1,
-                "processingAction": "Open",
+                "triggerAction": "Open",
                 "antiBounce": 5
             }
         }
@@ -308,7 +308,7 @@ Response:
         "data": {
             "input": {
                 "inputNumber": 0,
-                "processingAction": "Open",
+                "triggerAction": "Open",
                 "antiBounce": 4
             }
         }

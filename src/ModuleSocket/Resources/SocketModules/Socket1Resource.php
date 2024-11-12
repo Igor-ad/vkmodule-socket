@@ -21,7 +21,7 @@ class Socket1Resource extends BaseResource
             'data' => [
                 'input' => [
                     'inputNumber' => hexdec($response->getItem(0)),
-                    'processingAction' => $this->inputStatusToSting($response->getItem(1)),
+                    'triggerAction' => $this->inputStatusToSting($response->getItem(1)),
                     'antiBounce' => hexdec($response->getItem(2)),
                 ],
             ]
