@@ -27,18 +27,18 @@ final class Socket2Formatter extends CommonFormatter
         return new Command(new CommandID(Socket2::GET_ANALOG_INPUT));
     }
 
-    public static function getInputStatus(InputStatus $inputObject): Command
+    public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(Socket2::GET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket2::GET_INPUT), $inputStatus);
     }
 
-    public static function inputSetup(Input $inputObject): Command
+    public static function inputSetup(Input $input): Command
     {
-        return new Command(new CommandID(Socket2::SET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket2::SET_INPUT), $input);
     }
 
-    public static function relayAction(Relay $relayObject): Command
+    public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket2::RELAY_ACTION), $relayObject);
+        return new Command(new CommandID(Socket2::RELAY_ACTION), $relay);
     }
 }

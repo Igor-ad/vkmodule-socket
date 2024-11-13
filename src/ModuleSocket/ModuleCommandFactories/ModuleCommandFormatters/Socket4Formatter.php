@@ -19,8 +19,8 @@ final class Socket4Formatter extends CommonFormatter
         return new Command(new CommandID(Socket4::GET_RELAY_STATUS));
     }
 
-    public static function relayAction(Relay $relayObject): Command
+    public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket4::RELAY_ACTION), $relayObject);
+        return new Command(new CommandID(Socket4::RELAY_ACTION), $relay);
     }
 }

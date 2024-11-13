@@ -20,13 +20,13 @@ final class Socket1Formatter extends CommonFormatter
         return new Command(new CommandID(Socket1::GET_ALL_INPUT));
     }
 
-    public static function getInputStatus(InputStatus $inputObject): Command
+    public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(Socket1::GET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket1::GET_INPUT), $inputStatus);
     }
 
-    public static function inputSetup(Input $inputObject): Command
+    public static function inputSetup(Input $input): Command
     {
-        return new Command(new CommandID(Socket1::SET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket1::SET_INPUT), $input);
     }
 }

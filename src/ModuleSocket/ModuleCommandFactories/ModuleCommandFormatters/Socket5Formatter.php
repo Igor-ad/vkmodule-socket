@@ -16,9 +16,9 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
  */
 final class Socket5Formatter extends CommonFormatter
 {
-    public static function inputSetup(Input $inputObject): Command
+    public static function inputSetup(Input $input): Command
     {
-        return new Command(new CommandID(Socket5::SET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket5::SET_INPUT), $input);
     }
 
     public static function getAllStatus(): Command
@@ -26,13 +26,13 @@ final class Socket5Formatter extends CommonFormatter
         return new Command(new CommandID(Socket5::GET_ALL_STATUS));
     }
 
-    public static function getInputStatus(InputStatus $inputObject): Command
+    public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(Socket5::GET_INPUT), $inputObject);
+        return new Command(new CommandID(Socket5::GET_INPUT), $inputStatus);
     }
 
-    public static function relayAction(Relay $relayObject): Command
+    public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket5::RELAY_ACTION), $relayObject);
+        return new Command(new CommandID(Socket5::RELAY_ACTION), $relay);
     }
 }

@@ -17,9 +17,9 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\RelayGroup;
  */
 final class SocketGiantFormatter extends CommonFormatter
 {
-    public static function relayGroupAction(RelayGroup $relayGroupObject): Command
+    public static function relayGroupAction(RelayGroup $relayGroup): Command
     {
-        return new Command(new CommandID(SocketGiant::RELAY_GROUP_ACTION), $relayGroupObject);
+        return new Command(new CommandID(SocketGiant::RELAY_GROUP_ACTION), $relayGroup);
     }
 
     public static function getAllStatus(): Command
@@ -27,18 +27,18 @@ final class SocketGiantFormatter extends CommonFormatter
         return new Command(new CommandID(SocketGiant::GET_ALL_STATUS));
     }
 
-    public static function getInputStatus(InputStatus $inputObject): Command
+    public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(SocketGiant::GET_INPUT), $inputObject);
+        return new Command(new CommandID(SocketGiant::GET_INPUT), $inputStatus);
     }
 
-    public static function setupInput(Input $inputObject): Command
+    public static function setupInput(Input $input): Command
     {
-        return new Command(new CommandID(SocketGiant::SET_INPUT), $inputObject);
+        return new Command(new CommandID(SocketGiant::SET_INPUT), $input);
     }
 
-    public static function relayAction(Relay $relayObject): Command
+    public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(SocketGiant::RELAY_ACTION), $relayObject);
+        return new Command(new CommandID(SocketGiant::RELAY_ACTION), $relay);
     }
 }

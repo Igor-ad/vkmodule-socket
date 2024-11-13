@@ -29,8 +29,8 @@ final class Socket3Formatter extends CommonFormatter
         return new Command(new CommandID(Socket3::GET_TEMP_1));
     }
 
-    public static function relayAction(Relay $relayObject): Command
+    public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket3::RELAY_ACTION), $relayObject);
+        return new Command(new CommandID(Socket3::RELAY_ACTION), $relay);
     }
 }

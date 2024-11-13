@@ -184,7 +184,7 @@ Response:
 }
 ```
 
-Command - UID:
+Command - Uid:
 ```
 ./console/cli.php uid '{"module":{"host":"192.168.4.191","port":9761,"type":"Socket-2"}}' 
 ```
