@@ -186,7 +186,7 @@ Response:
 
 Command - Uid:
 ```
-./console/cli.php uid '{"module":{"host":"192.168.4.191","port":9761,"type":"Socket-2"}}' 
+./console/cli.php uid '{"module":{"host":"192.168.4.191","port":9761,"type":"Socket-3"}}' 
 ```
 
 Response:
@@ -197,7 +197,7 @@ Response:
         "id": "04",
         "description": "GetUid",
         "data": {
-            "uid": 7284
+            "uid": 873
         }
     }
 }
