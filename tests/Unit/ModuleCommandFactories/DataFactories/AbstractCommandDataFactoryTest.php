@@ -14,6 +14,12 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractCommandDataFactoryTest extends TestCase
 {
+    public function test__construct()
+    {
+        $factory = new NullCommandDataFactory();
+        $this->assertTrue(is_a($factory, NullCommandDataFactory::class));
+    }
+
     public function testGetDataFactory()
     {
         $commandData = [

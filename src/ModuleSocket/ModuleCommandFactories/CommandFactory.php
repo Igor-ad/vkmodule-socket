@@ -24,7 +24,8 @@ class CommandFactory
         $commandId = getValue($this->request, 'command.id');
         return new Command(
             new CommandID($commandId),
-            AbstractCommandDataFactory::getDataFactory($this->request, $commandId)->make(),
+            AbstractCommandDataFactory::getDataFactory(getValue($this->request, 'command.data'), $commandId)
+                ->make(),
         );
     }
 }
