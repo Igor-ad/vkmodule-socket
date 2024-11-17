@@ -14,7 +14,7 @@ class InputStatusDataFactoryTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMake()
+    public function testMake(): void
     {
         $commandData = [
             'input' => [
@@ -24,5 +24,6 @@ class InputStatusDataFactoryTest extends TestCase
         $factory = new InputStatusDataFactory($commandData);
         $data = $factory->make();
         $this->assertTrue(is_a($data, InputStatus::class));
+        $this->assertSame(expected: $commandData, actual: $data->toArray());
     }
 }

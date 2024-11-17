@@ -50,7 +50,9 @@ final readonly class RelayGroup implements CommandData
     public function toArray(): array
     {
         return [
-            'relayGroup' => $this->data,
+            'relayGroup' => [
+                'relayGroupAction' => $this->data,
+            ]
         ];
     }
 

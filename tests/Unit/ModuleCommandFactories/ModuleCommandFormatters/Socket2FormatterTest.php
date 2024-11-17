@@ -15,13 +15,13 @@ use PHPUnit\Framework\TestCase;
 
 class Socket2FormatterTest extends TestCase
 {
-    public function testGetAllStatus()
+    public function testGetAllStatus(): void
     {
         $command = Socket2Formatter::getAllStatus();
         $this->assertTrue($command->isEqual(new Command(new CommandID('23'))));
     }
 
-    public function testGetAnalogInput()
+    public function testGetAnalogInput(): void
     {
         $command = Socket2Formatter::getAnalogInput();
         $this->assertTrue($command->isEqual(new Command(new CommandID('24'))));
@@ -30,14 +30,14 @@ class Socket2FormatterTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testInputSetup()
+    public function testInputSetup(): void
     {
         $input = new Input(0, 1, 5);
         $command = Socket2Formatter::inputSetup($input);
         $this->assertTrue($command->isEqual(new Command(new CommandID('20'), $input)));
     }
 
-    public function testGetInputStatus()
+    public function testGetInputStatus(): void
     {
         $inputStatus = new InputStatus(0);
         $command = Socket2Formatter::getInputStatus($inputStatus);
@@ -47,7 +47,7 @@ class Socket2FormatterTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testRelayAction()
+    public function testRelayAction(): void
     {
         $relay = new Relay(0, 1, 10);
         $command = Socket2Formatter::relayAction($relay);

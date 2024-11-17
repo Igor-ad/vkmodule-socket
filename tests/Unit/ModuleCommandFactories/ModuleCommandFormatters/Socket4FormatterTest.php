@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class Socket4FormatterTest extends TestCase
 {
-    public function testGetAllStatus()
+    public function testGetAllStatus(): void
     {
         $command = Socket4Formatter::getAllStatus();
         $this->assertTrue($command->isEqual(new Command(new CommandID('23'))));
@@ -22,7 +22,7 @@ class Socket4FormatterTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testRelayAction()
+    public function testRelayAction(): void
     {
         $relay = new Relay(0, 1, 10);
         $command = Socket4Formatter::relayAction($relay);

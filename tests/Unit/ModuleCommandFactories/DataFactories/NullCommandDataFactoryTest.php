@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class NullCommandDataFactoryTest extends TestCase
 {
-    public function testMake()
+    public function testMake(): void
     {
         $factory = new NullCommandDataFactory();
         $data = $factory->make();

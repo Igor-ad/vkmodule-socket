@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class Socket3FormatterTest extends TestCase
 {
 
-    public function testGetAllStatus()
+    public function testGetAllStatus(): void
     {
         $command = Socket3Formatter::getAllStatus();
         $this->assertTrue($command->isEqual(new Command(new CommandID('44'))));
@@ -25,13 +25,13 @@ class Socket3FormatterTest extends TestCase
         $this->assertTrue($command->isEqual(new Command(new CommandID('41'))));
     }
 
-    public function testGetSensor1()
+    public function testGetSensor1(): void
     {
         $command = Socket3Formatter::getSensor1();
         $this->assertTrue($command->isEqual(new Command(new CommandID('42'))));
     }
 
-    public function testRelayAction()
+    public function testRelayAction(): void
     {
         $relay = new Relay(0, 1, 10);
         $command = Socket3Formatter::relayAction($relay);

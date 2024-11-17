@@ -16,27 +16,27 @@ use PHPUnit\Framework\TestCase;
 
 class SocketGiantFormatterTest extends TestCase
 {
-    public function testGetAllStatus()
+    public function testGetAllStatus(): void
     {
         $command = SocketGiantFormatter::getAllStatus();
         $this->assertTrue($command->isEqual(new Command(new CommandID('23'))));
     }
 
-    public function testGetInputStatus()
+    public function testGetInputStatus(): void
     {
         $inputStatus = new InputStatus(0);
         $command = SocketGiantFormatter::getInputStatus($inputStatus);
         $this->assertTrue($command->isEqual(new Command(new CommandID('21'), $inputStatus)));
     }
 
-    public function testRelayAction()
+    public function testRelayAction(): void
     {
         $relay = new Relay(0, 1, 10);
         $command = SocketGiantFormatter::relayAction($relay);
         $this->assertTrue($command->isEqual(new Command(new CommandID('22'), $relay)));
     }
 
-    public function testRelayGroupAction()
+    public function testRelayGroupAction(): void
     {
         $relyGroup = new RelayGroup('ffff');
         $command = SocketGiantFormatter::relayGroupAction($relyGroup);
@@ -46,7 +46,7 @@ class SocketGiantFormatterTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testSetupInput()
+    public function testSetupInput(): void
     {
         $input = new Input(0, 1, 5);
         $command = SocketGiantFormatter::setupInput($input);

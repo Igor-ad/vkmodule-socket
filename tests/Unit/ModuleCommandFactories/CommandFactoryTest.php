@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommandFactoryTest extends TestCase
 {
-    public function testInstance()
+    public function testInstance(): void
     {
         $factory = CommandFactory::instance([]);
         $this->assertTrue(is_a($factory, CommandFactory::class));
@@ -25,7 +25,7 @@ class CommandFactoryTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMake()
+    public function testMake(): void
     {
         $request = [
             'command' => [
@@ -108,7 +108,7 @@ class CommandFactoryTest extends TestCase
         $this->assertTrue($command->isEqual($anotherCommand));
     }
 
-    public function test__construct()
+    public function test__construct(): void
     {
         $factory = new CommandFactory([]);
         $this->assertTrue(is_a($factory, CommandFactory::class));

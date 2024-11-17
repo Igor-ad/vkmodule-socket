@@ -8,7 +8,7 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 
 class Configurator
 {
-    const CONFIG_FILE = '../config/vk_module.php';
+    const CONFIG_FILE = __DIR__ . '/../../config/vk_module.php';
 
     private static ?Configurator $instance = null;
     private array $values = [];

@@ -14,7 +14,7 @@ class RelayGroupControlDataFactoryTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMake()
+    public function testMake(): void
     {
         $commandData = [
             'relayGroup' => [
@@ -24,5 +24,6 @@ class RelayGroupControlDataFactoryTest extends TestCase
         $factory = new RelayGroupControlDataFactory($commandData);
         $data = $factory->make();
         $this->assertTrue(is_a($data, RelayGroup::class));
+        $this->assertSame(expected: $commandData, actual: $data->toArray());
     }
 }
