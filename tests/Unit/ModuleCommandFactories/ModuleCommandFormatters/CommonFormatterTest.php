@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 class CommonFormatterTest extends TestCase
 {
-
     public function testGetModuleUid(): void
     {
         $command = CommonFormatter::getModuleUid();

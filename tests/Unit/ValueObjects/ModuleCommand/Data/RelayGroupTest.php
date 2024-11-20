@@ -10,15 +10,16 @@ use ReflectionClass;
 
 class RelayGroupTest extends TestCase
 {
-    public function relayGroupInit(): RelayGroup
+    protected RelayGroup $relayGroup;
+
+    protected function setUp(): void
     {
-        return new RelayGroup('0000');
+        $this->relayGroup = new RelayGroup('0000');
     }
 
     public function test__construct(): void
     {
-        $relayGroup = new RelayGroup('0000');
-        $this->assertTrue(is_a($relayGroup, RelayGroup::class));
+        $this->assertInstanceOf(RelayGroup::class, $this->relayGroup);
     }
 
     public function testToArray(): void
@@ -28,31 +29,31 @@ class RelayGroupTest extends TestCase
                 'relayGroupAction' => '0000',
             ]
         ];
-        $this->assertSame($expected, $this->relayGroupInit()->toArray());
+        $this->assertSame($expected, $this->relayGroup->toArray());
     }
 
     public function testIsEqual(): void
     {
         $anotherRelayGroup = new RelayGroup('0000');
-        $this->assertTrue($this->relayGroupInit()->isEqual($anotherRelayGroup));
+        $this->assertTrue($this->relayGroup->isEqual($anotherRelayGroup));
     }
 
     public function testToJson(): void
     {
         $expected = '{"relayGroup":{"relayGroupAction":"0000"}}';
-        $this->assertSame($expected, $this->relayGroupInit()->toJson());
+        $this->assertSame($expected, $this->relayGroup->toJson());
     }
 
     public function testToStream(): void
     {
         $expected = chr(hexdec('0000'));
-        $this->assertSame($expected, $this->relayGroupInit()->toStream());
+        $this->assertSame($expected, $this->relayGroup->toStream());
     }
 
     public function testToString(): void
     {
         $expected = hexFormat(hexdec('0000'), 4);
-        $this->assertSame($expected, $this->relayGroupInit()->toString());
+        $this->assertSame($expected, $this->relayGroup->toString());
     }
 
     public function testRelayGroupClassIsFinal(): void

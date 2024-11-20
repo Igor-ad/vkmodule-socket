@@ -11,21 +11,19 @@ use ReflectionClass;
 
 class RelayTest extends TestCase
 {
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function relayInit(): Relay
-    {
-        return new Relay(0, 1, 10);
-    }
+    protected Relay $relay;
 
     /**
      * @throws InvalidInputParameterException
      */
+    protected function setUp(): void
+    {
+        $this->relay = new Relay(0, 1, 10);
+    }
+
     public function test__construct(): void
     {
-        $relay = new Relay(0, 1, 10);
-        $this->assertTrue(is_a($relay, Relay::class));
+        $this->assertInstanceOf(Relay::class, $this->relay);
     }
 
     /**
@@ -34,12 +32,9 @@ class RelayTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherRelay = new Relay(0, 1, 10);
-        $this->assertTrue($this->relayInit()->isEqual($anotherRelay));
+        $this->assertTrue($this->relay->isEqual($anotherRelay));
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToArray(): void
     {
         $expected = [
@@ -49,34 +44,25 @@ class RelayTest extends TestCase
                 'interval' => 10,
             ]
         ];
-        $this->assertSame($expected, $this->relayInit()->toArray());
+        $this->assertSame($expected, $this->relay->toArray());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToJson(): void
     {
         $expected = '{"relay":{"relayNumber":0,"action":1,"interval":10}}';
-        $this->assertSame($expected, $this->relayInit()->toJson());
+        $this->assertSame($expected, $this->relay->toJson());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToStream(): void
     {
         $expected = chr(0) . chr(1) . chr(10);
-        $this->assertSame($expected, $this->relayInit()->toStream());
+        $this->assertSame($expected, $this->relay->toStream());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToString(): void
     {
         $expected = hexFormat(0) . hexFormat(1) . hexFormat(10);
-        $this->assertSame($expected, $this->relayInit()->toString());
+        $this->assertSame($expected, $this->relay->toString());
     }
 
     public function testRelayClassIsFinal(): void

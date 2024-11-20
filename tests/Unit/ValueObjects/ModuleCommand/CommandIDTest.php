@@ -12,7 +12,7 @@ class CommandIDTest extends TestCase
 {
     public function test__construct(): void
     {
-        $this->assertTrue(is_a(new CommandID('20'), CommandID::class));
+        $this->assertInstanceOf(CommandID::class, new CommandID('20'));
     }
 
     public function testToStream(): void

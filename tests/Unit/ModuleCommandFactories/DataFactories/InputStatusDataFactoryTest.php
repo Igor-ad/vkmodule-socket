@@ -23,7 +23,7 @@ class InputStatusDataFactoryTest extends TestCase
         ];
         $factory = new InputStatusDataFactory($commandData);
         $data = $factory->make();
-        $this->assertTrue(is_a($data, InputStatus::class));
+        $this->assertInstanceOf(InputStatus::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
     }
 }

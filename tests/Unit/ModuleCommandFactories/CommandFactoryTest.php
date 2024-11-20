@@ -19,7 +19,7 @@ class CommandFactoryTest extends TestCase
     public function testInstance(): void
     {
         $factory = CommandFactory::instance([]);
-        $this->assertTrue(is_a($factory, CommandFactory::class));
+        $this->assertInstanceOf(CommandFactory::class, $factory);
     }
 
     /**
@@ -111,6 +111,6 @@ class CommandFactoryTest extends TestCase
     public function test__construct(): void
     {
         $factory = new CommandFactory([]);
-        $this->assertTrue(is_a($factory, CommandFactory::class));
+        $this->assertInstanceOf(CommandFactory::class, $factory);
     }
 }

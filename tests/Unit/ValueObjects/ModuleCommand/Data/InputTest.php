@@ -11,21 +11,19 @@ use ReflectionClass;
 
 class InputTest extends TestCase
 {
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function inputInit(): Input
-    {
-        return new Input(0, 1, 5);
-    }
+    protected Input $input;
 
     /**
      * @throws InvalidInputParameterException
      */
+    protected function setUp(): void
+    {
+        $this->input = new Input(0, 1, 5);
+    }
+
     public function test__construct(): void
     {
-        $input = new Input(0, 1, 5);
-        $this->assertTrue(is_a($input, Input::class));
+        $this->assertInstanceOf(Input::class, $this->input);
     }
 
     /**
@@ -34,12 +32,9 @@ class InputTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherInput = new Input(0, 1, 5);
-        $this->assertTrue($this->inputInit()->isEqual($anotherInput));
+        $this->assertTrue($this->input->isEqual($anotherInput));
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToArray(): void
     {
         $expected = [
@@ -49,34 +44,25 @@ class InputTest extends TestCase
                 'antiBounce' => 5,
             ]
         ];
-        $this->assertSame($expected, $this->inputInit()->toArray());
+        $this->assertSame($expected, $this->input->toArray());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function testToJson():void
+    public function testToJson(): void
     {
         $expected = '{"input":{"inputNumber":0,"action":1,"antiBounce":5}}';
-        $this->assertSame($expected, $this->inputInit()->toJson());
+        $this->assertSame($expected, $this->input->toJson());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToStream(): void
     {
         $expected = chr(0) . chr(1) . chr(5);
-        $this->assertSame($expected, $this->inputInit()->toStream());
+        $this->assertSame($expected, $this->input->toStream());
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToString(): void
     {
         $expected = hexFormat(0) . hexFormat(1) . hexFormat(5);
-        $this->assertSame($expected, $this->inputInit()->toString());
+        $this->assertSame($expected, $this->input->toString());
     }
 
     public function testInputClassIsFinal(): void

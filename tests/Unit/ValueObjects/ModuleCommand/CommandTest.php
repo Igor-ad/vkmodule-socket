@@ -11,21 +11,22 @@ use ReflectionClass;
 
 class CommandTest extends TestCase
 {
-    public function commandInit(): Command
+    protected Command $command;
+
+    protected function setUp(): void
     {
-        return new Command(new CommandID('01'));
+        $this->command = new Command(new CommandID('01'));
     }
 
     public function test__construct(): void
     {
-        $this->assertTrue(is_a($this->commandInit(), Command::class));
+        $this->assertInstanceOf(Command::class, $this->command);
     }
 
     public function testIsEqual(): void
     {
-        $command = $this->commandInit();
         $anotherCommand = new Command(new CommandID('01'));
-        $this->assertTrue($command->isEqual($anotherCommand));
+        $this->assertTrue($this->command->isEqual($anotherCommand));
     }
 
     public function testToArray(): void
@@ -37,19 +38,19 @@ class CommandTest extends TestCase
                 'data' => null
             ]
         ];
-        $this->assertSame($expected, $this->commandInit()->toArray());
+        $this->assertSame($expected, $this->command->toArray());
     }
 
     public function testToJson(): void
     {
         $expected = '{"command":{"id":"01","description":"CheckConnect","data":null}}';
-        $this->assertSame($expected, $this->commandInit()->toJson());
+        $this->assertSame($expected, $this->command->toJson());
     }
 
     public function testToStream(): void
     {
         $expected = chr(hexdec('01'));
-        $this->assertSame($expected, $this->commandInit()->toStream());
+        $this->assertSame($expected, $this->command->toStream());
     }
 
     public function testCommandClassIsFinal(): void

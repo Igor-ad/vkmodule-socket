@@ -23,7 +23,7 @@ class RelayGroupControlDataFactoryTest extends TestCase
         ];
         $factory = new RelayGroupControlDataFactory($commandData);
         $data = $factory->make();
-        $this->assertTrue(is_a($data, RelayGroup::class));
+        $this->assertInstanceOf(RelayGroup::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
     }
 }

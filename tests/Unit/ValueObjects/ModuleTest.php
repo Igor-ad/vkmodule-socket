@@ -11,29 +11,25 @@ use ReflectionClass;
 
 class ModuleTest extends TestCase
 {
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function moduleInit(): Module
-    {
-        return new Module('localhost', 1111, 'Socket-1');
-    }
+    protected Module $module;
 
     /**
      * @throws InvalidInputParameterException
      */
+    protected function setUp(): void
+    {
+        $this->module = new Module('localhost', 9761, 'Socket-1');
+    }
+
     public function test__construct(): void
     {
-        $this->assertTrue(is_a($this->moduleInit(), Module::class));
+        $this->assertInstanceOf(Module::class, $this->module);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToJson(): void
     {
-        $expected = '{"module":{"host":"localhost","port":1111,"type":"Socket-1"}}';
-        $this->assertSame($expected, $this->moduleInit()->toJson());
+        $expected = '{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}';
+        $this->assertSame($expected, $this->module->toJson());
     }
 
     /**
@@ -41,28 +37,25 @@ class ModuleTest extends TestCase
      */
     public function testIsEqual(): void
     {
-        $anotherModule = new Module('localhost', 1111, 'Socket-1');
-        $this->assertTrue($this->moduleInit()->isEqual($anotherModule));
+        $anotherModule = new Module('localhost', 9761, 'Socket-1');
+        $this->assertTrue($this->module->isEqual($anotherModule));
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testToArray(): void
     {
         $expected = [
             'module' => [
                 'host' => 'localhost',
-                'port' => 1111,
+                'port' => 9761,
                 'type' => 'Socket-1',
             ]
         ];
-        $this->assertSame($expected, $this->moduleInit()->toArray());
+        $this->assertSame($expected, $this->module->toArray());
     }
 
     public function testAcceptedDefaultModuleConfig(): void
     {
-        $this->assertTrue(is_a(new Module(), Module::class));
+        $this->assertInstanceOf(Module::class, new Module());
     }
 
     public function testModuleClassIsFinal(): void

@@ -17,7 +17,7 @@ class AbstractCommandDataFactoryTest extends TestCase
     public function test__construct()
     {
         $factory = new NullCommandDataFactory();
-        $this->assertTrue(is_a($factory, NullCommandDataFactory::class));
+        $this->assertInstanceOf(NullCommandDataFactory::class, $factory);
     }
 
     public function testGetDataFactory()
@@ -30,7 +30,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ],
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
-        $this->assertTrue(is_a($factory, InputSetupDataFactory::class));
+        $this->assertInstanceOf(InputSetupDataFactory::class, $factory);
 
         $commandData = [
             'relay' => [
@@ -40,7 +40,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ]
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
-        $this->assertTrue(is_a($factory, RelayControlDataFactory::class));
+        $this->assertInstanceOf(RelayControlDataFactory::class, $factory);
 
         $commandData = [
             'input' => [
@@ -48,7 +48,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ]
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, '21');
-        $this->assertTrue(is_a($factory, InputStatusDataFactory::class));
+        $this->assertInstanceOf(InputStatusDataFactory::class, $factory);
 
         $commandData = [
             'relayGroup' => [
@@ -56,10 +56,10 @@ class AbstractCommandDataFactoryTest extends TestCase
             ],
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
-        $this->assertTrue(is_a($factory, RelayGroupControlDataFactory::class));
+        $this->assertInstanceOf(RelayGroupControlDataFactory::class, $factory);
 
         $commandData = null;
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
-        $this->assertTrue(is_a($factory, NullCommandDataFactory::class));
+        $this->assertInstanceOf(NullCommandDataFactory::class, $factory);
     }
 }

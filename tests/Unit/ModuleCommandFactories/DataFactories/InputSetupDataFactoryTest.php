@@ -25,7 +25,7 @@ class InputSetupDataFactoryTest extends TestCase
         ];
         $factory = new InputSetupDataFactory($commandData);
         $data = $factory->make();
-        $this->assertTrue(is_a($data, Input::class));
+        $this->assertInstanceOf(Input::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
     }
 }
