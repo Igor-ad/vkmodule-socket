@@ -57,7 +57,7 @@ class InputTest extends TestCase
      */
     public function testToJson():void
     {
-        $expected = '{"input":{"inputNumber":0,"action":1,"antiBounce":10}}';
+        $expected = '{"input":{"inputNumber":0,"action":1,"antiBounce":5}}';
         $this->assertSame($expected, $this->inputInit()->toJson());
     }
 

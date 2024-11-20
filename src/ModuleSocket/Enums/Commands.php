@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
+use Autodoctor\ModuleSocket\Exceptions\ModuleException;
+
 enum Commands: string
 {
     // Common
@@ -45,8 +47,16 @@ enum Commands: string
         return array_column(self::cases(), 'value');
     }
 
+    /**
+     * @throws ModuleException
+     */
     public static function description(string $id): string
     {
+        if (!in_array($id, self::commands())) {
+            throw new ModuleException(
+                sprintf('"%s" is not a valid module command ID.', $id)
+            );
+        }
         return strtolower(self::from($id)->name);
     }
 }

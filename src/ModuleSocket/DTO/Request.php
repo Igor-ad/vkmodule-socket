@@ -32,7 +32,7 @@ final class Request
     {
         $this->request = json_decode($queryString ?? '', true) ?? [];
         $this->module = $this->module($this->request);
-        $this->connector = $this->connector($this->module, $this->request);
+        $this->connector = $this->connector($this->module->host, $this->module->port, $this->request);
         $this->command = $this->command($this->module->type, $this->request);
     }
 
@@ -55,10 +55,11 @@ final class Request
     /**
      * @throws ConnectorException
      */
-    public function connector(Module $module, array $request): Connector
+    public function connector(string $host, int $port, array $request): Connector
     {
         return ConnectorFactory::connectInit(
-            $module,
+            $host,
+            $port,
             getValue($request, 'connector.type'),
             getValue($request, 'connector.timeOut'),
         );

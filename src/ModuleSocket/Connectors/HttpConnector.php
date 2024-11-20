@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
-use Autodoctor\ModuleSocket\ValueObjects\Module;
 use GuzzleHttp\Client;
 
 class HttpConnector extends AbstractConnector
 {
-    protected $connector;
-
-    public function __construct(Module $module, float $timeout = null)
+    protected function setConnector(string $host, int $port = 9761, float $timeout = null): void
     {
-        $timeout = $timeout ?? $this->getTimeout();
-
-        $this->connector = new Client([$module->host, $timeout]);
+        $this->connector = new Client([$host, $timeout]);
     }
 }

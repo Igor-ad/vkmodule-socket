@@ -14,25 +14,13 @@ abstract class AbstractTransceiver implements Transceiver
         public int          $attemptsToReceive = self::ATTEMPT,
     ) {}
 
-    public function read(int $length = 32): string|false
-    {
-        // TODO: Implement read() method.
-    }
+    abstract public function read(int $length = 32): string|false;
 
-    public function write(string $data, ?int $length = null): int|false
-    {
-        // TODO: Implement write() method.
-    }
+    abstract public function write(string $data, ?int $length = null): int|false;
 
-    public function processing(): string
-    {
-        // TODO: Implement processing() method.
-    }
+    abstract public function processing(): string;
 
-    public function setStreamData(string $streamData): void
-    {
-        // TODO: Implement setStream() method.
-    }
+    abstract public function setStreamData(string $streamData): void;
 
     protected function try(): bool
     {

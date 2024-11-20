@@ -5,26 +5,24 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Connectors;
 
 use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
-use Autodoctor\ModuleSocket\ValueObjects\Module;
 
 class TcpConnector extends AbstractConnector
 {
     protected const CONNECT_TIMEOUT = 30;
 
-    protected $connector;
-
     /**
      * @throws ConnectorException
      */
-    public function __construct(Module $module, ?float $timeout = null)
+    protected function setConnector(string $host, int $port = 9761, ?float $timeout = null): void
     {
-        $timeout = $timeout ?? $this->getTimeout();
-        $this->connector = fsockopen($module->host, $module->port, $error_code, $error_message, $timeout);
+        $this->connector = stream_socket_client(
+            "tcp://$host:$port", $errorCode, $errorMessage, $timeout
+        );
 
         if ($this->connector === false) {
             throw new ConnectorException(
-                'Cannot initialise TCP Socket Connector: ' . $error_message
-                . ' Error Code: ' . $error_code
+                'Cannot initialise TCP Socket Connector: ' . $errorMessage
+                . ' Error Code: ' . $errorCode
             );
         }
     }

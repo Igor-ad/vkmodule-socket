@@ -200,7 +200,7 @@ class Validator
      */
     public function validatePort(int $port): int
     {
-        if ($port < 999 || $port > 65535) {
+        if ($port < 1024 || $port > 65535) {
             throw new InvalidInputParameterException(
                 sprintf('Module TCP port number: %s is not valid.', $port)
             );

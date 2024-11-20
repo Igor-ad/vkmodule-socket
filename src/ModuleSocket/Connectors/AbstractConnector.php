@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
-class AbstractConnector implements Connector
+abstract class AbstractConnector implements Connector
 {
     protected const CONNECT_TIMEOUT = 60;
 
@@ -12,6 +12,14 @@ class AbstractConnector implements Connector
      * @var resource $connector
      */
     protected $connector;
+
+    public function __construct(string $host, int $port = 9761, float $timeout = null)
+    {
+        $timeout ??= $this->getTimeout();
+        $this->setConnector($host, $port, $timeout);
+    }
+
+    abstract protected function setConnector(string $host, int $port = 9761, float $timeout = null): void;
 
     protected function getTimeout(): float
     {
