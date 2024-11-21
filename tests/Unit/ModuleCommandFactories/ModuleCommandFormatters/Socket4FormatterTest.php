@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories\ModuleCommandFormatters;
 
@@ -9,8 +7,10 @@ use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socke
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Socket4Formatter::class)]
 class Socket4FormatterTest extends TestCase
 {
     public function testGetAllStatus(): void

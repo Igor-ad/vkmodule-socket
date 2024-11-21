@@ -1,14 +1,15 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[CoversClass(Input::class)]
 class InputTest extends TestCase
 {
     protected Input $input;
@@ -65,6 +66,7 @@ class InputTest extends TestCase
         $this->assertSame($expected, $this->input->toString());
     }
 
+    #[CoversNothing]
     public function testInputClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Input::class);

@@ -1,14 +1,14 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories\DataFactories;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\RelayControlDataFactory;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(RelayControlDataFactory::class)]
 class RelayControlDataFactoryTest extends TestCase
 {
     /**

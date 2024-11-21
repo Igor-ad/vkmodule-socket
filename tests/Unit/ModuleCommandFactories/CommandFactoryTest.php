@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories;
 
@@ -12,10 +10,18 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\RelayGroup;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CommandFactory::class)]
 class CommandFactoryTest extends TestCase
 {
+    public function test__construct(): void
+    {
+        $factory = new CommandFactory([]);
+        $this->assertInstanceOf(CommandFactory::class, $factory);
+    }
+
     public function testInstance(): void
     {
         $factory = CommandFactory::instance([]);
@@ -106,11 +112,5 @@ class CommandFactoryTest extends TestCase
                 getValue($request, 'command.data.relayGroup.relayGroupAction'),
             ));
         $this->assertTrue($command->isEqual($anotherCommand));
-    }
-
-    public function test__construct(): void
-    {
-        $factory = new CommandFactory([]);
-        $this->assertInstanceOf(CommandFactory::class, $factory);
     }
 }

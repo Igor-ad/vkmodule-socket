@@ -1,14 +1,15 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[CoversClass(Relay::class)]
 class RelayTest extends TestCase
 {
     protected Relay $relay;
@@ -65,6 +66,7 @@ class RelayTest extends TestCase
         $this->assertSame($expected, $this->relay->toString());
     }
 
+    #[CoversNothing]
     public function testRelayClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Relay::class);

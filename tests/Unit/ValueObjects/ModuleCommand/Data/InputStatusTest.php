@@ -1,13 +1,14 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[CoversClass(InputStatus::class)]
 class InputStatusTest extends TestCase
 {
     protected InputStatus $inputStatus;
@@ -56,6 +57,7 @@ class InputStatusTest extends TestCase
         $this->assertSame($expected, $this->inputStatus->toString());
     }
 
+    #[CoversNothing]
     public function testInputStatusClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(InputStatus::class);

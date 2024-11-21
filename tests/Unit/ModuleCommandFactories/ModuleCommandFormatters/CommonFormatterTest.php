@@ -1,14 +1,14 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories\ModuleCommandFormatters;
 
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\CommonFormatter;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CommonFormatter::class)]
 class CommonFormatterTest extends TestCase
 {
     public function testGetModuleUid(): void

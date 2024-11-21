@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories\ModuleCommandFormatters;
 
@@ -10,8 +8,10 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Socket1Formatter::class)]
 class Socket1FormatterTest extends TestCase
 {
 

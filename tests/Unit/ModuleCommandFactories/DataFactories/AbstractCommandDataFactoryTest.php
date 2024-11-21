@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ModuleCommandFactories\DataFactories;
 
@@ -10,8 +8,10 @@ use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\InputStatusData
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\NullCommandDataFactory;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\RelayControlDataFactory;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\RelayGroupControlDataFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(AbstractCommandDataFactory::class)]
 class AbstractCommandDataFactoryTest extends TestCase
 {
     public function test__construct()

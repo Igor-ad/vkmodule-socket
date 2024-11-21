@@ -1,13 +1,14 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\RelayGroup;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[CoversClass(RelayGroup::class)]
 class RelayGroupTest extends TestCase
 {
     protected RelayGroup $relayGroup;
@@ -56,6 +57,7 @@ class RelayGroupTest extends TestCase
         $this->assertSame($expected, $this->relayGroup->toString());
     }
 
+    #[CoversNothing]
     public function testRelayGroupClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(RelayGroup::class);

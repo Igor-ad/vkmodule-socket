@@ -1,14 +1,15 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ValueObjects\ModuleCommand;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+#[CoversClass(Command::class)]
 class CommandTest extends TestCase
 {
     protected Command $command;
@@ -53,6 +54,7 @@ class CommandTest extends TestCase
         $this->assertSame($expected, $this->command->toStream());
     }
 
+    #[CoversNothing]
     public function testCommandClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Command::class);
