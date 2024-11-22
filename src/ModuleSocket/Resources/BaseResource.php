@@ -16,7 +16,7 @@ class BaseResource extends AbstractResource
         return $responseToArray;
     }
 
-    protected function dataToArray(Response $response): array
+    public function dataToArray(Response $response): array
     {
         return ['data' => $response->data];
     }

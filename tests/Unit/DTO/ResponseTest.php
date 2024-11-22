@@ -18,8 +18,8 @@ class ResponseTest extends TestCase
         return [
             ['01'],
             ['02'],
-            ['03'],
-            ['04'],
+            ['03023456'],
+            ['040089'],
             ['20000105'],
             ['2100'],
             ['22000130'],
@@ -48,7 +48,7 @@ class ResponseTest extends TestCase
     public function testGetItem(string $responseData): void
     {
         $data0 = Response::getDto($responseData)->getItem(0);
-        $this->assertTrue($data0 === '00' || is_null($data0));
+        $this->assertTrue($data0 === '00' || $data0 === '02' || is_null($data0));
     }
 
     #[DataProvider('responseDataProvider')]

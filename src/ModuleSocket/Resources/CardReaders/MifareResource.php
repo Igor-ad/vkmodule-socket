@@ -8,9 +8,11 @@ use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Resources\AbstractResource;
 
 /**
- * 0x10 - Mifare card indicator byte;
- * 0xXXXX - 2 Card type bytes (0x4400 UltraLight, 0x0400 Mifare_One(S50), 0x0200 Mifare_One(S70))
- * 0xXX...0xXX - 7 Card code byte (for a 4-byte card, the senior bytes are filled with zeros)
+ * id:
+ *       0 byte 0x10 - Mifare card indicator byte;
+ * data:
+ *       1-2 byte 0xXXXX - 2 Card type bytes (0x4400 UltraLight, 0x0400 Mifare_One(S50), 0x0200 Mifare_One(S70))
+ *       3-7 byte 0xXX...0xXX - 7 Card code byte (for a 4-byte card, the senior bytes are filled with zeros)
  */
 class MifareResource extends AbstractResource
 {
@@ -18,15 +20,15 @@ class MifareResource extends AbstractResource
     {
         return [
             'success' => $response->success,
-            'flagMifare' => $response->id,
+            'flagMifare' => $response->id === '10' || $response->id === '1f',
             'data' => [
                 'cardType' => $this->getCardType(implode(array_slice($response->data, 0, 2))),
-                'cardId' => $this->getCardId(array_slice($response->data, 2)),
+                'cardId' => $this->getCardId(array_slice($response->data, 2, 7)),
             ],
         ];
     }
 
-    protected function getCardType(string $data): string
+    public function getCardType(string $data): string
     {
         return match ($data) {
             '4400' => 'UltraLight',
@@ -36,7 +38,7 @@ class MifareResource extends AbstractResource
         };
     }
 
-    protected function getCardId(array $data): string
+    public function getCardId(array $data): string
     {
         if (count($data) === 7) {
             return implode($data);

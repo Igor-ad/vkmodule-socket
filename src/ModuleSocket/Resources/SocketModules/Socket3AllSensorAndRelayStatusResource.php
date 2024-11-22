@@ -23,7 +23,7 @@ class Socket3AllSensorAndRelayStatusResource extends BaseResource
     /**
      * @throws InvalidInputParameterException
      */
-    protected function dataToArray(Response $response): array
+    public function dataToArray(Response $response): array
     {
         return [
             'data' => [

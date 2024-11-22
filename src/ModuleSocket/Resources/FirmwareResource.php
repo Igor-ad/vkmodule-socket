@@ -28,14 +28,14 @@ class FirmwareResource extends BaseResource
         return [
             'data' => [
                 'controllerType' => $this->getControllerType($response->getItem(0)),
-                'version' => implode(array_slice($response->data, 1, 2)),
+                'version' => implode('', array_slice($response->data ?? [], 1, 2)),
                 'firmwareType' => $this->getFirmwareType($response->getItem(3)),
-                'firmware' => implode($response->data),
+                'firmware' => implode('', $response->data ?? []),
             ],
         ];
     }
 
-    private function getControllerType(string $controllerTypeId): string
+    public function getControllerType(?string $controllerTypeId): string
     {
         return match ((int)$controllerTypeId) {
             1 => 'VRD-E',
@@ -49,7 +49,7 @@ class FirmwareResource extends BaseResource
         };
     }
 
-    private function getFirmwareType(string $type): string
+    private function getFirmwareType(?string $type): string
     {
         return (int)$type === 0 ? 'regular' : 'exclusive';
     }
