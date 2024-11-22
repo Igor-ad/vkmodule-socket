@@ -12,12 +12,14 @@ class Socket2Test extends TestCase
     public function testAllowedInput(): void
     {
         $expected = [0, 1];
+
         $this->assertSame($expected, Socket2::allowedInput());
     }
 
     public function testAllowedRelay(): void
     {
         $expected = [0, 1];
+
         $this->assertSame($expected, Socket2::allowedRelay());
     }
 }

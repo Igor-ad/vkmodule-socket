@@ -27,6 +27,7 @@ class Socket1AllInputStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame($expected, Socket1AllInputStatusResource::make()->toArray(new Response('3200000101')));
     }
 }

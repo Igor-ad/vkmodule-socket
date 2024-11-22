@@ -26,6 +26,7 @@ class InputStatusTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherInputStatus = new InputStatus(0);
+
         $this->assertTrue($this->inputStatus->isEqual($anotherInputStatus));
     }
 
@@ -36,24 +37,28 @@ class InputStatusTest extends TestCase
                 'inputNumber' => 0,
             ]
         ];
+
         $this->assertSame($expected, $this->inputStatus->toArray());
     }
 
     public function testToJson(): void
     {
         $expected = '{"input":{"inputNumber":0}}';
+
         $this->assertSame($expected, $this->inputStatus->toJson());
     }
 
     public function testToStream(): void
     {
         $expected = chr(0);
+
         $this->assertSame($expected, $this->inputStatus->toStream());
     }
 
     public function testToString(): void
     {
         $expected = hexFormat(0);
+
         $this->assertSame($expected, $this->inputStatus->toString());
     }
 
@@ -61,6 +66,7 @@ class InputStatusTest extends TestCase
     public function testInputStatusClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(InputStatus::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

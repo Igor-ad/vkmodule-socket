@@ -28,7 +28,9 @@ class MifareResourceTest extends TestCase
                 'cardId' => '12345678901234',
             ],
         ];
+
         $this->assertSame($expected, self::$resource->toArray(new Response('10440012345678901234')));
+
         $expected = [
             'success' => true,
             'flagMifare' => true,
@@ -37,26 +39,37 @@ class MifareResourceTest extends TestCase
                 'cardId' => '00000012345678',
             ],
         ];
+
         $this->assertSame($expected, self::$resource->toArray(new Response('10040012345678')));
     }
 
     public function testGetCardType(): void
     {
         $expected = 'UltraLight';
+
         $this->assertSame($expected, self::$resource->getCardType('4400'));
+
         $expected = 'S50';
+
         $this->assertSame($expected, self::$resource->getCardType('0400'));
+
         $expected = 'S70';
+
         $this->assertSame($expected, self::$resource->getCardType('0200'));
+
         $expected = 'UnknownCardType';
+
         $this->assertSame($expected, self::$resource->getCardType('0000'));
     }
 
     public function testGetCardId(): void
     {
         $expected = '12345678901234';
-        $this->assertSame($expected, self::$resource->getCardId(['12','34','56','78','90','12','34']));
+
+        $this->assertSame($expected, self::$resource->getCardId(['12', '34', '56', '78', '90', '12', '34']));
+
         $expected = '00000012345678';
-        $this->assertSame($expected, self::$resource->getCardId(['12','34','56','78']));
+
+        $this->assertSame($expected, self::$resource->getCardId(['12', '34', '56', '78']));
     }
 }

@@ -18,12 +18,14 @@ class Socket2FormatterTest extends TestCase
     public function testGetAllStatus(): void
     {
         $command = Socket2Formatter::getAllStatus();
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('23'))));
     }
 
     public function testGetAnalogInput(): void
     {
         $command = Socket2Formatter::getAnalogInput();
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('24'))));
     }
 
@@ -34,7 +36,9 @@ class Socket2FormatterTest extends TestCase
     {
         $input = new Input(0, 1, 5);
         $command = Socket2Formatter::inputSetup($input);
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('20'), $input)));
+
         $this->expectException(InvalidInputParameterException::class);
         new Input(0, 10, 512);
     }
@@ -43,6 +47,7 @@ class Socket2FormatterTest extends TestCase
     {
         $inputStatus = new InputStatus(0);
         $command = Socket2Formatter::getInputStatus($inputStatus);
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('21'), $inputStatus)));
     }
 
@@ -53,7 +58,9 @@ class Socket2FormatterTest extends TestCase
     {
         $relay = new Relay(0, 1, 10);
         $command = Socket2Formatter::relayAction($relay);
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('22'), $relay)));
+
         $this->expectException(InvalidInputParameterException::class);
         new Relay(0, 10, 512);
     }

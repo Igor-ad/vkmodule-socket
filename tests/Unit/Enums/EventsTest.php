@@ -14,6 +14,7 @@ class EventsTest extends TestCase
     {
         $expected = ['01', '02', '03', '04', '0f', '30', '31', '32', '20',
             '21', '22', '23', '24', '41', '42', '43', '44', '25', '1f', '10'];
+
         $this->assertSame($expected, Events::events());
     }
 
@@ -23,9 +24,13 @@ class EventsTest extends TestCase
     public function testDescription(): void
     {
         $expected = 'socket1_input_status_changed';
+
         $this->assertSame($expected, Events::description('31', '30'));
+
         $expected = 'input_status_changed';
+
         $this->assertSame($expected, Events::description('21', '20'));
+
         $this->expectException(ModuleException::class);
         Events::description('aa', 'bb');
     }

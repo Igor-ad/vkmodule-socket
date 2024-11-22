@@ -22,12 +22,14 @@ class CommandIDTest extends TestCase
     {
         $commandId = new CommandID('23');
         $expected = chr(hexdec('23'));
+
         $this->assertSame($expected, $commandId->toStream());
     }
 
     public function testIsEqual(): void
     {
         $commandId = new CommandID('21');
+
         $this->assertTrue($commandId->isEqual(new CommandID('21')));
     }
 
@@ -35,6 +37,7 @@ class CommandIDTest extends TestCase
     public function testCommandIdClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(CommandId::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

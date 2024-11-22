@@ -39,6 +39,7 @@ class SocketGiantGroupRelayActionResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             SocketGiantGroupRelayActionResource::make()->toArray(new Response('250000'))

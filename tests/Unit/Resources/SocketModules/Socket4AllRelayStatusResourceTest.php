@@ -31,6 +31,7 @@ class Socket4AllRelayStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket4AllRelayStatusResource::make()->toArray(new Response('230000000001010101'))

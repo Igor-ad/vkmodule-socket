@@ -14,6 +14,7 @@ class CommandsTest extends TestCase
     {
         $expected = ['01', '02', '03', '04', '0f', '30', '31', '32', '20',
             '21', '22', '23', '24', '41', '42', '43', '44', '25', '1f', '10'];
+
         $this->assertSame($expected, Commands::commands());
     }
 
@@ -23,7 +24,9 @@ class CommandsTest extends TestCase
     public function testDescription(): void
     {
         $expected = 'get_uid';
+
         $this->assertSame($expected, Commands::description('04'));
+
         $this->expectException(ModuleException::class);
         Commands::description('aa');
     }

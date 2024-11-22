@@ -12,6 +12,7 @@ class Socket3Test extends TestCase
     public function testAllowedRelay(): void
     {
         $expected = [0, 1];
+
         $this->assertSame($expected, Socket3::allowedRelay());
     }
 }

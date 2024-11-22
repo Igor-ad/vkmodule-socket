@@ -12,6 +12,7 @@ class Socket4Test extends TestCase
     public function testAllowedRelay(): void
     {
         $expected = range(0, 7);
+
         $this->assertSame($expected, Socket4::allowedRelay());
     }
 }

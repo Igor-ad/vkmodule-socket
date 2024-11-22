@@ -19,12 +19,14 @@ class CommandFactoryTest extends TestCase
     public function test__construct(): void
     {
         $factory = new CommandFactory([]);
+
         $this->assertInstanceOf(CommandFactory::class, $factory);
     }
 
     public function testInstance(): void
     {
         $factory = CommandFactory::instance([]);
+
         $this->assertInstanceOf(CommandFactory::class, $factory);
     }
 
@@ -49,6 +51,7 @@ class CommandFactoryTest extends TestCase
             new InputStatus(
                 getValue($request, 'command.data.input.inputNumber'),
             ));
+
         $this->assertTrue($command->isEqual($anotherCommand));
 
         $request = [
@@ -71,6 +74,7 @@ class CommandFactoryTest extends TestCase
                 getValue($request, 'command.data.input.action'),
                 getValue($request, 'command.data.input.antiBounce'),
             ));
+
         $this->assertTrue($command->isEqual($anotherCommand));
 
         $request = [
@@ -93,6 +97,7 @@ class CommandFactoryTest extends TestCase
                 getValue($request, 'command.data.relay.action'),
                 getValue($request, 'command.data.relay.interval'),
             ));
+
         $this->assertTrue($command->isEqual($anotherCommand));
 
         $request = [
@@ -111,6 +116,7 @@ class CommandFactoryTest extends TestCase
             new RelayGroup(
                 getValue($request, 'command.data.relayGroup.relayGroupAction'),
             ));
+
         $this->assertTrue($command->isEqual($anotherCommand));
     }
 }

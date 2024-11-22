@@ -33,6 +33,7 @@ class Socket5AllInputAndRelayStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket5AllInputAndRelayStatusResource::make()->toArray(new Response('230000010100000101'))

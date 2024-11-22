@@ -20,6 +20,7 @@ class EmMarineResourceTest extends TestCase
                 'cardId' => '12345678',
             ],
         ];
+
         $this->assertSame($expected, EmMarineResource::make()->toArray(new Response('1fab12345678')));
     }
 }

@@ -26,6 +26,7 @@ class Socket1ResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame($expected, Socket1Resource::make()->toArray(new Response('30000105')));
     }
 }

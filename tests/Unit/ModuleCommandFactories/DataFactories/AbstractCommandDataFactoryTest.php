@@ -17,6 +17,7 @@ class AbstractCommandDataFactoryTest extends TestCase
     public function test__construct()
     {
         $factory = new NullCommandDataFactory();
+
         $this->assertInstanceOf(NullCommandDataFactory::class, $factory);
     }
 
@@ -30,6 +31,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ],
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
+
         $this->assertInstanceOf(InputSetupDataFactory::class, $factory);
 
         $commandData = [
@@ -40,6 +42,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ]
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
+
         $this->assertInstanceOf(RelayControlDataFactory::class, $factory);
 
         $commandData = [
@@ -48,6 +51,7 @@ class AbstractCommandDataFactoryTest extends TestCase
             ]
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, '21');
+
         $this->assertInstanceOf(InputStatusDataFactory::class, $factory);
 
         $commandData = [
@@ -56,10 +60,12 @@ class AbstractCommandDataFactoryTest extends TestCase
             ],
         ];
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
+
         $this->assertInstanceOf(RelayGroupControlDataFactory::class, $factory);
 
         $commandData = null;
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
+
         $this->assertInstanceOf(NullCommandDataFactory::class, $factory);
     }
 }

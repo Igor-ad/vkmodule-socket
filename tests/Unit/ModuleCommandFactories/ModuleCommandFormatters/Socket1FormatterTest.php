@@ -18,6 +18,7 @@ class Socket1FormatterTest extends TestCase
     public function testGetAllStatus()
     {
         $command = Socket1Formatter::getAllStatus();
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('32'))));
     }
 
@@ -28,7 +29,9 @@ class Socket1FormatterTest extends TestCase
     {
         $input = new Input(0, 1, 5);
         $command = Socket1Formatter::inputSetup($input);
+
         $this->assertTrue($command->isEqual(new Command(new CommandID('30'), $input)));
+
         $this->expectException(InvalidInputParameterException::class);
         new Input(0, 10, 512);
     }
@@ -37,7 +40,7 @@ class Socket1FormatterTest extends TestCase
     {
         $inputStatus = new InputStatus(0);
         $command = Socket1Formatter::getInputStatus($inputStatus);
-        $this->assertTrue($command->isEqual(new Command(new CommandID('31'), $inputStatus)));
 
+        $this->assertTrue($command->isEqual(new Command(new CommandID('31'), $inputStatus)));
     }
 }

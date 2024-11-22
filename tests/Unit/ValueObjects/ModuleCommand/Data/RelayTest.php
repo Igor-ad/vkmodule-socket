@@ -33,7 +33,9 @@ class RelayTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherRelay = new Relay(0, 1, 10);
+
         $this->assertTrue($this->relay->isEqual($anotherRelay));
+
         $this->expectException(InvalidInputParameterException::class);
         new Relay(0, 10, 512);
     }
@@ -47,24 +49,28 @@ class RelayTest extends TestCase
                 'interval' => 10,
             ]
         ];
+
         $this->assertSame($expected, $this->relay->toArray());
     }
 
     public function testToJson(): void
     {
         $expected = '{"relay":{"relayNumber":0,"action":1,"interval":10}}';
+
         $this->assertSame($expected, $this->relay->toJson());
     }
 
     public function testToStream(): void
     {
         $expected = chr(0) . chr(1) . chr(10);
+
         $this->assertSame($expected, $this->relay->toStream());
     }
 
     public function testToString(): void
     {
         $expected = hexFormat(0) . hexFormat(1) . hexFormat(10);
+
         $this->assertSame($expected, $this->relay->toString());
     }
 
@@ -72,6 +78,7 @@ class RelayTest extends TestCase
     public function testRelayClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Relay::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

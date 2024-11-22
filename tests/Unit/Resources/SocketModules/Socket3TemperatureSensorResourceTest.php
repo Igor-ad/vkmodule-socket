@@ -27,6 +27,7 @@ class Socket3TemperatureSensorResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket3TemperatureSensorResource::make()->toArray(new Response('4115'))

@@ -27,6 +27,7 @@ class CommandTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherCommand = new Command(new CommandID('01'));
+
         $this->assertTrue($this->command->isEqual($anotherCommand));
     }
 
@@ -39,18 +40,21 @@ class CommandTest extends TestCase
                 'data' => null
             ]
         ];
+
         $this->assertSame($expected, $this->command->toArray());
     }
 
     public function testToJson(): void
     {
         $expected = '{"command":{"id":"01","description":"CheckConnect","data":null}}';
+
         $this->assertSame($expected, $this->command->toJson());
     }
 
     public function testToStream(): void
     {
         $expected = chr(hexdec('01'));
+
         $this->assertSame($expected, $this->command->toStream());
     }
 
@@ -58,6 +62,7 @@ class CommandTest extends TestCase
     public function testCommandClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Command::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

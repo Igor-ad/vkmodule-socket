@@ -22,6 +22,7 @@ class ConnectionResourceTest extends TestCase
                 ],
             ]
         ];
+
         $this->assertSame($expected, ConnectionResource::make()->toArray(new Response('01')));
     }
 }

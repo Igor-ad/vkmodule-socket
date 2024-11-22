@@ -61,6 +61,7 @@ class RequestTest extends TestCase
     public function test__construct(string $queryString): void
     {
         $request = new Request($queryString);
+
         $this->assertInstanceOf(Request::class, $request);
         $this->assertTrue(is_a($request->command, Command::class) || is_null($request->command));
         $this->assertInstanceOf(Connector::class, $request->connector);
@@ -75,6 +76,7 @@ class RequestTest extends TestCase
     public function testCommand(string $queryString): void
     {
         $request = new Request($queryString);
+
         $this->assertSame(getValue($request->request, 'command.id'), $request->command->ID->id);
         $this->assertSame(getValue($request->request, 'command.data'), $request->command->commandData?->toArray());
     }
@@ -83,6 +85,7 @@ class RequestTest extends TestCase
     public function testResponseClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Request::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

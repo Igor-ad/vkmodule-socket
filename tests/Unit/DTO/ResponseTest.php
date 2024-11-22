@@ -40,6 +40,7 @@ class ResponseTest extends TestCase
     public function test__construct(string $responseData): void
     {
         $response = new Response($responseData);
+
         $this->assertInstanceOf(Response::class, $response);
         $this->assertTrue($response->success);
     }
@@ -48,6 +49,7 @@ class ResponseTest extends TestCase
     public function testGetItem(string $responseData): void
     {
         $data0 = Response::getDto($responseData)->getItem(0);
+
         $this->assertTrue($data0 === '00' || $data0 === '02' || is_null($data0));
     }
 
@@ -85,6 +87,7 @@ class ResponseTest extends TestCase
     public function testResponseClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Response::class);
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

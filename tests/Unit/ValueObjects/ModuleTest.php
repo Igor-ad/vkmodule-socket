@@ -33,6 +33,7 @@ final class ModuleTest extends TestCase
     public function testToJson(): void
     {
         $expected = '{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}';
+
         $this->assertSame($expected, $this->module->toJson());
     }
 
@@ -42,7 +43,9 @@ final class ModuleTest extends TestCase
     public function testIsEqual(): void
     {
         $anotherModule = new Module('localhost', 9761, 'Socket-1');
+
         $this->assertTrue($this->module->isEqual($anotherModule));
+
         $this->expectException(InvalidInputParameterException::class);
         new Module('', 9761, '');
     }
@@ -56,6 +59,7 @@ final class ModuleTest extends TestCase
                 'type' => 'Socket-1',
             ]
         ];
+
         $this->assertSame($expected, $this->module->toArray());
     }
 
@@ -69,6 +73,7 @@ final class ModuleTest extends TestCase
     public function testModuleClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Module::class);
+        
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

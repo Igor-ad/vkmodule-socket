@@ -26,6 +26,7 @@ class Socket2RelayActionResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket2RelayActionResource::make()->toArray(new Response('22000150'))

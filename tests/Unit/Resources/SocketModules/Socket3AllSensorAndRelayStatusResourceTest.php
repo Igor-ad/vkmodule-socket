@@ -35,6 +35,7 @@ class Socket3AllSensorAndRelayStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket3AllSensorAndRelayStatusResource::make()->toArray(new Response('4413180000'))

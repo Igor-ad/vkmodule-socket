@@ -13,6 +13,7 @@ class NullCommandDataFactoryTest extends TestCase
     {
         $factory = new NullCommandDataFactory();
         $data = $factory->make();
+
         $this->assertTrue(is_null($data));
     }
 }

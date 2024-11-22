@@ -14,6 +14,7 @@ class BaseResourceTest extends TestCase
     {
         $response = new Response('01');
         $expected = ['data' => null];
+
         $this->assertSame($expected, BaseResource::make()->dataToArray($response));
     }
 }

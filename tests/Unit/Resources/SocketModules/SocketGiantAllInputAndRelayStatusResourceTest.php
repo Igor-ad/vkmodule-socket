@@ -57,6 +57,7 @@ class SocketGiantAllInputAndRelayStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             SocketGiantAllInputAndRelayStatusResource::make()->toArray(new Response('2300000000'))

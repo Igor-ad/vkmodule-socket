@@ -23,6 +23,7 @@ class UidResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame($expectedJson, UidResource::make()->toJson(new Response('040369')));
         $this->assertSame($expected, UidResource::make()->toArray(new Response('040369')));
     }

@@ -12,12 +12,14 @@ class SocketGiantTest extends TestCase
     public function testAllowedInput(): void
     {
         $expected = range(0, 15);
+
         $this->assertSame($expected, SocketGiant::allowedInput());
     }
 
     public function testAllowedRelay(): void
     {
         $expected = range(0, 15);
+
         $this->assertSame($expected, SocketGiant::allowedRelay());
     }
 }

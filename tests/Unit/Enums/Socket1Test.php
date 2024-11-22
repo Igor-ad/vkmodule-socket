@@ -12,6 +12,7 @@ class Socket1Test extends TestCase
     public function testAllowedInput(): void
     {
         $expected = [0, 1, 2, 3];
+
         $this->assertSame($expected, Socket1::allowedInput());
     }
 }

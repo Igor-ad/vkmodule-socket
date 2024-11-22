@@ -34,12 +34,14 @@ class AbstractResourceTest extends TestCase
                 'data' => null,
             ],
         ];
+
         $this->assertSame($expected, self::$resource->toArray(new Response('02')));
     }
 
     public function testToJson(): void
     {
         $expected = '{"success":true,"event":{"id":"02","description":"RebootController","data":null}}';
+
         $this->assertSame($expected, self::$resource->toJson(new Response('02')));
     }
 }

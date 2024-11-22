@@ -29,6 +29,7 @@ class Socket2AllInputAndRelayStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket2AllInputAndRelayStatusResource::make()->toArray(new Response('2300000000'))

@@ -24,6 +24,7 @@ class Socket2wAnalogInputStatusResourceTest extends TestCase
                 ]
             ]
         ];
+
         $this->assertSame(
             $expected,
             Socket2wAnalogInputStatusResource::make()->toArray(new Response('240200'))
