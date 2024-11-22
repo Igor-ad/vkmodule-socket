@@ -2,7 +2,6 @@
 
 namespace ModuleCommandFactories\DataFactories;
 
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\InputStatusDataFactory;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -11,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(InputStatusDataFactory::class)]
 class InputStatusDataFactoryTest extends TestCase
 {
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testMake(): void
     {
         $commandData = [

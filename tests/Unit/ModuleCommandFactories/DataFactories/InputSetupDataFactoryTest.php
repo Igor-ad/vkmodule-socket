@@ -27,5 +27,16 @@ class InputSetupDataFactoryTest extends TestCase
         $data = $factory->make();
         $this->assertInstanceOf(Input::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
+
+        $commandData = [
+            'input' => [
+                'inputNumber' => 0,
+                'action' => 10,
+                'antiBounce' => 5000,
+            ],
+        ];
+        $factory = new InputSetupDataFactory($commandData);
+        $this->expectException(InvalidInputParameterException::class);
+        $factory->make();
     }
 }

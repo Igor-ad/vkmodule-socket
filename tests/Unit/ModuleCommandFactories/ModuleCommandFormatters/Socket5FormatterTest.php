@@ -29,6 +29,8 @@ class Socket5FormatterTest extends TestCase
         $input = new Input(0, 1, 5);
         $command = Socket5Formatter::inputSetup($input);
         $this->assertTrue($command->isEqual(new Command(new CommandID('20'), $input)));
+        $this->expectException(InvalidInputParameterException::class);
+        new Input(0, 10, 512);
     }
 
     public function testGetInputStatus(): void
@@ -46,5 +48,7 @@ class Socket5FormatterTest extends TestCase
         $relay = new Relay(0, 1, 10);
         $command = Socket5Formatter::relayAction($relay);
         $this->assertTrue($command->isEqual(new Command(new CommandID('22'), $relay)));
+        $this->expectException(InvalidInputParameterException::class);
+        new Relay(0, 10, 512);
     }
 }

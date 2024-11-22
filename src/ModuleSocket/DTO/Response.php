@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\DTO;
 
 use Autodoctor\ModuleSocket\Enums\Commands;
+use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 
 final class Response
 {
@@ -38,6 +39,9 @@ final class Response
         return $this->data[$key] ?? null;
     }
 
+    /**
+     * @throws ModuleException
+     */
     public function toArray(): array
     {
         return [
@@ -50,6 +54,9 @@ final class Response
         ];
     }
 
+    /**
+     * @throws ModuleException
+     */
     public function toJson(): string
     {
         return json_encode($this->toArray());

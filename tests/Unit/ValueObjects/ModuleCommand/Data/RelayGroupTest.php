@@ -2,6 +2,7 @@
 
 namespace ValueObjects\ModuleCommand\Data;
 
+use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\RelayGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -21,6 +22,8 @@ class RelayGroupTest extends TestCase
     public function test__construct(): void
     {
         $this->assertInstanceOf(RelayGroup::class, $this->relayGroup);
+        $this->expectException(InvalidInputParameterException::class);
+        new RelayGroup('ffff1d');
     }
 
     public function testToArray(): void

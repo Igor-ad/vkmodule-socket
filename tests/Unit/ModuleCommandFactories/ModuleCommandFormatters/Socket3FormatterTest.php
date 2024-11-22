@@ -40,5 +40,7 @@ class Socket3FormatterTest extends TestCase
         $relay = new Relay(0, 1, 10);
         $command = Socket3Formatter::relayAction($relay);
         $this->assertTrue($command->isEqual(new Command(new CommandID('43'), $relay)));
+        $this->expectException(InvalidInputParameterException::class);
+        new Relay(0, 10, 512);
     }
 }

@@ -27,5 +27,16 @@ class RelayControlDataFactoryTest extends TestCase
         $data = $factory->make();
         $this->assertInstanceOf(Relay::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
+
+        $commandData = [
+            'relay' => [
+                'relayNumber' => 0,
+                'action' => 10,
+                'interval' => 2000,
+            ]
+        ];
+        $factory = new RelayControlDataFactory($commandData);
+        $this->expectException(InvalidInputParameterException::class);
+        $factory->make();
     }
 }

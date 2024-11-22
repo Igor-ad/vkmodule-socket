@@ -25,6 +25,8 @@ class InputTest extends TestCase
     public function test__construct(): void
     {
         $this->assertInstanceOf(Input::class, $this->input);
+        $this->expectException(InvalidInputParameterException::class);
+        new Input(0, 10, 512);
     }
 
     /**

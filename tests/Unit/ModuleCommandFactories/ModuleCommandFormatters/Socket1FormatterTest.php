@@ -29,6 +29,8 @@ class Socket1FormatterTest extends TestCase
         $input = new Input(0, 1, 5);
         $command = Socket1Formatter::inputSetup($input);
         $this->assertTrue($command->isEqual(new Command(new CommandID('30'), $input)));
+        $this->expectException(InvalidInputParameterException::class);
+        new Input(0, 10, 512);
     }
 
     public function testGetInputStatus()

@@ -34,6 +34,8 @@ class RelayTest extends TestCase
     {
         $anotherRelay = new Relay(0, 1, 10);
         $this->assertTrue($this->relay->isEqual($anotherRelay));
+        $this->expectException(InvalidInputParameterException::class);
+        new Relay(0, 10, 512);
     }
 
     public function testToArray(): void

@@ -24,7 +24,6 @@ final class Request
     /**
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
-     * @throws ConnectorException
      */
     public function __construct(
         ?string $queryString,
@@ -52,9 +51,6 @@ final class Request
         return $commandFactory->make();
     }
 
-    /**
-     * @throws ConnectorException
-     */
     public function connector(string $host, int $port, array $request): Connector
     {
         return ConnectorFactory::connectInit(

@@ -43,6 +43,8 @@ final class ModuleTest extends TestCase
     {
         $anotherModule = new Module('localhost', 9761, 'Socket-1');
         $this->assertTrue($this->module->isEqual($anotherModule));
+        $this->expectException(InvalidInputParameterException::class);
+        new Module('', 9761, '');
     }
 
     public function testToArray(): void

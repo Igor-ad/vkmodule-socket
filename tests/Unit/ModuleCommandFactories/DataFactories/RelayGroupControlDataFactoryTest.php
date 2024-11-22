@@ -25,5 +25,14 @@ class RelayGroupControlDataFactoryTest extends TestCase
         $data = $factory->make();
         $this->assertInstanceOf(RelayGroup::class, $data);
         $this->assertSame(expected: $commandData, actual: $data->toArray());
+
+        $commandData = [
+            'relayGroup' => [
+                'relayGroupAction' => 'ffffaa',
+            ],
+        ];
+        $factory = new RelayGroupControlDataFactory($commandData);
+        $this->expectException(InvalidInputParameterException::class);
+        $factory->make();
     }
 }

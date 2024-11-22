@@ -4,7 +4,6 @@ namespace DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;
-use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
@@ -57,7 +56,6 @@ class RequestTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
-     * @throws ConnectorException
      */
     #[DataProvider('requestDataProvider')]
     public function test__construct(string $queryString): void
@@ -72,7 +70,6 @@ class RequestTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
-     * @throws ConnectorException
      */
     #[DataProvider('requestDataProvider')]
     public function testCommand(string $queryString): void

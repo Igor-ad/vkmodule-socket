@@ -51,5 +51,7 @@ class SocketGiantFormatterTest extends TestCase
         $input = new Input(0, 1, 5);
         $command = SocketGiantFormatter::setupInput($input);
         $this->assertTrue($command->isEqual(new Command(new CommandID('20'), $input)));
+        $this->expectException(InvalidInputParameterException::class);
+        new Input(0, 10, 512);
     }
 }
