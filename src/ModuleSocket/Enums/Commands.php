@@ -39,8 +39,8 @@ enum Commands: string
     case RELAY_GROUP_ACTION = '25';
 
     // Card Readers
-    case EM_MARINE_FLAG = '1f';
-    case MIFARE_FLAG = '10';
+    case EM_MARINE_CARD = '1f';
+    case MIFARE_CARD = '10';
 
     public static function commands(): array
     {

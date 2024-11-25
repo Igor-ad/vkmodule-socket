@@ -1,13 +1,13 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
+
+use GuzzleHttp\Client;
 
 interface Connector
 {
     /**
-     * @return resource
+     * @return resource|Client
      */
     public function getConnector();
 }

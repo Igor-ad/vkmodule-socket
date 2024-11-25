@@ -1,11 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
-use Autodoctor\ModuleSocket\Resources\AbstractResource;
 
 /**
  * id:
@@ -14,14 +11,13 @@ use Autodoctor\ModuleSocket\Resources\AbstractResource;
  *      1 byte 0xXX - Card manufacturer identifier
  *      2-5 byte 0xXX...0xXX - 4 Card code bytes
  */
-class EmMarineResource extends AbstractResource
+class EmMarineResource extends MifareResource
 {
-    public function toArray(Response $response): array
+    public function dataToArray(Response $response): array
     {
         return [
-            'success' => $response->success,
-            'flagEM-marine' => $response->id === '1f',
             'data' => [
+                'cardFlag' => $this->getCardFlag($response->id),
                 'cardVendor' => $response->getItem(0),
                 'cardId' => implode(array_slice($response->data, 1, 4)),
             ],

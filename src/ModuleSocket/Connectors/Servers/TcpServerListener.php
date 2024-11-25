@@ -2,7 +2,9 @@
 
 namespace Autodoctor\ModuleSocket\Connectors\Servers;
 
-class TcpServerListener
+use Autodoctor\ModuleSocket\Connectors\Connector;
+
+class TcpServerListener implements Connector
 {
     /**
      * @var resource
@@ -12,9 +14,9 @@ class TcpServerListener
     /**
      * @param resource $server
      */
-    public function __construct($server)
+    public function __construct($server, ?float $timeout = null)
     {
-        $this->connector = stream_socket_accept($server);
+        $this->connector = stream_socket_accept($server, $timeout);
     }
 
     /**

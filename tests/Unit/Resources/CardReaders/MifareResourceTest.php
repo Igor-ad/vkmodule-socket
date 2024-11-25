@@ -3,6 +3,7 @@
 namespace Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\Resources\CardReaders\MifareResource;
 use Autodoctor\ModuleSocket\Resources\Resource;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -18,14 +19,21 @@ class MifareResourceTest extends TestCase
         self::$resource = MifareResource::make();
     }
 
+    /**
+     * @throws ModuleException
+     */
     public function testToArray(): void
     {
         $expected = [
             'success' => true,
-            'flagMifare' => true,
-            'data' => [
-                'cardType' => 'UltraLight',
-                'cardId' => '12345678901234',
+            'event' => [
+                'id' => '10',
+                'description' => 'MifareCard',
+                'data' => [
+                    'cardFlag' => 'Mifare',
+                    'cardType' => 'UltraLight',
+                    'cardId' => '12345678901234',
+                ],
             ],
         ];
 
@@ -33,10 +41,14 @@ class MifareResourceTest extends TestCase
 
         $expected = [
             'success' => true,
-            'flagMifare' => true,
-            'data' => [
-                'cardType' => 'S50',
-                'cardId' => '00000012345678',
+            'event' => [
+                'id' => '10',
+                'description' => 'MifareCard',
+                'data' => [
+                    'cardFlag' => 'Mifare',
+                    'cardType' => 'S50',
+                    'cardId' => '00000012345678',
+                ],
             ],
         ];
 

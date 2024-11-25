@@ -1,11 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
-use Autodoctor\ModuleSocket\Resources\AbstractResource;
+use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
  * id:
@@ -14,18 +12,26 @@ use Autodoctor\ModuleSocket\Resources\AbstractResource;
  *       1-2 byte 0xXXXX - 2 Card type bytes (0x4400 UltraLight, 0x0400 Mifare_One(S50), 0x0200 Mifare_One(S70))
  *       3-7 byte 0xXX...0xXX - 7 Card code byte (for a 4-byte card, the senior bytes are filled with zeros)
  */
-class MifareResource extends AbstractResource
+class MifareResource extends BaseResource
 {
-    public function toArray(Response $response): array
+    public function dataToArray(Response $response): array
     {
         return [
-            'success' => $response->success,
-            'flagMifare' => $response->id === '10' || $response->id === '1f',
             'data' => [
+                'cardFlag' => $this->getCardFlag($response->id),
                 'cardType' => $this->getCardType(implode(array_slice($response->data, 0, 2))),
                 'cardId' => $this->getCardId(array_slice($response->data, 2, 7)),
-            ],
+            ]
         ];
+    }
+
+    public function getCardFlag(string $id): string
+    {
+        return match ($id) {
+            '1f' => 'EM-marine',
+            '10' => 'Mifare',
+            default => 'UnknownFlag'
+        };
     }
 
     public function getCardType(string $data): string

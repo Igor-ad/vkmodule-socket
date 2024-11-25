@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
@@ -35,7 +33,7 @@ abstract class AbstractConnector implements Connector
 
     public function __destruct()
     {
-        fclose($this->connector);
+        stream_socket_shutdown($this->connector, STREAM_SHUT_RDWR);
         $this->connector = false;
     }
 }

@@ -2,12 +2,9 @@
 
 namespace Logger;
 
-use Autodoctor\ModuleSocket\Logger\LogFormatter;
 use Autodoctor\ModuleSocket\Logger\Logger;
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(LogFormatter::class)]
 class LogFormatterTest extends TestCase
 {
     public function testGetExceptionContext(): void

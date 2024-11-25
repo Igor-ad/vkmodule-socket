@@ -1,15 +1,25 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
 use GuzzleHttp\Client;
 
-class HttpConnector extends AbstractConnector
+class HttpConnector implements Connector
 {
-    protected function setConnector(string $host, int $port = 9761, float $timeout = null): void
+    protected Client $connector;
+
+    public function __construct(string $host, float $timeout = null)
+    {
+        $this->setConnector($host, $timeout);
+    }
+
+    protected function setConnector(string $host, float $timeout = null): void
     {
         $this->connector = new Client([$host, $timeout]);
+    }
+
+    public function getConnector(): Client
+    {
+        return $this->connector;
     }
 }

@@ -21,7 +21,6 @@ class RequestTest extends TestCase
     {
         $command = "./console/server.php >/dev/null 2>&1 &";
         exec($command);
-        sleep(1);
     }
 
     protected function tearDown(): void
