@@ -41,6 +41,10 @@ enum Commands: string
     // Card Readers
     case EM_MARINE_CARD = '1f';
     case MIFARE_CARD = '10';
+    case MANAGING_ONLINE_STATUS = '1c';
+    case MANAGING_OFFLINE_STATUS = '1b';
+    case MANAGING_RESPONSE_WAITING = '1d';
+    case MANAGING_RESPONSE_STATUS = '1e';
 
     public static function commands(): array
     {

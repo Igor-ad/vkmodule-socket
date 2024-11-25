@@ -12,8 +12,8 @@ class EventsTest extends TestCase
 {
     public function testEvents(): void
     {
-        $expected = ['01', '02', '03', '04', '0f', '30', '31', '32', '20',
-            '21', '22', '23', '24', '41', '42', '43', '44', '25', '1f', '10'];
+        $expected = ['01', '02', '03', '04', '0f', '30', '31', '32', '20', '21', '22',
+            '23', '24', '41', '42', '43', '44', '25', '1f', '10', '1c', '1b', '1d', '1e'];
 
         $this->assertSame($expected, Events::events());
     }

@@ -3,6 +3,7 @@
 namespace Autodoctor\ModuleSocket\Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CardReaders;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -28,8 +29,8 @@ class MifareResource extends BaseResource
     public function getCardFlag(string $id): string
     {
         return match ($id) {
-            '1f' => 'EM-marine',
-            '10' => 'Mifare',
+            CardReaders::EM_MARINE_CARD => 'EM-marine',
+            CardReaders::MIFARE_CARD => 'Mifare',
             default => 'UnknownFlag'
         };
     }
