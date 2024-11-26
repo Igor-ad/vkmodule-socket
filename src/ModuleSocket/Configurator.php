@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket;
 
@@ -11,19 +9,22 @@ class Configurator
     const CONFIG_FILE = __DIR__ . '/../../config/vk_module.php';
 
     private static ?Configurator $instance = null;
-    private array $values = [];
+    private array $config = [];
 
     /**
      * @throws ConfiguratorException
      */
-    private function __construct()
+    private function __construct(string $configFile)
     {
-        $this->config();
+        $this->setConfig($configFile);
     }
 
-    public static function instance(): self
+    /**
+     * @throws ConfiguratorException
+     */
+    public static function instance(string $configFile = self::CONFIG_FILE): self
     {
-        self::$instance = self::$instance ?? new self();
+        self::$instance = self::$instance ?? new self($configFile);
 
         return self::$instance;
     }
@@ -31,19 +32,19 @@ class Configurator
     /**
      * @throws ConfiguratorException
      */
-    private function config(): void
+    private function setConfig(string $configFile): void
     {
-        $config = include_once(self::CONFIG_FILE);
+        $config = include_once($configFile);
 
         if (!is_array($config)) {
             throw new ConfiguratorException('Error reading configuration.');
         }
 
-        $this->values = $config;
+        $this->config = $config;
     }
 
     public function get(string $key): mixed
     {
-        return $this->values[$key] ?? null;
+        return $this->config[$key] ?? null;
     }
 }
