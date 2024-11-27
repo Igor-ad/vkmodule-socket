@@ -221,7 +221,7 @@ relay_off *          | Socket-(2,3,4,5,Giant)    | turn off relay
 relay_on *           | Socket-(2,3,4,5,Giant)    | turn on relay 
 status               | for all types of modules  | get the state of all inputs/outputs
 ```
-#### _Notes_ 
+#### Notes
 
 *_**The command requires sending a query string with data - the digital input or relay number and control parameters (optional).**_
 
@@ -509,7 +509,7 @@ api_relay_off *
 api_relay_on *
 api_status
 ```
-[* Notes](#notes-)
+[* Notes](#notes)
 
 ### Unit Tests
 
