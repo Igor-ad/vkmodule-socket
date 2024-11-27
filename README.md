@@ -31,6 +31,7 @@ https://vkmodule.com.ua/Ethernet_ua.html
        * [Module control commands](#module-control-commands)
    * [API](#api)
      * [Api console command](#api-commands)
+   * [Tests](#unit-tests) 
 
 ## Description of library.
 
