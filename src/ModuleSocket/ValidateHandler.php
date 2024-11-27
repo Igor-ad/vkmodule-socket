@@ -11,9 +11,13 @@ use Autodoctor\ModuleSocket\Enums\Socket3;
 use Autodoctor\ModuleSocket\Enums\Socket4;
 use Autodoctor\ModuleSocket\Enums\Socket5;
 use Autodoctor\ModuleSocket\Enums\SocketGiant;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 
 trait ValidateHandler
 {
+    /**
+     * @throws ConfiguratorException
+     */
     private function getCommandIdRule(string $moduleType = null): array
     {
         $moduleType = $moduleType ?? Configurator::instance()->get('type');
@@ -29,6 +33,9 @@ trait ValidateHandler
         };
     }
 
+    /**
+     * @throws ConfiguratorException
+     */
     private function getInputRule(string $moduleType = null): array
     {
         $moduleType = $moduleType ?? Configurator::instance()->get('type');
@@ -42,6 +49,9 @@ trait ValidateHandler
         };
     }
 
+    /**
+     * @throws ConfiguratorException
+     */
     private function getRelayRule(string $moduleType = null): array
     {
         $moduleType = $moduleType ?? Configurator::instance()->get('type');

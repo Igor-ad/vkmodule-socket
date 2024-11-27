@@ -35,11 +35,11 @@ class Validator
 
     private function __construct() {}
 
-    public static function instance(): self
+    public static function instance(): static
     {
-        self::$instance = self::$instance ?? new self();
+        static::$instance = static::$instance ?? new static();
 
-        return self::$instance;
+        return static::$instance;
     }
 
     /**
@@ -189,7 +189,7 @@ class Validator
             || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)
         )) {
             throw new InvalidInputParameterException(
-                sprintf('Module address: %s is not valid.', $host)
+                sprintf('Module host: %s is not valid.', $host)
             );
         }
         return $host;

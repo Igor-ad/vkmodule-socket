@@ -28,12 +28,12 @@ class FileProcessorTest extends TestCase
 
     public function testPutContent(): void
     {
-        $expected = 'testFile';
-        mkdir($expected, 644);
+        $fileName = 'testFile';
+        mkdir($fileName, 644);
 
         $this->expectException(ModuleException::class);
-        FileProcessor::putContent($expected, 'data');
+        FileProcessor::putContent($fileName, 'data');
 
-        rmdir($expected);
+        rmdir($fileName);
     }
 }
