@@ -7,9 +7,9 @@ namespace Autodoctor\ModuleSocket\Enums;
 enum Socket1
 {
     const TYPE = 'Socket-1';
-    const SET_INPUT = Commands::SOCKET1_SET_INPUT->value;
-    const GET_INPUT = Commands::SOCKET1_GET_INPUT->value;
-    const GET_ALL_INPUT = Commands::GET_ALL_INPUT->value;
+    const SET_INPUT = Commands::Socket1SetInput->value;
+    const GET_INPUT = Commands::Socket1GetInput->value;
+    const GET_ALL_INPUT = Commands::GetAllInput->value;
     const COMMANDS = [
         self::SET_INPUT,
         self::GET_INPUT,

@@ -514,4 +514,4 @@ api_status
 
 ### Unit Tests
 
-In progress, coverage is about 55%.
+In progress, coverage is about 65%.

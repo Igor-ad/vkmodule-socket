@@ -23,7 +23,7 @@ class CommandsTest extends TestCase
      */
     public function testDescription(): void
     {
-        $expected = 'get_uid';
+        $expected = 'GetUid';
 
         $this->assertSame($expected, Commands::description('04'));
 

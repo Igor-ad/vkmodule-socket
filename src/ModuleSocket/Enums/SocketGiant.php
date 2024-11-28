@@ -7,11 +7,11 @@ namespace Autodoctor\ModuleSocket\Enums;
 enum SocketGiant
 {
     const TYPE = 'Socket-Giant';
-    const SET_INPUT = Commands::SET_INPUT->value;
-    const GET_INPUT = Commands::GET_INPUT->value;
-    const RELAY_ACTION = Commands::RELAY_ACTION->value;
-    const GET_ALL_STATUS = Commands::GET_ALL_STATUS->value;
-    const RELAY_GROUP_ACTION = Commands::RELAY_GROUP_ACTION->value;
+    const SET_INPUT = Commands::SetInput->value;
+    const GET_INPUT = Commands::GetInput->value;
+    const RELAY_ACTION = Commands::RelayAction->value;
+    const GET_ALL_STATUS = Commands::GetAllStatus->value;
+    const RELAY_GROUP_ACTION = Commands::RelayGroupAction->value;
     const COMMANDS = [
         self::SET_INPUT,
         self::GET_INPUT,

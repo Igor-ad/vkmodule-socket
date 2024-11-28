@@ -24,11 +24,11 @@ namespace Autodoctor\ModuleSocket\Enums;
 enum Socket2
 {
     const TYPE = 'Socket-2';
-    const SET_INPUT = Commands::SET_INPUT->value;
-    const GET_INPUT = Commands::GET_INPUT->value;
-    const RELAY_ACTION = Commands::RELAY_ACTION->value;
-    const GET_ALL_STATUS = Commands::GET_ALL_STATUS->value;
-    const GET_ANALOG_INPUT = Commands::GET_ANALOG_INPUT->value;
+    const SET_INPUT = Commands::SetInput->value;
+    const GET_INPUT = Commands::GetInput->value;
+    const RELAY_ACTION = Commands::RelayAction->value;
+    const GET_ALL_STATUS = Commands::GetAllStatus->value;
+    const GET_ANALOG_INPUT = Commands::GetAnalogInput->value;
     const COMMANDS = [
         self::SET_INPUT,
         self::GET_INPUT,

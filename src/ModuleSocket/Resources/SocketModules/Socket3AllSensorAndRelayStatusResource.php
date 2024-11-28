@@ -32,7 +32,6 @@ class Socket3AllSensorAndRelayStatusResource extends BaseResource
                         'sign' => $this->signToString($response->getItem(0)),
                         'temperature' => Validator::instance()->validateTemperature(
                             data: hexdec($response->getItem(0)) & 127,
-                            sensorNumber: 0,
                             sign: $this->getSign($response->getItem(0))
                         ),
                     ],
@@ -40,7 +39,6 @@ class Socket3AllSensorAndRelayStatusResource extends BaseResource
                         'sign' => $this->signToString($response->getItem(1)),
                         'temperature' => Validator::instance()->validateTemperature(
                             data: hexdec($response->getItem(1)) & 127,
-                            sensorNumber: 1,
                             sign: $this->getSign($response->getItem(1))
                         ),
                     ],

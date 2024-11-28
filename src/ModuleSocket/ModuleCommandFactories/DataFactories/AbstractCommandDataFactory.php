@@ -31,7 +31,7 @@ abstract class AbstractCommandDataFactory implements CommandDataFactory
 
     private static function resolveCommand(string $commandId): bool
     {
-        return $commandId === Commands::SOCKET1_GET_INPUT->value
-            || $commandId === Commands::GET_INPUT->value;
+        return $commandId === Commands::Socket1GetInput->value
+            || $commandId === Commands::GetInput->value;
     }
 }

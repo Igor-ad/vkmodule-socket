@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
@@ -9,42 +7,42 @@ use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 enum Commands: string
 {
     // Common
-    case CHECK_CONNECT = '01';
-    case REBOOT_CONTROLLER = '02';
-    case GET_FIRMWARE = '03';
-    case GET_UID = '04';
-    case UNKNOWN_COMMAND = '0f';
+    case CheckConnect = '01';
+    case RebootController = '02';
+    case GetFirmware = '03';
+    case GetUid = '04';
+    case UnknownCommand = '0f';
 
     // Socket-1
-    case SOCKET1_SET_INPUT = '30';
-    case SOCKET1_GET_INPUT = '31'; // event id = 30; event id = 31(auto generate with out request)
-    case GET_ALL_INPUT = '32';
+    case Socket1SetInput = '30';
+    case Socket1GetInput = '31'; // event id = 30; event id = 31(auto generate with out request)
+    case GetAllInput = '32';
 
     // Socket-2, Socket-2W, Socket-4, Socket-5, Socket-Giant
-    case SET_INPUT = '20';
-    case GET_INPUT = '21'; // event id = 20; event id = 21(auto generate with out request)
-    case RELAY_ACTION = '22';
-    case GET_ALL_STATUS = '23';
+    case SetInput = '20';
+    case GetInput = '21'; // event id = 20; event id = 21(auto generate with out request)
+    case RelayAction = '22';
+    case GetAllStatus = '23';
 
     // Socket-2W
-    case GET_ANALOG_INPUT = '24';
+    case GetAnalogInput = '24';
 
     // Socket-3
-    case GET_TEMPERATURE_SENSOR_0 = '41';
-    case GET_TEMPERATURE_SENSOR_1 = '42';
-    case SOCKET3_RELAY_ACTION = '43';
-    case SOCKET3_GET_ALL_STATUS = '44';
+    case GetTemperatureSensor0 = '41';
+    case GetTemperatureSensor1 = '42';
+    case Socket3RelayAction = '43';
+    case Socket3GetAllStatus = '44';
 
     // Socket-Giant
-    case RELAY_GROUP_ACTION = '25';
+    case RelayGroupAction = '25';
 
     // Card Readers
-    case EM_MARINE_CARD = '1f';
-    case MIFARE_CARD = '10';
-    case MANAGING_ONLINE_STATUS = '1c';
-    case MANAGING_OFFLINE_STATUS = '1b';
-    case MANAGING_RESPONSE_WAITING = '1d';
-    case MANAGING_RESPONSE_STATUS = '1e';
+    case EmMarineCard = '1f';
+    case MifareCard = '10';
+    case ManagingOnlineStatus = '1c';
+    case ManagingOfflineStatus = '1b';
+    case ManagingResponseWaiting = '1d';
+    case ManagingResponseStatus = '1e';
 
     public static function commands(): array
     {

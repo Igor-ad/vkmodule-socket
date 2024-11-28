@@ -7,8 +7,8 @@ namespace Autodoctor\ModuleSocket\Enums;
 enum Socket4
 {
     const TYPE = 'Socket-4';
-    const RELAY_ACTION = Commands::RELAY_ACTION->value;
-    const GET_RELAY_STATUS = Commands::GET_ALL_STATUS->value;
+    const RELAY_ACTION = Commands::RelayAction->value;
+    const GET_RELAY_STATUS = Commands::GetAllStatus->value;
     const COMMANDS = [
         self::RELAY_ACTION,
         self::GET_RELAY_STATUS,

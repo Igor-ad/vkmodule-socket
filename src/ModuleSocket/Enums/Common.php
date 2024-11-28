@@ -6,11 +6,11 @@ namespace Autodoctor\ModuleSocket\Enums;
 
 enum Common
 {
-    const CONNECT = Commands::CHECK_CONNECT->value;
-    const REBOOT = Commands::REBOOT_CONTROLLER->value;
-    const FIRMWARE = Commands::GET_FIRMWARE->value;
-    const UID = Commands::GET_UID->value;
-    const UNKNOWN = Commands::UNKNOWN_COMMAND->value;
+    const CONNECT = Commands::CheckConnect->value;
+    const REBOOT = Commands::RebootController->value;
+    const FIRMWARE = Commands::GetFirmware->value;
+    const UID = Commands::GetUid->value;
+    const UNKNOWN = Commands::UnknownCommand->value;
     const COMMANDS = [
         self::CONNECT,
         self::REBOOT,

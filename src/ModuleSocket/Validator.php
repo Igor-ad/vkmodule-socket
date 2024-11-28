@@ -224,13 +224,13 @@ class Validator
     /**
      * @throws InvalidInputParameterException
      */
-    public function validateTemperature(int $data, int $sensorNumber, int $sign): int
+    public function validateTemperature(int $data, int $sign): int
     {
         $tempSign = $sign ? '-' : '+';
 
         if ($data > Socket3::MAX_TEMPERATURE || (($data > Socket3::NEG_MIN_TEMPERATURE) && $sign)) {
             throw new InvalidInputParameterException(
-                sprintf('Temperature: %s%d of sensor number "%d" out of range.', $tempSign, $data, $sensorNumber)
+                sprintf('Temperature: %s%d out of range.', $tempSign, $data)
             );
         }
         return $data;
@@ -244,8 +244,8 @@ class Validator
         if (is_null($command->commandData)) {
             return Validator::instance()->validateEventId($command, $response);
         }
-        if ($command->ID->id === Commands::GET_INPUT->value
-            || $command->ID->id === Commands::SOCKET1_GET_INPUT->value) {
+        if ($command->ID->id === Commands::GetInput->value
+            || $command->ID->id === Commands::Socket1GetInput->value) {
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);
         }
         return $command->commandData->toString() === $response->dataToHexString()

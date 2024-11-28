@@ -7,10 +7,10 @@ namespace Autodoctor\ModuleSocket\Enums;
 enum Socket3
 {
     const TYPE = 'Socket-3';
-    const GET_TEMP_0 = Commands::GET_TEMPERATURE_SENSOR_0->value;
-    const GET_TEMP_1 = Commands::GET_TEMPERATURE_SENSOR_1->value;
-    const RELAY_ACTION = Commands::SOCKET3_RELAY_ACTION->value;
-    const GET_ALL_STATUS = Commands::SOCKET3_GET_ALL_STATUS->value;
+    const GET_TEMP_0 = Commands::GetTemperatureSensor0->value;
+    const GET_TEMP_1 = Commands::GetTemperatureSensor1->value;
+    const RELAY_ACTION = Commands::Socket3RelayAction->value;
+    const GET_ALL_STATUS = Commands::Socket3GetAllStatus->value;
     const COMMANDS = [
         self::GET_TEMP_0,
         self::GET_TEMP_1,

@@ -4,10 +4,10 @@ namespace Autodoctor\ModuleSocket\Enums;
 
 class CardReaders
 {
-    const EM_MARINE_CARD = Commands::EM_MARINE_CARD->value;
-    const MIFARE_CARD = Commands::MIFARE_CARD->value;
-    const MANAGING_ONLINE_STATUS = Commands::MANAGING_ONLINE_STATUS->value;
-    const MANAGING_OFFLINE_STATUS = Commands::MANAGING_OFFLINE_STATUS->value;
-    const MANAGING_RESPONSE_WAITING = Commands::MANAGING_RESPONSE_WAITING->value;
-    const MANAGING_RESPONSE_STATUS = Commands::MANAGING_RESPONSE_STATUS->value;
+    const EM_MARINE_CARD = Commands::EmMarineCard->value;
+    const MIFARE_CARD = Commands::MifareCard->value;
+    const MANAGING_ONLINE_STATUS = Commands::ManagingOnlineStatus->value;
+    const MANAGING_OFFLINE_STATUS = Commands::ManagingOfflineStatus->value;
+    const MANAGING_RESPONSE_WAITING = Commands::ManagingResponseWaiting->value;
+    const MANAGING_RESPONSE_STATUS = Commands::ManagingResponseStatus->value;
 }

@@ -28,7 +28,6 @@ class Socket3TemperatureSensorResource extends Socket3AllSensorAndRelayStatusRes
                         'sign' => $this->signToString($response->getItem(0)),
                         'temperature' => Validator::instance()->validateTemperature(
                             data: hexdec($response->getItem(0)) & 127,
-                            sensorNumber: $this->sensorNumber($response->id),
                             sign: $this->getSign($response->getItem(0))
                         ),
                     ]

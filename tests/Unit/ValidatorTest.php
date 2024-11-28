@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
@@ -8,6 +7,7 @@ use Autodoctor\ModuleSocket\Exceptions\UnknownCommandException;
 use Autodoctor\ModuleSocket\Validator;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
+use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -50,6 +50,7 @@ class ValidatorTest extends TestCase
 
     /**
      * @throws UnknownCommandException
+     * @throws InvalidInputParameterException
      */
     public function testValidateEventId(): void
     {
@@ -121,6 +122,9 @@ class ValidatorTest extends TestCase
         Validator::instance()->validateModuleCommandId('22', 'Socket-3');
     }
 
+    /**
+     * @throws InvalidInputParameterException
+     */
     public function testValidatePort(): void
     {
         $expected = 9761;
@@ -207,10 +211,10 @@ class ValidatorTest extends TestCase
     {
         $expected = 24;
 
-        $this->assertSame($expected, Validator::instance()->validateTemperature(data: $expected, sensorNumber: 0, sign: 0));
+        $this->assertSame($expected, Validator::instance()->validateTemperature(data: $expected, sign: 0));
 
         $this->expectException(InvalidInputParameterException::class);
-        Validator::instance()->validateTemperature(data: 80, sensorNumber: 0, sign: 1);
+        Validator::instance()->validateTemperature(data: 56, sign: 1);
     }
 
     /**
