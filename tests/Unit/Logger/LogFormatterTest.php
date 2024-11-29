@@ -9,8 +9,9 @@ class LogFormatterTest extends TestCase
 {
     public function testGetExceptionContext(): void
     {
+        $testLogFile = __DIR__ . '/../../log/socket_test.log';
+        $logger = new Logger($testLogFile);
         $e = new \Exception();
-        $logger = new Logger('./test.log');
         $context = $logger->getExceptionContext($e);
 
         $this->assertTrue(strrpos($context[0], 'Code:') === 0);

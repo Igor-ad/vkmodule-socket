@@ -12,12 +12,12 @@ use Psr\Log\InvalidArgumentException;
 #[CoversClass(Logger::class)]
 class LoggerTest extends TestCase
 {
-    protected string $logFile = './test.log';
     protected Logger $logger;
+    protected string $testLogFile = __DIR__ . '/../../log/socket_test.log';
 
     protected function setUp(): void
     {
-        $this->logger = new Logger($this->logFile);
+        $this->logger = new Logger($this->testLogFile);
     }
 
     public function test__construct(): void
@@ -30,17 +30,19 @@ class LoggerTest extends TestCase
      */
     public function testLog(): void
     {
-        $message = 'TEST';
-        $this->logger->log('info', $message);
+        $expectedMessage = 'TEST';
+        $expectedLevel = 'info';
+        $this->logger->log($expectedLevel, $expectedMessage);
 
-        $this->assertTrue(is_int(strrpos(FileProcessor::getContent($this->logFile), $message)));
+        $this->assertTrue(is_int(strrpos(FileProcessor::getContent($this->testLogFile), $expectedMessage)));
+        $this->assertTrue(is_int(strrpos(FileProcessor::getContent($this->testLogFile), $expectedLevel)));
 
         $this->expectException(InvalidArgumentException::class);
-        $this->logger->log('unknown', $message);
+        $this->logger->log('unknown', $expectedMessage);
     }
 
     protected function tearDown(): void
     {
-        unlink($this->logFile);
+        unlink($this->testLogFile);
     }
 }

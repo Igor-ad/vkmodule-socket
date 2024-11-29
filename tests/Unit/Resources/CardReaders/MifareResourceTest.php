@@ -80,4 +80,19 @@ class MifareResourceTest extends TestCase
 
         $this->assertSame($expected, self::$resource->getCardId(['12', '34', '56', '78']));
     }
+
+    public function testGetCardFlag(): void
+    {
+        $expected = 'EM-marine';
+
+        $this->assertSame($expected, self::$resource->getCardFlag('1f'));
+
+        $expected = 'Mifare';
+
+        $this->assertSame($expected, self::$resource->getCardFlag('10'));
+
+        $expected = 'UnknownFlag';
+
+        $this->assertSame($expected, self::$resource->getCardFlag('11'));
+    }
 }

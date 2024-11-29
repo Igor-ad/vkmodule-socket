@@ -1,11 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Enums\Commands;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\Enums\Common;
 use Autodoctor\ModuleSocket\Enums\Socket1;
@@ -43,6 +42,7 @@ class Validator
     }
 
     /**
+     * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
     public function validateModuleCommandId(string $commandId, string $moduleType = null): bool
@@ -136,7 +136,9 @@ class Validator
         return $antiBounce;
     }
 
+
     /**
+     * @throws ConfiguratorException
      * @throws InvalidInputParameterException
      */
     public function validateInput(int $inputNumber, string $moduleType = null): int
@@ -165,6 +167,7 @@ class Validator
     }
 
     /**
+     * @throws ConfiguratorException
      * @throws InvalidInputParameterException
      */
     public function validateRelay(int $relayNumber, string $moduleType = null): int
@@ -184,8 +187,7 @@ class Validator
      */
     public function validateHost(string $host): string
     {
-        if (!(
-            filter_var($host, FILTER_VALIDATE_IP)
+        if (!(filter_var($host, FILTER_VALIDATE_IP)
             || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)
         )) {
             throw new InvalidInputParameterException(

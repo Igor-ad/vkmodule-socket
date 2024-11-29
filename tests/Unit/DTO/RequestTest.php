@@ -4,6 +4,7 @@ namespace DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
@@ -19,7 +20,7 @@ class RequestTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        $command = "./console/server.php >/dev/null 2>&1 &";
+        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
         exec($command);
     }
 
@@ -31,7 +32,7 @@ class RequestTest extends TestCase
     public static function requestDataProvider(): array
     {
         return [
-            ['"module":{"host":"localhost","port":9761,"type":"Socket-1"}}'],
+            ['{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}'],
             ['{"command":{"id":"01"},"module":{"host":"localhost","port":9761,"type":"Socket-1"}}'],
             ['{"command":{"id":"02"},"connector":{"timeOut":3,"type":"TCP"},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}'],
             ['{"command":{"id":"03"},"connector":{"timeOut":5,"type":"TCP"},"module":{"host":"localhost","port":9761,"type":"Socket-3"}}'],
@@ -54,6 +55,7 @@ class RequestTest extends TestCase
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
     #[DataProvider('requestDataProvider')]
@@ -70,6 +72,7 @@ class RequestTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
+     * @throws ConfiguratorException
      */
     #[DataProvider('requestDataProvider')]
     public function testCommand(string $queryString): void

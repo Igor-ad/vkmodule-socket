@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ConfiguratorTest extends TestCase
 {
     protected array $config;
+    protected string $testConfigFile = __DIR__ . '/../config/test_config.php';
 
     public function test__construct(): void
     {
@@ -23,7 +24,7 @@ class ConfiguratorTest extends TestCase
      */
     public function testInstance(): void
     {
-        $configurator = Configurator::instance();
+        $configurator = Configurator::instance($this->testConfigFile);
 
         $this->assertInstanceOf(Configurator::class, $configurator);
     }
@@ -33,13 +34,17 @@ class ConfiguratorTest extends TestCase
      */
     public function testGet(): void
     {
-        $value = Configurator::instance()->get('');
+        $value = Configurator::instance($this->testConfigFile)->get('');
 
         $this->assertTrue(is_null($value));
 
-        $value = Configurator::instance()->get('port');
+        $value = Configurator::instance($this->testConfigFile)->get('port');
 
         $this->assertTrue($value === 9761);
+
+        $value = Configurator::instance($this->testConfigFile)->get('host');
+
+        $this->assertTrue($value === 'localhost');
     }
 
 
@@ -50,7 +55,7 @@ class ConfiguratorTest extends TestCase
      */
     public function testSetConfig(): void
     {
-        $object = Configurator::instance();
+        $object = Configurator::instance($this->testConfigFile);
 
         $this->assertNotNull($object);
 
@@ -59,7 +64,7 @@ class ConfiguratorTest extends TestCase
         $this->assertTrue($method->isPrivate());
 
         $this->expectException(ConfiguratorException::class);
-        $method->invoke($object, Configurator::CONFIG_FILE);
+        $method->invoke($object, $this->testConfigFile);
     }
 
     /**
@@ -68,12 +73,12 @@ class ConfiguratorTest extends TestCase
     public function testUniqueness(): void
     {
         $expected = Configurator::class;
-        $firstInstance = Configurator::instance();
+        $firstInstance = Configurator::instance($this->testConfigFile);
 
         $this->assertNotNull($firstInstance);
         $this->assertInstanceOf($expected, $firstInstance);
 
-        $secondInstance = Configurator::instance();
+        $secondInstance = Configurator::instance($this->testConfigFile);
 
         $this->assertNotNull($secondInstance);
         $this->assertInstanceOf($expected, $secondInstance);

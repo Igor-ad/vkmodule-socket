@@ -1,12 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Connectors\ConnectorFactory;
-use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\CommandFactory;
@@ -22,6 +20,7 @@ final class Request
     public array $request = [];
 
     /**
+     * @throws ConfiguratorException
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
      */
@@ -36,6 +35,7 @@ final class Request
     }
 
     /**
+     * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
     public function command(string $moduleType, array $request): ?Command
