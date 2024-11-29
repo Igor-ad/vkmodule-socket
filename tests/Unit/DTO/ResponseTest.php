@@ -3,7 +3,6 @@
 namespace DTO;
 
 use Autodoctor\ModuleSocket\DTO\Response;
-use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -65,18 +64,12 @@ class ResponseTest extends TestCase
         $this->assertSame(substr($responseData, 2), Response::getDto($responseData)->dataToHexString());
     }
 
-    /**
-     * @throws ModuleException
-     */
     #[DataProvider('responseDataProvider')]
     public function testToArray(string $responseData): void
     {
         $this->assertTrue(is_array(Response::getDto($responseData)->toArray()));
     }
 
-    /**
-     * @throws ModuleException
-     */
     #[DataProvider('responseDataProvider')]
     public function testToJson(string $responseData): void
     {

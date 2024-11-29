@@ -2,6 +2,7 @@
 
 namespace Enums;
 
+use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\Enums\Events;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -18,20 +19,18 @@ class EventsTest extends TestCase
         $this->assertSame($expected, Events::events());
     }
 
-    /**
-     * @throws ModuleException
-     */
     public function testDescription(): void
     {
-        $expected = 'socket1_input_status_changed';
+        $expected = 'Socket1InputStatusChanged';
 
         $this->assertSame($expected, Events::description('31', '30'));
 
-        $expected = 'input_status_changed';
+        $expected = 'InputStatusChanged';
 
         $this->assertSame($expected, Events::description('21', '20'));
 
-        $this->expectException(ModuleException::class);
-        Events::description('aa', 'bb');
+        $expected = 'SetInput';
+
+        $this->assertSame($expected, Events::description('20', '20'));
     }
 }

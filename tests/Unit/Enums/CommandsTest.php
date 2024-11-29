@@ -3,7 +3,6 @@
 namespace Enums;
 
 use Autodoctor\ModuleSocket\Enums\Commands;
-use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -18,16 +17,10 @@ class CommandsTest extends TestCase
         $this->assertSame($expected, Commands::commands());
     }
 
-    /**
-     * @throws ModuleException
-     */
     public function testDescription(): void
     {
         $expected = 'GetUid';
 
         $this->assertSame($expected, Commands::description('04'));
-
-        $this->expectException(ModuleException::class);
-        Commands::description('aa');
     }
 }

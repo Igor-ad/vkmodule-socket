@@ -25,7 +25,7 @@ class ValidatorTest extends TestCase
 
         $this->assertTrue($method->isPrivate());
 
-        $m = $method->invoke($object);
+        $method->invoke($object);
     }
 
     public function testInstance(): void

@@ -3,7 +3,6 @@
 namespace Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
-use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\Resources\CardReaders\EmMarineResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -11,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(EmMarineResource::class)]
 class EmMarineResourceTest extends TestCase
 {
-    /**
-     * @throws ModuleException
-     */
     public function testToArray(): void
     {
         $expected = [
