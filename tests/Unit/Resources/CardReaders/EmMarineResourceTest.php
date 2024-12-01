@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Resources\CardReaders;
+namespace Tests\Unit\Resources\CardReaders;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Resources\CardReaders\EmMarineResource;

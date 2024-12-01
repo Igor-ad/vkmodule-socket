@@ -18,6 +18,12 @@
             "src/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Tests\\Unit\\": "tests/Unit"
+        }
+    },
     "require-dev": {
         "phpunit/phpunit": "^11"
     }

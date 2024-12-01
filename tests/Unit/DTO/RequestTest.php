@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace DTO;
+namespace Tests\Unit\DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;

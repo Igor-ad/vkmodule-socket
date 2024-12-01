@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Logger;
+namespace Tests\Unit\Logger;
 
 use Autodoctor\ModuleSocket\Logger\Logger;
 use PHPUnit\Framework\TestCase;

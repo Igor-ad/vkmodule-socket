@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\FileProcessor;
 use PHPUnit\Framework\Attributes\CoversClass;

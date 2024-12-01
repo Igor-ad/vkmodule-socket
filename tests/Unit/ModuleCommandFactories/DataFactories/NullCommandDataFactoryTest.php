@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace ModuleCommandFactories\DataFactories;
+namespace Tests\Unit\ModuleCommandFactories\DataFactories;
 
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\NullCommandDataFactory;
 use PHPUnit\Framework\TestCase;

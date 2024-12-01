@@ -1,10 +1,14 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Autodoctor\ModuleSocket\Configurator;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
+use ReflectionMethod;
 
 #[CoversClass(Configurator::class)]
 class ConfiguratorTest extends TestCase

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Connectors;
+namespace Tests\Unit\Connectors;
 
 use Autodoctor\ModuleSocket\Connectors\HttpConnector;
 use GuzzleHttp\Client;

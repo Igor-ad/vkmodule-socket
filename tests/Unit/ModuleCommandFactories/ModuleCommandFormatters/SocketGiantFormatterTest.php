@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ModuleCommandFactories\ModuleCommandFormatters;
+namespace Tests\Unit\ModuleCommandFactories\ModuleCommandFormatters;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\SocketGiantFormatter;

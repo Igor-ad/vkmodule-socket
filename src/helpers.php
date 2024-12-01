@@ -1,17 +1,17 @@
 <?php
 
 if (!function_exists('getValue')) {
-    function getValue(?array $data, string $key, $default = null): mixed
+    function getValue(?iterable $data, string $key, $default = null): mixed
     {
         if (!str_contains($key, '.')) {
-            return getByKey($data, $key);
+            return $data[$key] ?? $default;
         }
         $keyCascade = explode('.', $key);
 
-        return iterate($data, $keyCascade) ?? $default;
+        return reduce($data, $keyCascade) ?? $default;
     }
 
-    function iterate(?array $data, array $keyCascade): mixed
+    function reduce(?iterable $data, array $keyCascade): mixed
     {
         return array_reduce(
             $keyCascade,
@@ -22,11 +22,8 @@ if (!function_exists('getValue')) {
 }
 
 if (!function_exists('getByKey')) {
-    function getByKey(?array $data, int|string $key, $default = null): mixed
+    function getByKey(?iterable $data, int|string $key, $default = null): mixed
     {
-        if (is_null($data)) {
-            return $default;
-        }
         return $data[$key] ?? $default;
     }
 }

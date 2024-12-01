@@ -1,7 +1,11 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Autodoctor\ModuleSocket\Validator;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
+use ReflectionException;
 
 class ValidateHandlerTest extends TestCase
 {
@@ -11,7 +15,7 @@ class ValidateHandlerTest extends TestCase
     public function testGetCommandIdRule(): void
     {
         $object = Validator::instance();
-        $method = new ReflectionMethod($object, 'getCommandIdRule');
+        $method = new \ReflectionMethod($object, 'getCommandIdRule');
 
         $expected = ['01', '02', '03', '04', '30', '31', '32'];
 

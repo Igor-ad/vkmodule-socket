@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Connectors;
+namespace Tests\Unit\Connectors;
 
 use Autodoctor\ModuleSocket\Connectors\AbstractConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
@@ -16,8 +16,9 @@ class AbstractConnectorTest extends TestCase
 
     protected function setUp(): void
     {
-        $command = "./console/server.php >/dev/null 2>&1 &";
+        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
         exec($command);
+        sleep(2);
 
         $this->connectorObject = new TcpConnector('localhost');
     }
@@ -32,7 +33,5 @@ class AbstractConnectorTest extends TestCase
         $this->assertIsResource($this->connectorObject->getConnector());
     }
 
-    protected function tearDown(): void
-    {
-    }
+    protected function tearDown(): void {}
 }

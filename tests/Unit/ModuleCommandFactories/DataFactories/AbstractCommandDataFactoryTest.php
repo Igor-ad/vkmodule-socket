@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ModuleCommandFactories\DataFactories;
+namespace Tests\Unit\ModuleCommandFactories\DataFactories;
 
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\AbstractCommandDataFactory;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\InputSetupDataFactory;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace DTO;
+namespace Tests\Unit\DTO;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use PHPUnit\Framework\Attributes\CoversClass;

@@ -60,12 +60,12 @@ class Validator
     /**
      * @throws UnknownCommandException
      */
-    public function validateEventId(Command $command, Response $response): bool
+    public function validateEventId(string $commandId, string $responseId): bool
     {
-        return match ($response->id) {
+        return match ($responseId) {
             Socket1::SET_INPUT,
             Socket2::SET_INPUT,
-            $command->ID->id => true,
+            $commandId => true,
             Common::UNKNOWN => throw new UnknownCommandException(
                 'An unknown (not supported by this controller) command was received'
                 . ' or the command parameters are not set correctly.'
@@ -244,13 +244,13 @@ class Validator
     public function validateResponse(Command $command, Response $response): bool
     {
         if (is_null($command->commandData)) {
-            return Validator::instance()->validateEventId($command, $response);
+            return Validator::instance()->validateEventId($command->ID->id, $response->id);
         }
         if ($command->ID->id === Commands::GetInput->value
             || $command->ID->id === Commands::Socket1GetInput->value) {
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);
         }
         return $command->commandData->toString() === $response->dataToHexString()
-            && Validator::instance()->validateEventId($command, $response);
+            && Validator::instance()->validateEventId($command->ID->id, $response->id);
     }
 }

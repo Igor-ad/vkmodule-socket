@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Tests\Unit;
+
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
@@ -11,6 +13,8 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
+use ReflectionException;
 
 #[CoversClass(Validator::class)]
 class ValidatorTest extends TestCase

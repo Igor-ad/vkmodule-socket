@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Transceivers;
 
@@ -30,7 +28,7 @@ class TcpTransceiver extends AbstractTransceiver
 
         $response = $this->read();
 
-        if ($response === false && $this->try()) {
+        if ($response === false && $this->try($this->attemptsToReceive)) {
             $this->processing();
         }
 

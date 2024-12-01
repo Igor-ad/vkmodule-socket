@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Resources\SocketModules;
+namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket3TemperatureSensorResource;

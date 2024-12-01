@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Controllers;
+namespace Tests\Unit\Controllers;
 
 use Autodoctor\ModuleSocket\Controllers\ControllerMethodsResolver;
 use Autodoctor\ModuleSocket\Enums\Commands;

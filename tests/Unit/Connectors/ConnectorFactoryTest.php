@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Connectors;
+namespace Tests\Unit\Connectors;
 
 use Autodoctor\ModuleSocket\Connectors\ConnectorFactory;
 use Autodoctor\ModuleSocket\Connectors\HttpConnector;
@@ -15,7 +15,7 @@ class ConnectorFactoryTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        $command = "./console/server.php >/dev/null 2>&1 &";
+        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
         exec($command);
         sleep(1);
     }

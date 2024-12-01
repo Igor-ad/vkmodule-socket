@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ValueObjects\ModuleCommand;
+namespace Tests\Unit\ValueObjects\ModuleCommand;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
 use PHPUnit\Framework\Attributes\CoversClass;

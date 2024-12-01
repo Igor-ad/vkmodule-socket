@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ValueObjects\ModuleCommand\Data;
+namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Enums;
+namespace Tests\Unit\Enums;
 
 use Autodoctor\ModuleSocket\Enums\SocketGiant;
 use PHPUnit\Framework\Attributes\CoversClass;

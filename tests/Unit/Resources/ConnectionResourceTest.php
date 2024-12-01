@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Resources;
+namespace Tests\Unit\Resources;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Resources\ConnectionResource;

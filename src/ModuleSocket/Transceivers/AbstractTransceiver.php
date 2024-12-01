@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Transceivers;
 
@@ -22,11 +20,11 @@ abstract class AbstractTransceiver implements Transceiver
 
     abstract public function setStreamData(string $streamData): void;
 
-    protected function try(): bool
+    protected function try(int $attempts = 1, int $interval = self::SLEEP_INTERVAL): bool
     {
-        sleep(self::SLEEP_INTERVAL);
-        --$this->attemptsToReceive;
+        sleep($interval);
+        --$attempts;
 
-        return (bool)$this->attemptsToReceive;
+        return (bool)$attempts;
     }
 }

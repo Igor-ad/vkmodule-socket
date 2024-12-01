@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ModuleCommandFactories;
+namespace Tests\Unit\ModuleCommandFactories;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\CommandFactory;

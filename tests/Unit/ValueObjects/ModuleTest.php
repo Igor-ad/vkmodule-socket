@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ValueObjects;
+namespace Tests\Unit\ValueObjects;
 
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
