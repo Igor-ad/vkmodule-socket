@@ -22,6 +22,7 @@ abstract class AbstractTransceiver implements Transceiver
 
     protected function try(int $attempts = 1, int $interval = self::SLEEP_INTERVAL): bool
     {
+        $attempts = $attempts < 0 ? 1 : $attempts;
         sleep($interval);
         --$attempts;
 

@@ -7,7 +7,7 @@ abstract class AbstractConnector implements Connector
     protected const CONNECT_TIMEOUT = 60;
 
     /**
-     * @var resource $connector
+     * @var false|resource $connector
      */
     protected $connector;
 
@@ -31,9 +31,16 @@ abstract class AbstractConnector implements Connector
         return $this->connector;
     }
 
+    public function finalize(): void
+    {
+        if ($this->connector !== false) {
+            stream_socket_shutdown($this->connector, STREAM_SHUT_RDWR);
+            $this->connector = false;
+        }
+    }
+
     public function __destruct()
     {
-        stream_socket_shutdown($this->connector, STREAM_SHUT_RDWR);
-        $this->connector = false;
+        $this->finalize();
     }
 }

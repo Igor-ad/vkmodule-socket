@@ -41,6 +41,8 @@ class TcpTransceiver extends AbstractTransceiver
 
     public function read(int $length = 32): string|false
     {
+        rewind($this->connector->getConnector());
+
         return fread(stream: $this->connector->getConnector(), length: $length);
     }
 

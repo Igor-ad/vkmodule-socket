@@ -2,22 +2,19 @@
 
 namespace Tests\Unit\Connectors;
 
-use Autodoctor\ModuleSocket\Connectors\AbstractConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Connectors\TcpConnector;
+use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass(AbstractConnector::class)]
 #[CoversClass(TcpConnector::class)]
-class AbstractConnectorTest extends TcpConnectorInit
+class TcpConnectorTest extends TcpConnectorInit
 {
-    public function test__construct(): void
+    public function testSetConnector(): void
     {
         $this->assertInstanceOf(Connector::class, $this->connectorObject);
-    }
 
-    public function testGetConnector(): void
-    {
-        $this->assertIsResource($this->connectorObject->getConnector());
+        $this->expectException(ConnectorException::class);
+        $this->connectorObject = new TcpConnector('localhost', 9762);
     }
 }

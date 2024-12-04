@@ -11,7 +11,7 @@ use ReflectionMethod;
 #[CoversClass(AbstractTransceiver::class)]
 class AbstractTransceiverTest extends TransceiverInit
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -13,7 +13,7 @@ class TransceiverFactoryTest extends TransceiverInit
 {
     public function testTransceiverInit(): void
     {
-        $this->transceiver = TransceiverFactory::transceiverInit($this->connectorStub);
+        $this->transceiver = TransceiverFactory::transceiverInit($this->connectorStub, '01');
 
         $this->assertInstanceOf(TcpTransceiver::class, $this->transceiver);
 

@@ -6,28 +6,18 @@ use Autodoctor\ModuleSocket\Connectors\ConnectorFactory;
 use Autodoctor\ModuleSocket\Connectors\HttpConnector;
 use Autodoctor\ModuleSocket\Connectors\TcpConnector;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ConnectorFactory::class)]
 #[CoversClass(TcpConnector::class)]
 #[CoversClass(HttpConnector::class)]
-class ConnectorFactoryTest extends TestCase
+class ConnectorFactoryTest extends TcpConnectorInit
 {
-    public static function setUpBeforeClass(): void
-    {
-        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
-        exec($command);
-        sleep(1);
-    }
-
     public function testConnectInit(): void
     {
-        $connector = ConnectorFactory::connectInit('localhost');
+        $this->assertInstanceOf(TcpConnector::class, $this->connectorObject);
 
-        $this->assertInstanceOf(TcpConnector::class, $connector);
+        $this->connectorObject = ConnectorFactory::connectInit('google.com', 80, 'HTTP');
 
-        $connector = ConnectorFactory::connectInit('google.com', 80, 'HTTP');
-
-        $this->assertInstanceOf(HttpConnector::class, $connector);
+        $this->assertInstanceOf(HttpConnector::class, $this->connectorObject);
     }
 }

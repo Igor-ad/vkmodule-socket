@@ -27,9 +27,9 @@ class TcpServerListener implements Connector
         return $this->connector;
     }
 
-    public static function instance($server): self
+    public static function instance($server, float $timout): self
     {
-        return new static($server);
+        return new static($server, $timout);
     }
 
     public function __destruct()

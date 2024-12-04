@@ -16,26 +16,20 @@ class FileProcessorTest extends TestCase
     public function testGetContent(): void
     {
         $expected = 'data';
-        $fileName = '_testFile';
+        $fileName = tempnam('/tmp', '_');
         FileProcessor::putContent($fileName, $expected);
         $data = FileProcessor::getContent($fileName);
 
         $this->assertSame($expected, $data);
-
         unlink($fileName);
 
         $this->expectException(ModuleException::class);
-        FileProcessor::getContent('testFile_');
+        FileProcessor::getContent($fileName);
     }
 
     public function testPutContent(): void
     {
-        $fileName = 'testFile';
-        mkdir($fileName, 644);
-
         $this->expectException(ModuleException::class);
-        FileProcessor::putContent($fileName, 'data');
-
-        rmdir($fileName);
+        FileProcessor::putContent(__DIR__, 'data');
     }
 }

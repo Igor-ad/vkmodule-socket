@@ -7,7 +7,7 @@ use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 class FileConnector implements Connector
 {
     /**
-     * @var resource $connector
+     * @var false|resource $connector
      */
     protected $connector;
 
@@ -36,9 +36,16 @@ class FileConnector implements Connector
         return $this->connector;
     }
 
+    public function finalize(): void
+    {
+        if ($this->connector !== false) {
+            fclose($this->connector);
+            $this->connector = false;
+        }
+    }
+
     public function __destruct()
     {
-        fclose($this->connector);
-        $this->connector = false;
+        $this->finalize();
     }
 }
