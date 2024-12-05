@@ -1,12 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\CommandData;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket5Formatter;
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket5AllInputAndRelayStatusResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket5RelayActionResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket5Resource;
@@ -24,9 +21,6 @@ class Socket5Controller extends Controller
         return Socket5AllInputAndRelayStatusResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function getInput(InputStatus|CommandData $commandData): string
     {
         $command = Socket5Formatter::getInputStatus($commandData);
@@ -35,9 +29,6 @@ class Socket5Controller extends Controller
         return Socket5Resource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function inputSetup(Input|CommandData $commandData): string
     {
         $command = Socket5Formatter::inputSetup($commandData);
@@ -46,9 +37,6 @@ class Socket5Controller extends Controller
         return Socket5Resource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function relayAction(Relay|CommandData $commandData): string
     {
         $command = Socket5Formatter::relayAction($commandData);

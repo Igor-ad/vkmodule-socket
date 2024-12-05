@@ -17,6 +17,11 @@ final readonly class Command
         return $this->ID->toStream() . $this->commandData?->toStream();
     }
 
+    public function toString(): string
+    {
+        return $this->ID->toString() . $this->commandData?->toString();
+    }
+
     public function toArray(): array
     {
         return [

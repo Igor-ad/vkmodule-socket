@@ -1,10 +1,7 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\SocketGiantFormatter;
 use Autodoctor\ModuleSocket\Resources\SocketModules\SocketGiantAllInputAndRelayStatusResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\SocketGiantGroupRelayActionResource;
@@ -26,9 +23,6 @@ class SocketGiantController extends Controller
         return SocketGiantAllInputAndRelayStatusResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function getInput(InputStatus|CommandData $commandData): string
     {
         $command = SocketGiantFormatter::getInputStatus($commandData);
@@ -37,9 +31,6 @@ class SocketGiantController extends Controller
         return SocketGiantResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function relayGroupAction(RelayGroup|CommandData $commandData): string
     {
         $command = SocketGiantFormatter::relayGroupAction($commandData);
@@ -48,9 +39,6 @@ class SocketGiantController extends Controller
         return SocketGiantGroupRelayActionResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function relayAction(Relay|CommandData $commandData): string
     {
         $command = SocketGiantFormatter::relayAction($commandData);
@@ -59,9 +47,6 @@ class SocketGiantController extends Controller
         return SocketGiantRelayActionResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function inputSetup(Input|CommandData $commandData): string
     {
         $command = SocketGiantFormatter::setupInput($commandData);

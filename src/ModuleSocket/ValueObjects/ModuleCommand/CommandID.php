@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ValueObjects\ModuleCommand;
 
@@ -13,6 +11,11 @@ final readonly class CommandID
     public function toStream(): string
     {
         return chr(hexdec($this->id));
+    }
+
+    public function toString(): string
+    {
+        return $this->id;
     }
 
     public function isEqual(CommandID $anotherCommandID): bool

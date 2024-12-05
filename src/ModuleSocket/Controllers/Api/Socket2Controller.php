@@ -1,12 +1,7 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
-use Autodoctor\ModuleSocket\Exceptions\InvalidResponseCommandException;
-use Autodoctor\ModuleSocket\Exceptions\UnknownCommandException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket2Formatter;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2AllInputAndRelayStatusResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2RelayActionResource;
@@ -19,10 +14,6 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
 class Socket2Controller extends Controller
 {
-    /**
-     * @throws UnknownCommandException
-     * @throws InvalidResponseCommandException
-     */
     public function getAllStatus(): string
     {
         $command = Socket2Formatter::getAllStatus();
@@ -31,10 +22,6 @@ class Socket2Controller extends Controller
         return Socket2AllInputAndRelayStatusResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidResponseCommandException
-     * @throws UnknownCommandException
-     */
     public function getAnalogInput(): string
     {
         $command = Socket2Formatter::getAnalogInput();
@@ -43,11 +30,6 @@ class Socket2Controller extends Controller
         return Socket2wAnalogInputStatusResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidResponseCommandException
-     * @throws UnknownCommandException
-     * @throws InvalidInputParameterException
-     */
     public function getInput(InputStatus|CommandData $commandData): string
     {
         $command = Socket2Formatter::getInputStatus($commandData);
@@ -56,11 +38,6 @@ class Socket2Controller extends Controller
         return Socket2Resource::make()->toJson($response);
     }
 
-    /**
-     * @throws UnknownCommandException
-     * @throws InvalidResponseCommandException
-     * @throws InvalidInputParameterException
-     */
     public function relayAction(Relay|CommandData $commandData): string
     {
         $command = Socket2Formatter::relayAction($commandData);
@@ -69,11 +46,6 @@ class Socket2Controller extends Controller
         return Socket2RelayActionResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidResponseCommandException
-     * @throws UnknownCommandException
-     * @throws InvalidInputParameterException
-     */
     public function inputSetup(Input|CommandData $commandData): string
     {
         $command = Socket2Formatter::inputSetup($commandData);

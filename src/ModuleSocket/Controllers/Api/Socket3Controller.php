@@ -1,10 +1,7 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket3Formatter;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket3AllSensorAndRelayStatusResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket3RelayActionResource;
@@ -38,9 +35,6 @@ class Socket3Controller extends Controller
         return Socket3TemperatureSensorResource::make()->toJson($response);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function relayAction(Relay|CommandData $commandData): string
     {
         $command = Socket3Formatter::relayAction($commandData);
