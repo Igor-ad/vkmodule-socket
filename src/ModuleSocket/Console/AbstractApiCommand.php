@@ -32,10 +32,8 @@ abstract class AbstractApiCommand extends AbstractConsoleCommand
 
             return $this->run($controller);
         } catch (\Exception $e) {
-
             return $e->getMessage();
         } catch (\Throwable $e) {
-
             return $e->getMessage();
         }
     }

@@ -23,13 +23,13 @@ namespace Autodoctor\ModuleSocket\Enums;
  */
 enum Socket2
 {
-    const TYPE = 'Socket-2';
-    const SET_INPUT = Commands::SetInput->value;
-    const GET_INPUT = Commands::GetInput->value;
-    const RELAY_ACTION = Commands::RelayAction->value;
-    const GET_ALL_STATUS = Commands::GetAllStatus->value;
-    const GET_ANALOG_INPUT = Commands::GetAnalogInput->value;
-    const COMMANDS = [
+    public const TYPE = 'Socket-2';
+    public const SET_INPUT = Commands::SetInput->value;
+    public const GET_INPUT = Commands::GetInput->value;
+    public const RELAY_ACTION = Commands::RelayAction->value;
+    public const GET_ALL_STATUS = Commands::GetAllStatus->value;
+    public const GET_ANALOG_INPUT = Commands::GetAnalogInput->value;
+    public const COMMANDS = [
         self::SET_INPUT,
         self::GET_INPUT,
         self::RELAY_ACTION,
@@ -37,10 +37,10 @@ enum Socket2
         self::GET_ANALOG_INPUT,
     ];
     // rules
-    const INPUT_START_NUMBER = 0;
-    const INPUT_END_NUMBER = 1;
-    const RELAY_START_NUMBER = 0;
-    const RELAY_END_NUMBER = 1;
+    public const INPUT_START_NUMBER = 0;
+    public const INPUT_END_NUMBER = 1;
+    public const RELAY_START_NUMBER = 0;
+    public const RELAY_END_NUMBER = 1;
 
     public static function allowedInput(): array
     {

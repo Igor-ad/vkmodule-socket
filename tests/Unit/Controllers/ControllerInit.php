@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\Controllers;
 
@@ -21,7 +23,7 @@ abstract class ControllerInit extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->controller = new class($this->service) extends AbstractController {
+        $this->controller = new class ($this->service) extends AbstractController {
         };
     }
 }

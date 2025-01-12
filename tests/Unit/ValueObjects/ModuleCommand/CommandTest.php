@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\ModuleCommand;
 
@@ -56,6 +58,13 @@ class CommandTest extends TestCase
         $expected = chr(hexdec('01'));
 
         $this->assertSame($expected, $this->command->toStream());
+    }
+
+    public function testToString(): void
+    {
+        $expected = '01';
+
+        $this->assertSame($expected, $this->command->toString());
     }
 
     #[CoversNothing]

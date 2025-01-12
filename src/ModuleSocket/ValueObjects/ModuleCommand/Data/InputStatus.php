@@ -11,7 +11,8 @@ final readonly class InputStatus implements CommandData
      */
     public function __construct(
         public int $inputNumber,
-    ) {}
+    ) {
+    }
 
     public function isEqual(CommandData $anotherCommandData): bool
     {

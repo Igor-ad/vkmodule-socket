@@ -10,13 +10,15 @@ abstract class AbstractCommandDataFactory implements CommandDataFactory
 {
     public function __construct(
         protected ?array $commandData = [],
-    ) {}
+    ) {
+    }
 
     public static function getDataFactory(?array $commandData, ?string $commandId): CommandDataFactory
     {
-        if (is_null($commandId)
-            && getByKey(array_keys($commandData ?? []), 0) === 'input') {
-
+        if (
+            is_null($commandId)
+            && getByKey(array_keys($commandData ?? []), 0) === 'input'
+        ) {
             return new InputSetupDataFactory($commandData);
         }
         return match (getByKey(array_keys($commandData ?? []), 0)) {

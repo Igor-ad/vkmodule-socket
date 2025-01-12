@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
@@ -9,8 +11,7 @@ class ConnectorFactory
         int     $port = 9761,
         ?string $connectorType = 'TCP',
         ?int    $timeOut = 5,
-    ): Connector
-    {
+    ): Connector {
         return match ($connectorType) {
             'HTTP' => new HttpConnector($host, $timeOut),
             default => new TcpConnector($host, $port, $timeOut),

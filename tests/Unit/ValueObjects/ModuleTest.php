@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects;
 
@@ -73,7 +75,7 @@ final class ModuleTest extends TestCase
     public function testModuleClassIsFinal(): void
     {
         $reflectionClass = new ReflectionClass(Module::class);
-        
+
         $this->assertTrue($reflectionClass->isFinal());
     }
 }

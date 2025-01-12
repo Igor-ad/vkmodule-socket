@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket;
 
@@ -6,7 +8,7 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 
 class Configurator
 {
-    const CONFIG_FILE = __DIR__ . '/../../config/vk_module.php';
+    public const CONFIG_FILE = __DIR__ . '/../../config/vk_module.php';
 
     private static ?Configurator $instance = null;
     private array $config = [];

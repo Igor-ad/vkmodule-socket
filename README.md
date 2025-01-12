@@ -8,7 +8,7 @@ PHP driver library for use with VKmodule 'Socket-N' type electronic devices. Con
 
 ![License MIT](https://img.shields.io/badge/License-MIT-blue)
 [![Supported PHP Versions](https://img.shields.io/badge/PHP-8.2,%208.3,%208.4-blue)](https://github.com/Igor-ad/VKmodule-php-client-library/)
-![GitHub release](https://img.shields.io/badge/Release-Beta_0.9.3-green)
+![GitHub release](https://img.shields.io/badge/Release-Beta_0.9.4-green)
 
 
 Home page of the manufacturer of Socket-N controller modules -
@@ -516,4 +516,4 @@ api_status
 
 ### Unit Tests
 
-In progress, coverage is about 70%.
+In progress, coverage is about 80%.

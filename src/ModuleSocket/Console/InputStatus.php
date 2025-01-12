@@ -6,7 +6,7 @@ namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
-use \Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus as CommandData;
+use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus as CommandData;
 
 /**
  * Example of a CLI query string for a single-module system:

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\ModuleCommandFactories;
 
@@ -50,7 +52,8 @@ class CommandFactoryTest extends TestCase
             new CommandID(getValue($request, 'command.id')),
             new InputStatus(
                 getValue($request, 'command.data.input.inputNumber'),
-            ));
+            )
+        );
 
         $this->assertTrue($command->isEqual($anotherCommand));
 
@@ -73,7 +76,8 @@ class CommandFactoryTest extends TestCase
                 getValue($request, 'command.data.input.inputNumber'),
                 getValue($request, 'command.data.input.action'),
                 getValue($request, 'command.data.input.antiBounce'),
-            ));
+            )
+        );
 
         $this->assertTrue($command->isEqual($anotherCommand));
 
@@ -96,7 +100,8 @@ class CommandFactoryTest extends TestCase
                 getValue($request, 'command.data.relay.relayNumber'),
                 getValue($request, 'command.data.relay.action'),
                 getValue($request, 'command.data.relay.interval'),
-            ));
+            )
+        );
 
         $this->assertTrue($command->isEqual($anotherCommand));
 
@@ -115,7 +120,8 @@ class CommandFactoryTest extends TestCase
             new CommandID(getValue($request, 'command.id')),
             new RelayGroup(
                 getValue($request, 'command.data.relayGroup.relayGroupAction'),
-            ));
+            )
+        );
 
         $this->assertTrue($command->isEqual($anotherCommand));
     }

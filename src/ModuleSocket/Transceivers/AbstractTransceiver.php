@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Transceivers;
 
@@ -10,7 +12,8 @@ abstract class AbstractTransceiver implements Transceiver
         protected Connector $connector,
         protected string    $streamData = '',
         public int          $attemptsToReceive = self::ATTEMPT,
-    ) {}
+    ) {
+    }
 
     abstract public function read(int $length = 32): string|false;
 

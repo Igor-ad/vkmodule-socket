@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\ModuleCommand;
 
@@ -22,6 +24,14 @@ class CommandIDTest extends TestCase
         $expected = chr(hexdec('23'));
 
         $this->assertSame($expected, $commandId->toStream());
+    }
+
+    public function testToString(): void
+    {
+        $commandId = new CommandID('23');
+        $expected = '23';
+
+        $this->assertSame($expected, $commandId->toString());
     }
 
     public function testIsEqual(): void

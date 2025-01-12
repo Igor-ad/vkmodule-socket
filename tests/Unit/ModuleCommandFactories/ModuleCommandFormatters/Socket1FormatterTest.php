@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\ModuleCommandFactories\ModuleCommandFormatters;
 
@@ -14,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Socket1Formatter::class)]
 class Socket1FormatterTest extends TestCase
 {
-
     public function testGetAllStatus()
     {
         $command = Socket1Formatter::getAllStatus();

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Services;
 
@@ -16,7 +18,8 @@ abstract class AbstractService implements LoggerAwareInterface, Service
 
     public function __construct(
         protected Transceiver $transceiver,
-    ) {}
+    ) {
+    }
 
     abstract public function getResponse(Command $command): Response;
 

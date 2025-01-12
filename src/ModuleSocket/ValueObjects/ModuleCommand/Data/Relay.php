@@ -20,8 +20,7 @@ final readonly class Relay implements CommandData
         public int $relayNumber,
         public int $action,
         public int $interval = 0
-    )
-    {
+    ) {
         $this->validate();
     }
 

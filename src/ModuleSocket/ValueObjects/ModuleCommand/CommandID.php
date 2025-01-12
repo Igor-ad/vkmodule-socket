@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ValueObjects\ModuleCommand;
 
@@ -6,7 +8,8 @@ final readonly class CommandID
 {
     public function __construct(
         public string $id,
-    ) {}
+    ) {
+    }
 
     public function toStream(): string
     {

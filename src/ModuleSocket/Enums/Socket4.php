@@ -6,16 +6,16 @@ namespace Autodoctor\ModuleSocket\Enums;
 
 enum Socket4
 {
-    const TYPE = 'Socket-4';
-    const RELAY_ACTION = Commands::RelayAction->value;
-    const GET_RELAY_STATUS = Commands::GetAllStatus->value;
-    const COMMANDS = [
+    public const TYPE = 'Socket-4';
+    public const RELAY_ACTION = Commands::RelayAction->value;
+    public const GET_RELAY_STATUS = Commands::GetAllStatus->value;
+    public const COMMANDS = [
         self::RELAY_ACTION,
         self::GET_RELAY_STATUS,
     ];
     // rules
-    const RELAY_START_NUMBER = 0;
-    const RELAY_END_NUMBER = 7;
+    public const RELAY_START_NUMBER = 0;
+    public const RELAY_END_NUMBER = 7;
 
     public static function allowedRelay(): array
     {

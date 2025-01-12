@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors\Servers;
 
@@ -32,8 +34,13 @@ class TcpServerListener implements Connector
         return new static($server, $timout);
     }
 
-    public function __destruct()
+    public function finalize(): void
     {
         $this->connector = false;
+    }
+
+    public function __destruct()
+    {
+        $this->finalize();
     }
 }

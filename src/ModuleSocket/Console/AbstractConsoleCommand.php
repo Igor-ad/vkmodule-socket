@@ -8,6 +8,7 @@ use Autodoctor\ModuleSocket\Configurator;
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Logger\Logger;
 use Autodoctor\ModuleSocket\Services\CliService;
@@ -21,8 +22,8 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
 abstract class AbstractConsoleCommand implements ConsoleCommand
 {
-    const START_MSG = 'Start';
-    const END_MSG = 'End';
+    public const START_MSG = 'Start';
+    public const END_MSG = 'End';
 
     protected Request $requestDto;
     protected string $controllerMethod;
@@ -76,13 +77,14 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
 
     protected function loggerInit(): Logger
     {
-        $logFile = __DIR__ . '/../../../' . Configurator::instance()->get('log_file');
+        $logFile = dirname(__DIR__, 3) . Configurator::instance()->get('log_file');
 
         return new Logger($logFile);
     }
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      */
     protected function run(ControllerInterface $controller): string
     {
@@ -93,6 +95,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      */
     protected function getModuleCommandData(): ?CommandData
     {
@@ -120,6 +123,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      */
     protected function getValidInputNumber(): int
     {
@@ -130,6 +134,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      */
     protected function getValidRelayNumber(): int
     {

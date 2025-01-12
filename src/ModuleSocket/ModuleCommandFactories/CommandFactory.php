@@ -12,7 +12,8 @@ class CommandFactory
 {
     public function __construct(
         protected array $request
-    ) {}
+    ) {
+    }
 
     public static function instance(array $request): static
     {

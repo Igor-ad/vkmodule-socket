@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
@@ -14,13 +16,18 @@ class TcpConnector extends AbstractConnector
     protected function setConnector(string $host, int $port = 9761, ?float $timeout = null): void
     {
         $this->connector = stream_socket_client(
-            "tcp://$host:$port", $errorCode, $errorMessage, $timeout
+            "tcp://$host:$port",
+            $errorCode,
+            $errorMessage,
+            $timeout
         );
 
         if ($this->connector === false) {
             throw new ConnectorException(
-                'Cannot initialise TCP Socket Connector: ' . $errorMessage
-                . ' Error Code: ' . $errorCode
+                'Cannot initialise TCP Socket Connector: '
+                . $errorMessage
+                . ' Error Code: '
+                . $errorCode
             );
         }
     }

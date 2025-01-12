@@ -20,8 +20,7 @@ final readonly class Input implements CommandData
         public int $inputNumber,
         public int $action,
         public int $antiBounce
-    )
-    {
+    ) {
         $this->validate();
     }
 

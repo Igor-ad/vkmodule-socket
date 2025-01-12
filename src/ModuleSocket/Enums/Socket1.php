@@ -6,18 +6,18 @@ namespace Autodoctor\ModuleSocket\Enums;
 
 enum Socket1
 {
-    const TYPE = 'Socket-1';
-    const SET_INPUT = Commands::Socket1SetInput->value;
-    const GET_INPUT = Commands::Socket1GetInput->value;
-    const GET_ALL_INPUT = Commands::GetAllInput->value;
-    const COMMANDS = [
+    public const TYPE = 'Socket-1';
+    public const SET_INPUT = Commands::Socket1SetInput->value;
+    public const GET_INPUT = Commands::Socket1GetInput->value;
+    public const GET_ALL_INPUT = Commands::GetAllInput->value;
+    public const COMMANDS = [
         self::SET_INPUT,
         self::GET_INPUT,
         self::GET_ALL_INPUT,
     ];
     // rules
-    const INPUT_START_NUMBER = 0;
-    const INPUT_END_NUMBER = 3;
+    public const INPUT_START_NUMBER = 0;
+    public const INPUT_END_NUMBER = 3;
 
     public static function allowedInput(): array
     {

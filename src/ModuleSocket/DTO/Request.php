@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\DTO;
 
@@ -26,8 +28,7 @@ final class Request
      */
     public function __construct(
         ?string $queryString,
-    )
-    {
+    ) {
         $this->request = json_decode($queryString ?? '', true) ?? [];
         $this->module = $this->module($this->request);
         $this->connector = $this->connector($this->module->host, $this->module->port, $this->request);

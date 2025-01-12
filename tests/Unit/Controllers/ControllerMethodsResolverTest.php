@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests\Unit\Controllers;
 
@@ -20,7 +22,7 @@ class ControllerMethodsResolverTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->object = new class() {
+        $this->object = new class () {
             use ControllerMethodsResolver;
         };
 
