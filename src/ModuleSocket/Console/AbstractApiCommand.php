@@ -6,6 +6,7 @@ namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Logger\Logger;
 use Autodoctor\ModuleSocket\Services\ApiService;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;
@@ -24,17 +25,16 @@ abstract class AbstractApiCommand extends AbstractConsoleCommand
 
     public function handle(?string $queryString): int|string
     {
-        try {
-            $this->requestDto = new Request($queryString);
+        $this->requestDto = new Request($queryString);
 
-            $closure = $this->controlClosure(null);
-            $controller = $closure();
+        $closure = $this->controlClosure(null);
+        $controller = $closure();
 
-            return $this->run($controller);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        } catch (\Throwable $e) {
-            return $e->getMessage();
-        }
+        return $this->run($controller);
+    }
+
+    protected function loggerInit(): Logger
+    {
+        return new Logger(Files::ApiLogFile->getPath());
     }
 }

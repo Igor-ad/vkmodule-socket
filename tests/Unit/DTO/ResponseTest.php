@@ -6,10 +6,8 @@ namespace Tests\Unit\DTO;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Response::class)]
 class ResponseTest extends TestCase
@@ -76,13 +74,5 @@ class ResponseTest extends TestCase
     public function testToJson(string $responseData): void
     {
         $this->assertTrue(is_array(json_decode(Response::getDto($responseData)->toJson(), true)));
-    }
-
-    #[CoversNothing]
-    public function testResponseClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Response::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

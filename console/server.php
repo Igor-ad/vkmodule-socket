@@ -4,12 +4,18 @@
 use Autodoctor\ModuleSocket\Connectors\Servers\TcpServerListener;
 use Autodoctor\ModuleSocket\Connectors\Servers\TcpServerConnector;
 
-require __DIR__ . '/../vendor/autoload.php';
+if (!is_file(dirname(__DIR__) . '/vendor/autoload.php')) {
+    throw new LogicException(
+        '/vendor/autoload.php is missing. Please run "composer install" under application root directory.'
+    );
+}
 
-$tcpServerConnector = new TcpServerConnector('localhost');
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$tcpServerConnector = new TcpServerConnector('localhost', 9761);
 $server = $tcpServerConnector->getConnector();
 
-while ($listener = TcpServerListener::instance($server)->getConnector()) {
+while ($listener = TcpServerListener::instance($server, 5)->getConnector()) {
     $inputStream = fread($listener, 32);
     fwrite($listener, $inputStream);
     fclose($listener);

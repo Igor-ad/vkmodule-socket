@@ -17,6 +17,6 @@ class TcpConnectorTest extends TcpConnectorInit
         $this->assertInstanceOf(Connector::class, $this->connectorObject);
 
         $this->expectException(ConnectorException::class);
-        $this->connectorObject = new TcpConnector('localhost', 9762);
+        @$this->connectorObject = new TcpConnector('localhost', 9762);
     }
 }

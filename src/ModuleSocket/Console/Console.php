@@ -30,7 +30,7 @@ class Console
      */
     public static function make(string $commandName, ?string $queryString = ''): Console
     {
-        return new Console($commandName, $queryString);
+        return new self($commandName, $queryString);
     }
 
     /**

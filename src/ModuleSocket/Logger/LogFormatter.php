@@ -11,11 +11,12 @@ trait LogFormatter
         $pid = $this->pidToString(getmypid());
 
         return sprintf(
-            '%s | pid: %s | %s: %s | %s %s',
+            '%s | pid: %s | %s: %s %s%s %s',
             date('Y-m-d H:i:s'),
             $pid,
             $level,
             $message,
+            "\n",
             $this->contextToString($context),
             PHP_EOL
         );
@@ -23,7 +24,7 @@ trait LogFormatter
 
     protected function contextToString(array $context): string
     {
-        return implode(' | ', $context);
+        return implode("\n", $context);
     }
 
     protected function pidToString($pid): string

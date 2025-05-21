@@ -43,6 +43,7 @@ class Logger extends AbstractLogger
     {
         $logLevel = new LogLevel();
         $reflection = new \ReflectionClass($logLevel);
+
         return $reflection->getConstants();
     }
 }

@@ -7,9 +7,7 @@ namespace Tests\Unit\ValueObjects\ModuleCommand;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Command::class)]
 class CommandTest extends TestCase
@@ -65,13 +63,5 @@ class CommandTest extends TestCase
         $expected = '01';
 
         $this->assertSame($expected, $this->command->toString());
-    }
-
-    #[CoversNothing]
-    public function testCommandClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Command::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

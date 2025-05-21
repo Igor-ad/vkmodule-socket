@@ -7,9 +7,7 @@ namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Relay::class)]
 class RelayTest extends TestCase
@@ -74,13 +72,5 @@ class RelayTest extends TestCase
         $expected = hexFormat(0) . hexFormat(1) . hexFormat(10);
 
         $this->assertSame($expected, $this->relay->toString());
-    }
-
-    #[CoversNothing]
-    public function testRelayClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Relay::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

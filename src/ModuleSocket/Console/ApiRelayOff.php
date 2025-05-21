@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
+use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
@@ -21,6 +22,7 @@ class ApiRelayOff extends AbstractApiCommand
 
     /**
      * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
      */
     protected function run(ControllerInterface $controller): string
     {

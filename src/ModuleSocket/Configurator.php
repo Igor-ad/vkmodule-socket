@@ -45,8 +45,8 @@ class Configurator
         $this->config = $config;
     }
 
-    public function get(string $key): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
-        return $this->config[$key] ?? null;
+        return $this->config[$key] ?? $default;
     }
 }

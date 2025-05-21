@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Console;
 
-use Autodoctor\ModuleSocket\Configurator;
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Logger\Logger;
@@ -47,39 +47,24 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
     public function handle(?string $queryString): int|string
     {
         $logger = $this->loggerInit();
+        $this->requestDto = new Request($queryString);
 
-        try {
-            $this->requestDto = new Request($queryString);
+        $logger->info(self::START_MSG);
+        $logger->info($this->requestDto->module->toJson());
 
-            $logger->info(self::START_MSG);
-            $logger->info($this->requestDto->module->toJson());
+        $closure = $this->controlClosure($logger);
+        $controller = $closure();
+        $response = $this->run($controller);
 
-            $closure = $this->controlClosure($logger);
-            $controller = $closure();
-            $response = $this->run($controller);
+        $logger->info('ResponseToJson: ' . $response);
+        $logger->info(self::END_MSG);
 
-            $logger->info('ResponseToJson: ' . $response);
-            $logger->info(self::END_MSG);
-
-            return 0;
-        } catch (\Exception $e) {
-            $logger->error(
-                $this->messagePrefix($this->requestDto->module->type) . $e->getMessage(),
-                $logger->getExceptionContext($e)
-            );
-            return 1;
-        } catch (\Throwable $e) {
-            $logger->critical($e->getMessage(), $logger->getExceptionContext($e));
-
-            return 1;
-        }
+        exit(0);
     }
 
     protected function loggerInit(): Logger
     {
-        $logFile = dirname(__DIR__, 3) . Configurator::instance()->get('log_file');
-
-        return new Logger($logFile);
+        return new Logger(Files::CliLogFile->getPath());
     }
 
     /**
@@ -114,11 +99,6 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
             }
         }
         return $commandData;
-    }
-
-    protected function messagePrefix(string $moduleType): string
-    {
-        return $moduleType . ' module exception. ';
     }
 
     /**

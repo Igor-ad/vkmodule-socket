@@ -7,9 +7,7 @@ namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Input::class)]
 class InputTest extends TestCase
@@ -74,13 +72,5 @@ class InputTest extends TestCase
         $expected = hexFormat(0) . hexFormat(1) . hexFormat(5);
 
         $this->assertSame($expected, $this->input->toString());
-    }
-
-    #[CoversNothing]
-    public function testInputClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Input::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

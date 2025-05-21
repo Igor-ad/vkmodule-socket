@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Transceivers;
 
+use Autodoctor\ModuleSocket\Connectors\FileConnector;
 use Autodoctor\ModuleSocket\Exceptions\TransmitException;
 use Autodoctor\ModuleSocket\Transceivers\TcpTransceiver;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -13,25 +14,14 @@ use ReflectionException;
 #[CoversClass(TcpTransceiver::class)]
 class TcpTransceiverTest extends TransceiverInit
 {
-    public const STUB_STEAM_DATA = '22';
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->transceiver = new TcpTransceiver(
-            $this->connectorStub,
-            chr(hexdec(self::STUB_STEAM_DATA)),
-            1
-        );
-    }
+    public const EXPECTED_DATA = '22';
 
     /**
      * @throws ReflectionException
      */
     public function testSetStreamData(): void
     {
-        $expected = chr(hexdec(self::STUB_STEAM_DATA));
+        $expected = chr(hexdec(self::EXPECTED_DATA));
         $this->transceiver->setStreamData($expected);
         $reflectionTransceiver = new ReflectionClass($this->transceiver);
         $streamData = $reflectionTransceiver->getProperty('streamData')->getValue($this->transceiver);
@@ -39,23 +29,34 @@ class TcpTransceiverTest extends TransceiverInit
         $this->assertSame($expected, $streamData);
     }
 
-    public function testProcessing(): void
+    public function testGetStreamContent(): void
     {
-        $actualData = $this->transceiver->processing();
-        $this->assertSame(self::STUB_STEAM_DATA, $actualData);
+        $streamData = chr(hexdec(self::EXPECTED_DATA));
+        $this->transceiver->write($streamData);
 
+        if ($this->connectorStub instanceof FileConnector) {
+            rewind($this->connectorStub->getConnector());
+        }
+
+        $actualData = $this->transceiver->getStreamContent();
+
+        $this->assertSame(self::EXPECTED_DATA, $actualData);
+    }
+
+    public function testRebootGetStreamContent(): void
+    {
         $rebootCmdExpected = '02';
         $streamData = chr(hexdec($rebootCmdExpected));
         $this->transceiver->setStreamData($streamData);
 
-        $this->assertSame($rebootCmdExpected, $this->transceiver->processing());
+        $this->assertSame($rebootCmdExpected, $this->transceiver->getStreamContent());
     }
 
-    public function testProcessingException(): void
+    public function testGetStreamContentException(): void
     {
         $this->transceiver->setStreamData('');
 
         $this->expectException(TransmitException::class);
-        $this->transceiver->processing();
+        $this->transceiver->getStreamContent();
     }
 }

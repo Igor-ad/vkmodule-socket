@@ -22,7 +22,7 @@ class AbstractTransceiverTest extends TransceiverInit
 
             public function write(string $data, ?int $length = null): int|false {}
 
-            public function processing(): string {}
+            public function getStreamContent(): string {}
 
             public function setStreamData(string $streamData): void {}
         };

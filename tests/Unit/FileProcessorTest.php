@@ -15,7 +15,7 @@ class FileProcessorTest extends TestCase
     /**
      * @throws ModuleException
      */
-    public function testGetContent(): void
+    public function testGetPutContent(): void
     {
         $expected = 'data';
         $fileName = tempnam('/tmp', '_');
@@ -24,14 +24,17 @@ class FileProcessorTest extends TestCase
 
         $this->assertSame($expected, $data);
         unlink($fileName);
-
-        $this->expectException(ModuleException::class);
-        FileProcessor::getContent($fileName);
     }
 
-    public function testPutContent(): void
+    public function testGetContentException(): void
     {
         $this->expectException(ModuleException::class);
-        FileProcessor::putContent(__DIR__, 'data');
+        @FileProcessor::getContent('test');
+    }
+
+    public function testPutContentException(): void
+    {
+        $this->expectException(ModuleException::class);
+        @FileProcessor::putContent(__DIR__, 'data');
     }
 }

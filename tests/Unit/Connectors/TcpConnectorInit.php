@@ -6,6 +6,7 @@ namespace Tests\Unit\Connectors;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Connectors\TcpConnector;
+use Autodoctor\ModuleSocket\Enums\Files;
 use PHPUnit\Framework\TestCase;
 
 class TcpConnectorInit extends TestCase
@@ -14,10 +15,10 @@ class TcpConnectorInit extends TestCase
 
     protected function setUp(): void
     {
-        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
+        $command = Files::TcpServer->getPath() . " >/dev/null 2>&1 &";
         exec($command);
-        usleep(300 * 1000);
+        usleep(400 * 1000);
 
-        $this->connectorObject = new TcpConnector('localhost');
+        $this->connectorObject = new TcpConnector('localhost', 9761);
     }
 }

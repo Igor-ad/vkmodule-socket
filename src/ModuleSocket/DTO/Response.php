@@ -6,7 +6,7 @@ namespace Autodoctor\ModuleSocket\DTO;
 
 use Autodoctor\ModuleSocket\Enums\Commands;
 
-final class Response
+class Response
 {
     public readonly string $id;
     public readonly ?array $data;

@@ -4,16 +4,30 @@
 declare(strict_types=1);
 
 use Autodoctor\ModuleSocket\Console\Console;
-use Autodoctor\ModuleSocket\Exceptions\ClassNotFoundException;
+use Autodoctor\ModuleSocket\Enums\Files;
+use Autodoctor\ModuleSocket\Exceptions\ExceptionHandler;
+use Autodoctor\ModuleSocket\Logger\Logger;
 
-require __DIR__ . '/../vendor/autoload.php';
-
-try {
-    $controlCommand = Console::make(
-        commandName: getByKey($argv, 1),
-        queryString: getByKey($argv, 2)
+if (!is_file(dirname(__DIR__) . '/vendor/autoload.php')) {
+    throw new LogicException(
+        '/vendor/autoload.php is missing. Please run "composer install" under application root directory.'
     );
-    return $controlCommand->invoke();
-} catch (ClassNotFoundException $e) {
-    echo $e->getMessage();
 }
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$logger = new Logger(Files::CliLogFile->getPath());
+
+$handler = new ExceptionHandler(true);
+$handler->setLogger($logger);
+$handler->register();
+
+$command = getByKey($argv, 1);
+$queryString = getByKey($argv, 2);
+
+$controlCommand = Console::make(
+    commandName: $command,
+    queryString: $queryString,
+);
+
+$controlCommand->invoke();

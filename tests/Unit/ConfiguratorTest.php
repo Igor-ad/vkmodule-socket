@@ -53,7 +53,6 @@ class ConfiguratorTest extends TestCase
         $this->assertTrue($value === 'localhost');
     }
 
-
     /**
      * @throws ReflectionException
      * @throws ConfiguratorException

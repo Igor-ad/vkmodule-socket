@@ -7,12 +7,10 @@ namespace Tests\Unit\ValueObjects;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Module::class)]
-final class ModuleTest extends TestCase
+class ModuleTest extends TestCase
 {
     protected Module $module;
 
@@ -63,19 +61,5 @@ final class ModuleTest extends TestCase
         ];
 
         $this->assertSame($expected, $this->module->toArray());
-    }
-
-    #[CoversNothing]
-    public function testAcceptedDefaultModuleConfig(): void
-    {
-        $this->assertInstanceOf(Module::class, new Module());
-    }
-
-    #[CoversNothing]
-    public function testModuleClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Module::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

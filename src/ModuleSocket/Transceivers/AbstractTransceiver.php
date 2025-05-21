@@ -19,9 +19,12 @@ abstract class AbstractTransceiver implements Transceiver
 
     abstract public function write(string $data, ?int $length = null): int|false;
 
-    abstract public function processing(): string;
+    abstract public function getStreamContent(): string;
 
-    abstract public function setStreamData(string $streamData): void;
+    public function setStreamData(string $streamData): void
+    {
+        $this->streamData = $streamData;
+    }
 
     protected function try(int $attempts = 1, int $interval = self::SLEEP_INTERVAL): bool
     {

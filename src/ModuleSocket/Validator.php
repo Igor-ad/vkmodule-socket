@@ -55,7 +55,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidRequestCommandException(
-                sprintf('This command id: "%s" is not supported by controllers.', $commandId)
+                sprintf('This command ID "%s" is not supported by controllers', $commandId)
             );
         }
         return true;
@@ -72,7 +72,7 @@ class Validator
             $commandId => true,
             Common::UNKNOWN => throw new UnknownCommandException(
                 'An unknown (not supported by this controller) command was received'
-                . ' or the command parameters are not set correctly.'
+                . ' or the command parameters are not set correctly'
             ),
             default => false,
         };
@@ -87,7 +87,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This action: "%d" is not allowed for the relay of module', $action)
+                sprintf('This action "%d" is not allowed for the relay of module', $action)
             );
         }
         return $action;
@@ -102,7 +102,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This action: "%d" is not allowed for the module digital input.', $action)
+                sprintf('This action "%d" is not allowed for the module digital input', $action)
             );
         }
         return $action;
@@ -118,7 +118,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This time interval: "%d" is not allowed for the module', $interval)
+                sprintf('This time interval "%d" is not allowed for the module', $interval)
             );
         }
         return $interval;
@@ -134,7 +134,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This time interval: "%d" is not allowed for the module', $antiBounce)
+                sprintf('This time interval "%d" is not allowed for the module', $antiBounce)
             );
         }
         return $antiBounce;
@@ -151,7 +151,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This module digital input number: "%d" is not available', $inputNumber)
+                sprintf('This module digital input number "%d" is not available', $inputNumber)
             );
         }
         return $inputNumber;
@@ -164,7 +164,7 @@ class Validator
     {
         if (hexdec($data) > 65535) {
             throw new InvalidInputParameterException(
-                'The group relay control data must be in the range from "0000" to "ffff".'
+                'The group relay control data must be in the range from "0000" to "ffff"'
             );
         }
         return $data;
@@ -180,7 +180,7 @@ class Validator
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
-                sprintf('This module relay number: "%d" is not available', $relayNumber)
+                sprintf('This module relay number "%d" is not available', $relayNumber)
             );
         }
         return $relayNumber;
@@ -197,7 +197,7 @@ class Validator
             )
         ) {
             throw new InvalidInputParameterException(
-                sprintf('Module host: %s is not valid.', $host)
+                sprintf('Module host "%s" is not valid', $host)
             );
         }
         return $host;
@@ -210,7 +210,7 @@ class Validator
     {
         if ($port < 1024 || $port > 65535) {
             throw new InvalidInputParameterException(
-                sprintf('Module TCP port number: %s is not valid.', $port)
+                sprintf('Module TCP port number "%s" is not valid', $port)
             );
         }
         return $port;
@@ -223,7 +223,7 @@ class Validator
     {
         if (!in_array($type, self::VALID_MODULE_TYPES, true)) {
             throw new InvalidInputParameterException(
-                sprintf('Module type: %s is not valid.', $type)
+                sprintf('Module type "%s" is not valid', $type)
             );
         }
         return $type;
@@ -238,7 +238,7 @@ class Validator
 
         if ($data > Socket3::MAX_TEMPERATURE || (($data > Socket3::NEG_MIN_TEMPERATURE) && $sign)) {
             throw new InvalidInputParameterException(
-                sprintf('Temperature: %s%d out of range.', $tempSign, $data)
+                sprintf('Temperature "%s%d" out of range', $tempSign, $data)
             );
         }
         return $data;

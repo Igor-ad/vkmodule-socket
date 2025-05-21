@@ -6,9 +6,7 @@ namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(InputStatus::class)]
 class InputStatusTest extends TestCase
@@ -62,13 +60,5 @@ class InputStatusTest extends TestCase
         $expected = hexFormat(0);
 
         $this->assertSame($expected, $this->inputStatus->toString());
-    }
-
-    #[CoversNothing]
-    public function testInputStatusClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(InputStatus::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }

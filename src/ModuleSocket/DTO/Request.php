@@ -14,7 +14,7 @@ use Autodoctor\ModuleSocket\Validator;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 
-final class Request
+class Request
 {
     public ?Command $command;
     public Connector $connector;

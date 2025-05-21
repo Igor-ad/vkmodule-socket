@@ -12,18 +12,11 @@ class TcpTransceiver extends AbstractTransceiver
     public const ATTEMPT = 5;
     public const SLEEP_INTERVAL = 5;
 
-    public function setStreamData(string $streamData): void
-    {
-        $this->streamData = $streamData;
-    }
-
     /**
      * @throws TransmitException
      */
-    public function processing(): string
+    public function getStreamContent(): string
     {
-        $this->write($this->streamData);
-
         if ($this->streamData === chr(hexdec(Common::REBOOT))) {
             return Common::REBOOT;
         }
@@ -31,20 +24,17 @@ class TcpTransceiver extends AbstractTransceiver
         $response = $this->read();
 
         if ($response === false && $this->try($this->attemptsToReceive)) {
-            $this->processing();
+            $this->getStreamContent();
         }
 
         if (!$response) {
             throw new TransmitException('Unable to get data from module.');
         }
-
         return bin2hex($response);
     }
 
     public function read(int $length = 32): string|false
     {
-        rewind($this->connector->getConnector());
-
         return fread(stream: $this->connector->getConnector(), length: $length);
     }
 

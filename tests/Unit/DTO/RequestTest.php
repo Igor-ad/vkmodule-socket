@@ -6,23 +6,22 @@ namespace Tests\Unit\DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\ValueObjects\Module;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversClass(Request::class)]
 class RequestTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        $command = __DIR__ . "/../../../console/server.php >/dev/null 2>&1 &";
+        $command = Files::TcpServer->getPath() . " >/dev/null 2>&1 &";
         exec($command);
     }
 
@@ -83,13 +82,5 @@ class RequestTest extends TestCase
 
         $this->assertSame(getValue($request->request, 'command.id'), $request->command->ID->id);
         $this->assertSame(getValue($request->request, 'command.data'), $request->command->commandData?->toArray());
-    }
-
-    #[CoversNothing]
-    public function testResponseClassIsFinal(): void
-    {
-        $reflectionClass = new ReflectionClass(Request::class);
-
-        $this->assertTrue($reflectionClass->isFinal());
     }
 }
