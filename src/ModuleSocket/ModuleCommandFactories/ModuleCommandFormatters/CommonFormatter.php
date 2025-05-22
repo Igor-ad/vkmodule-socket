@@ -12,21 +12,21 @@ class CommonFormatter
 {
     public static function checkConnect(): Command
     {
-        return new Command(new CommandID(Common::CONNECT));
+        return new Command(new CommandID(Common::Connect->value));
     }
 
     public static function rebootModule(): Command
     {
-        return new Command(new CommandID(Common::REBOOT));
+        return new Command(new CommandID(Common::Reboot->value));
     }
 
     public static function getModuleUid(): Command
     {
-        return new Command(new CommandID(Common::UID));
+        return new Command(new CommandID(Common::Uid->value));
     }
 
     public static function getFirmware(): Command
     {
-        return new Command(new CommandID(Common::FIRMWARE));
+        return new Command(new CommandID(Common::Firmware->value));
     }
 }

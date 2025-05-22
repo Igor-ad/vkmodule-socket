@@ -34,7 +34,7 @@ class TcpServerListener implements Connector
         return new static($server, $timout);
     }
 
-    public function finalize(): void
+    private function finalize(): void
     {
         $this->connector = false;
     }

@@ -4,27 +4,29 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
-enum Socket3
+enum Socket3: string implements Resolution
 {
-    public const TYPE = 'Socket-3';
-    public const GET_TEMP_0 = Commands::GetTemperatureSensor0->value;
-    public const GET_TEMP_1 = Commands::GetTemperatureSensor1->value;
-    public const RELAY_ACTION = Commands::Socket3RelayAction->value;
-    public const GET_ALL_STATUS = Commands::Socket3GetAllStatus->value;
-    public const COMMANDS = [
-        self::GET_TEMP_0,
-        self::GET_TEMP_1,
-        self::RELAY_ACTION,
-        self::GET_ALL_STATUS,
-    ];
+    use Helper;
+
+    case GetTemp0 = Commands::GetTemperatureSensor0->value;
+    case GetTemp1 = Commands::GetTemperatureSensor1->value;
+    case RelayAction = Commands::Socket3RelayAction->value;
+    case GetAllStatus = Commands::Socket3GetAllStatus->value;
+
+    public const TYPE = ModuleTypes::Socket3->value;
     // rules
     public const RELAY_START_NUMBER = 0;
     public const RELAY_END_NUMBER = 1;
     public const NEG_MIN_TEMPERATURE = 55;
     public const MAX_TEMPERATURE = 125;
 
-    public static function allowedRelay(): array
+    public static function allowedInput(): array
     {
-        return [self::RELAY_START_NUMBER, self::RELAY_END_NUMBER];
+        return [];
+    }
+
+    public static function resolveInput(int $inputNumber): bool
+    {
+        return false;
     }
 }

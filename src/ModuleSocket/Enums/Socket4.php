@@ -4,21 +4,25 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
-enum Socket4
+enum Socket4: string implements Resolution
 {
-    public const TYPE = 'Socket-4';
-    public const RELAY_ACTION = Commands::RelayAction->value;
-    public const GET_RELAY_STATUS = Commands::GetAllStatus->value;
-    public const COMMANDS = [
-        self::RELAY_ACTION,
-        self::GET_RELAY_STATUS,
-    ];
+    use Helper;
+
+    case RelayAction = Commands::RelayAction->value;
+    case GetRelayStatus = Commands::GetAllStatus->value;
+
+    public const TYPE = ModuleTypes::Socket4->value;
     // rules
     public const RELAY_START_NUMBER = 0;
     public const RELAY_END_NUMBER = 7;
 
-    public static function allowedRelay(): array
+    public static function allowedInput(): array
     {
-        return range(self::RELAY_START_NUMBER, self::RELAY_END_NUMBER);
+        return [];
+    }
+
+    public static function resolveInput(int $inputNumber): bool
+    {
+        return false;
     }
 }

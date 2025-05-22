@@ -16,11 +16,11 @@ final class Socket4Formatter extends CommonFormatter
 {
     public static function getAllStatus(): Command
     {
-        return new Command(new CommandID(Socket4::GET_RELAY_STATUS));
+        return new Command(new CommandID(Socket4::GetRelayStatus->value));
     }
 
     public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket4::RELAY_ACTION), $relay);
+        return new Command(new CommandID(Socket4::RelayAction->value), $relay);
     }
 }

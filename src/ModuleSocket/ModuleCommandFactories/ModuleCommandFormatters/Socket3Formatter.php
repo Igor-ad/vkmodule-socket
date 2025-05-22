@@ -16,21 +16,21 @@ final class Socket3Formatter extends CommonFormatter
 {
     public static function getAllStatus(): Command
     {
-        return new Command(new CommandID(Socket3::GET_ALL_STATUS));
+        return new Command(new CommandID(Socket3::GetAllStatus->value));
     }
 
     public static function getSensor0(): Command
     {
-        return new Command(new CommandID(Socket3::GET_TEMP_0));
+        return new Command(new CommandID(Socket3::GetTemp0->value));
     }
 
     public static function getSensor1(): Command
     {
-        return new Command(new CommandID(Socket3::GET_TEMP_1));
+        return new Command(new CommandID(Socket3::GetTemp1->value));
     }
 
     public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket3::RELAY_ACTION), $relay);
+        return new Command(new CommandID(Socket3::RelayAction->value), $relay);
     }
 }

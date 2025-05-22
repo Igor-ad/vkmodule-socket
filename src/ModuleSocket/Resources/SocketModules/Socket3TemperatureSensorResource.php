@@ -38,6 +38,6 @@ class Socket3TemperatureSensorResource extends Socket3AllSensorAndRelayStatusRes
 
     protected function sensorNumber(string $responseId): int
     {
-        return $responseId === Socket3::GET_TEMP_0 ? 0 : 1;
+        return $responseId === Socket3::GetTemp0->value ? 0 : 1;
     }
 }

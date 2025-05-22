@@ -17,16 +17,16 @@ final class Socket1Formatter extends CommonFormatter
 {
     public static function getAllStatus(): Command
     {
-        return new Command(new CommandID(Socket1::GET_ALL_INPUT));
+        return new Command(new CommandID(Socket1::GetAllInput->value));
     }
 
     public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(Socket1::GET_INPUT), $inputStatus);
+        return new Command(new CommandID(Socket1::GetInput->value), $inputStatus);
     }
 
     public static function inputSetup(Input $input): Command
     {
-        return new Command(new CommandID(Socket1::SET_INPUT), $input);
+        return new Command(new CommandID(Socket1::SetInput->value), $input);
     }
 }

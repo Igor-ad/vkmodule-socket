@@ -18,21 +18,21 @@ final class Socket5Formatter extends CommonFormatter
 {
     public static function inputSetup(Input $input): Command
     {
-        return new Command(new CommandID(Socket5::SET_INPUT), $input);
+        return new Command(new CommandID(Socket5::SetInput->value), $input);
     }
 
     public static function getAllStatus(): Command
     {
-        return new Command(new CommandID(Socket5::GET_ALL_STATUS));
+        return new Command(new CommandID(Socket5::GetAllStatus->value));
     }
 
     public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(Socket5::GET_INPUT), $inputStatus);
+        return new Command(new CommandID(Socket5::GetInput->value), $inputStatus);
     }
 
     public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(Socket5::RELAY_ACTION), $relay);
+        return new Command(new CommandID(Socket5::RelayAction->value), $relay);
     }
 }

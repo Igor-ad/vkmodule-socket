@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket;
 
-use Autodoctor\ModuleSocket\Enums\Common;
 use Autodoctor\ModuleSocket\Enums\Socket1;
 use Autodoctor\ModuleSocket\Enums\Socket2;
 use Autodoctor\ModuleSocket\Enums\Socket3;
@@ -23,12 +22,12 @@ trait ValidateHandler
         $moduleType = $moduleType ?? Configurator::instance()->get('type');
 
         return match ($moduleType) {
-            Socket1::TYPE => $this->mergeWithCommonCmd(Socket1::COMMANDS),
-            Socket2::TYPE => $this->mergeWithCommonCmd(Socket2::COMMANDS),
-            Socket3::TYPE => $this->mergeWithCommonCmd(Socket3::COMMANDS),
-            Socket4::TYPE => $this->mergeWithCommonCmd(Socket4::COMMANDS),
-            Socket5::TYPE => $this->mergeWithCommonCmd(Socket5::COMMANDS),
-            SocketGiant::TYPE => $this->mergeWithCommonCmd(SocketGiant::COMMANDS),
+            Socket1::TYPE => Socket1::getModuleCommands(),
+            Socket2::TYPE => Socket2::getModuleCommands(),
+            Socket3::TYPE => Socket3::getModuleCommands(),
+            Socket4::TYPE => Socket4::getModuleCommands(),
+            Socket5::TYPE => Socket5::getModuleCommands(),
+            SocketGiant::TYPE => SocketGiant::getModuleCommands(),
             default => [],
         };
     }
@@ -36,38 +35,33 @@ trait ValidateHandler
     /**
      * @throws ConfiguratorException
      */
-    private function getInputRule(string $moduleType = null): array
+    private function resolveInput(int $inputNumber, string $moduleType = null): bool
     {
         $moduleType = $moduleType ?? Configurator::instance()->get('type');
 
         return match ($moduleType) {
-            Socket1::TYPE => Socket1::allowedInput(),
-            Socket2::TYPE => Socket2::allowedInput(),
-            Socket5::TYPE => Socket5::allowedInput(),
-            SocketGiant::TYPE => SocketGiant::allowedInput(),
-            default => [],
+            Socket1::TYPE => Socket1::resolveInput($inputNumber),
+            Socket2::TYPE => Socket2::resolveInput($inputNumber),
+            Socket5::TYPE => Socket5::resolveInput($inputNumber),
+            SocketGiant::TYPE => SocketGiant::resolveInput($inputNumber),
+            default => false,
         };
     }
 
     /**
      * @throws ConfiguratorException
      */
-    private function getRelayRule(string $moduleType = null): array
+    private function resolveRelay(int $relayNumber, string $moduleType = null): bool
     {
         $moduleType = $moduleType ?? Configurator::instance()->get('type');
 
         return match ($moduleType) {
-            Socket2::TYPE => Socket2::allowedRelay(),
-            Socket3::TYPE => Socket3::allowedRelay(),
-            Socket4::TYPE => Socket4::allowedRelay(),
-            Socket5::TYPE => Socket5::allowedRelay(),
-            SocketGiant::TYPE => SocketGiant::allowedRelay(),
-            default => [],
+            Socket2::TYPE => Socket2::resolveRelay($relayNumber),
+            Socket3::TYPE => Socket3::resolveRelay($relayNumber),
+            Socket4::TYPE => Socket4::resolveRelay($relayNumber),
+            Socket5::TYPE => Socket5::resolveRelay($relayNumber),
+            SocketGiant::TYPE => SocketGiant::resolveRelay($relayNumber),
+            default => false,
         };
-    }
-
-    private function mergeWithCommonCmd(array $moduleCommands): array
-    {
-        return array_merge(Common::COMMANDS, $moduleCommands);
     }
 }

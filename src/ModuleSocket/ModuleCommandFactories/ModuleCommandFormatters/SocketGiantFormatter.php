@@ -19,26 +19,26 @@ final class SocketGiantFormatter extends CommonFormatter
 {
     public static function relayGroupAction(RelayGroup $relayGroup): Command
     {
-        return new Command(new CommandID(SocketGiant::RELAY_GROUP_ACTION), $relayGroup);
+        return new Command(new CommandID(SocketGiant::RelayGroupAction->value), $relayGroup);
     }
 
     public static function getAllStatus(): Command
     {
-        return new Command(new CommandID(SocketGiant::GET_ALL_STATUS));
+        return new Command(new CommandID(SocketGiant::GetAllStatus->value));
     }
 
     public static function getInputStatus(InputStatus $inputStatus): Command
     {
-        return new Command(new CommandID(SocketGiant::GET_INPUT), $inputStatus);
+        return new Command(new CommandID(SocketGiant::GetInput->value), $inputStatus);
     }
 
     public static function setupInput(Input $input): Command
     {
-        return new Command(new CommandID(SocketGiant::SET_INPUT), $input);
+        return new Command(new CommandID(SocketGiant::SetInput->value), $input);
     }
 
     public static function relayAction(Relay $relay): Command
     {
-        return new Command(new CommandID(SocketGiant::RELAY_ACTION), $relay);
+        return new Command(new CommandID(SocketGiant::RelayAction->value), $relay);
     }
 }

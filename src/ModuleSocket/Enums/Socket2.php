@@ -21,34 +21,20 @@ namespace Autodoctor\ModuleSocket\Enums;
  * 'Operating Manual'. Applying voltage over 1.0 Volts is unacceptable and
  * may cause the module to fail.
  */
-enum Socket2
+enum Socket2: string implements Resolution
 {
-    public const TYPE = 'Socket-2';
-    public const SET_INPUT = Commands::SetInput->value;
-    public const GET_INPUT = Commands::GetInput->value;
-    public const RELAY_ACTION = Commands::RelayAction->value;
-    public const GET_ALL_STATUS = Commands::GetAllStatus->value;
-    public const GET_ANALOG_INPUT = Commands::GetAnalogInput->value;
-    public const COMMANDS = [
-        self::SET_INPUT,
-        self::GET_INPUT,
-        self::RELAY_ACTION,
-        self::GET_ALL_STATUS,
-        self::GET_ANALOG_INPUT,
-    ];
+    use Helper;
+
+    case SetInput = Commands::SetInput->value;
+    case GetInput = Commands::GetInput->value;
+    case RelayAction = Commands::RelayAction->value;
+    case GetAllStatus = Commands::GetAllStatus->value;
+    case GetAnalogInput = Commands::GetAnalogInput->value;
+
+    public const TYPE = ModuleTypes::Socket2->value;
     // rules
     public const INPUT_START_NUMBER = 0;
     public const INPUT_END_NUMBER = 1;
     public const RELAY_START_NUMBER = 0;
     public const RELAY_END_NUMBER = 1;
-
-    public static function allowedInput(): array
-    {
-        return [self::INPUT_START_NUMBER, self::INPUT_END_NUMBER];
-    }
-
-    public static function allowedRelay(): array
-    {
-        return [self::RELAY_START_NUMBER, self::RELAY_END_NUMBER];
-    }
 }

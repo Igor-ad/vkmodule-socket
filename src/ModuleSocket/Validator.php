@@ -6,15 +6,13 @@ namespace Autodoctor\ModuleSocket;
 
 use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Enums\Commands;
+use Autodoctor\ModuleSocket\Enums\ModuleTypes;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\Enums\Common;
 use Autodoctor\ModuleSocket\Enums\Socket1;
 use Autodoctor\ModuleSocket\Enums\Socket2;
 use Autodoctor\ModuleSocket\Enums\Socket3;
-use Autodoctor\ModuleSocket\Enums\Socket4;
-use Autodoctor\ModuleSocket\Enums\Socket5;
-use Autodoctor\ModuleSocket\Enums\SocketGiant;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Exceptions\UnknownCommandException;
@@ -23,20 +21,9 @@ class Validator
 {
     use ValidateHandler;
 
-    public const VALID_MODULE_TYPES = [
-        Socket1::TYPE,
-        Socket2::TYPE,
-        Socket3::TYPE,
-        Socket4::TYPE,
-        Socket5::TYPE,
-        SocketGiant::TYPE,
-    ];
-
     private static ?Validator $instance = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function instance(): static
     {
@@ -67,8 +54,8 @@ class Validator
     public function validateEventId(string $commandId, string $responseId): bool
     {
         return match ($responseId) {
-            Socket1::SET_INPUT,
-            Socket2::SET_INPUT,
+            Socket1::SetInput->value,
+            Socket2::SetInput->value,
             $commandId => true,
             Common::UNKNOWN => throw new UnknownCommandException(
                 'An unknown (not supported by this controller) command was received'
@@ -147,7 +134,7 @@ class Validator
      */
     public function validateInput(int $inputNumber, string $moduleType = null): int
     {
-        $validate = in_array($inputNumber, $this->getInputRule($moduleType));
+        $validate = $this->resolveInput($inputNumber, $moduleType);
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
@@ -176,7 +163,7 @@ class Validator
      */
     public function validateRelay(int $relayNumber, string $moduleType = null): int
     {
-        $validate = in_array($relayNumber, $this->getRelayRule($moduleType));
+        $validate = $this->resolveRelay($relayNumber, $moduleType);
 
         if ($validate === false) {
             throw new InvalidInputParameterException(
@@ -193,7 +180,7 @@ class Validator
     {
         if (
             !(filter_var($host, FILTER_VALIDATE_IP)
-            || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)
+                || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)
             )
         ) {
             throw new InvalidInputParameterException(
@@ -221,7 +208,7 @@ class Validator
      */
     public function validateType(string $type): string
     {
-        if (!in_array($type, self::VALID_MODULE_TYPES, true)) {
+        if (!ModuleTypes::validateType($type)) {
             throw new InvalidInputParameterException(
                 sprintf('Module type "%s" is not valid', $type)
             );

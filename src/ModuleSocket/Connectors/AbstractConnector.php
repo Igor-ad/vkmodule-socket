@@ -33,7 +33,7 @@ abstract class AbstractConnector implements Connector
         return $this->connector;
     }
 
-    public function finalize(): void
+    private function finalize(): void
     {
         if ($this->connector !== false) {
             stream_socket_shutdown($this->connector, STREAM_SHUT_RDWR);

@@ -17,8 +17,8 @@ class TcpTransceiver extends AbstractTransceiver
      */
     public function getStreamContent(): string
     {
-        if ($this->streamData === chr(hexdec(Common::REBOOT))) {
-            return Common::REBOOT;
+        if ($this->streamData === chr(hexdec(Common::Reboot->value))) {
+            return Common::Reboot->value;
         }
 
         $response = $this->read();

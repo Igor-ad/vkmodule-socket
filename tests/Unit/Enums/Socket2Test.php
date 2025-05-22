@@ -24,4 +24,28 @@ class Socket2Test extends TestCase
 
         $this->assertSame($expected, Socket2::allowedRelay());
     }
+
+    public function testGetModuleCommands(): void
+    {
+        $expected = ['01', '02', '03', '04', '20', '21', '22', '23', '24'];
+
+        $this->assertSame($expected, Socket2::getModuleCommands());
+    }
+
+    public function testCommands(): void
+    {
+        $expected = ['20', '21', '22', '23', '24'];
+
+        $this->assertSame($expected, Socket2::commands());
+    }
+
+    public function testResolveInputNumber(): void
+    {
+        $this->assertTrue(Socket2::resolveInput(Socket2::INPUT_END_NUMBER));
+    }
+
+    public function testResolveRelayNumber(): void
+    {
+        $this->assertTrue(Socket2::resolveRelay(Socket2::RELAY_END_NUMBER));
+    }
 }
