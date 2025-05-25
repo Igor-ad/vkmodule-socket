@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Connectors;
 
+use Autodoctor\ModuleSocket\Connectors\Clients\HttpConnector;
+use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 use Autodoctor\ModuleSocket\Connectors\ConnectorFactory;
-use Autodoctor\ModuleSocket\Connectors\HttpConnector;
-use Autodoctor\ModuleSocket\Connectors\TcpConnector;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(ConnectorFactory::class)]

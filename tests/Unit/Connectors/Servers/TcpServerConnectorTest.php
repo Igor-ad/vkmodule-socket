@@ -13,7 +13,7 @@ class TcpServerConnectorTest extends TestCase
 
     public function testSetConnector(): void
     {
-        $tcpServerConnector = new TcpServerConnector('localhost', 9761);
+        $tcpServerConnector = new TcpServerConnector('localhost', 9760, 1);
         $connector = $tcpServerConnector->getConnector();
 
         $this->assertIsResource($connector);

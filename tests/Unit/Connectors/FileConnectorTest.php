@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class FileConnectorTest extends TestCase
 {
-
     /**
      * @throws ModuleException
      */

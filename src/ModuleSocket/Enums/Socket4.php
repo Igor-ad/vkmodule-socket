@@ -16,11 +16,6 @@ enum Socket4: string implements Resolution
     public const RELAY_START_NUMBER = 0;
     public const RELAY_END_NUMBER = 7;
 
-    public static function allowedInput(): array
-    {
-        return [];
-    }
-
     public static function resolveInput(int $inputNumber): bool
     {
         return false;

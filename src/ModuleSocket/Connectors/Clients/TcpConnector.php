@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Autodoctor\ModuleSocket\Connectors;
+namespace Autodoctor\ModuleSocket\Connectors\Clients;
 
+use Autodoctor\ModuleSocket\Connectors\AbstractConnector;
 use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
 
 class TcpConnector extends AbstractConnector
 {
-    protected const CONNECT_TIMEOUT = 30;
+    protected const CONNECT_TIMEOUT = 5;
 
     /**
      * @throws ConnectorException
@@ -19,7 +20,7 @@ class TcpConnector extends AbstractConnector
             "tcp://$host:$port",
             $errorCode,
             $errorMessage,
-            $timeout
+            $timeout,
         );
 
         if ($this->connector === false) {

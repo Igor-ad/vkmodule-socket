@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Connectors;
 
+use Autodoctor\ModuleSocket\Connectors\Clients\HttpConnector;
+use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
+
 class ConnectorFactory
 {
     public static function connectInit(

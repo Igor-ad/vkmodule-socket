@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Connectors;
 
 use Autodoctor\ModuleSocket\Connectors\AbstractConnector;
+use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
-use Autodoctor\ModuleSocket\Connectors\TcpConnector;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(AbstractConnector::class)]

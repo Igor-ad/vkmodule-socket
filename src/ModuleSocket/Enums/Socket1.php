@@ -17,11 +17,6 @@ enum Socket1: string implements Resolution
     public const INPUT_START_NUMBER = 0;
     public const INPUT_END_NUMBER = 3;
 
-    public static function allowedRelay(): array
-    {
-        return [];
-    }
-
     public static function resolveRelay(int $relayNumber): bool
     {
         return false;

@@ -20,11 +20,6 @@ enum Socket3: string implements Resolution
     public const NEG_MIN_TEMPERATURE = 55;
     public const MAX_TEMPERATURE = 125;
 
-    public static function allowedInput(): array
-    {
-        return [];
-    }
-
     public static function resolveInput(int $inputNumber): bool
     {
         return false;

@@ -13,12 +13,7 @@ class ExceptionHandler implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    private bool $isCli;
-
-    public function __construct(bool $isCli)
-    {
-        $this->isCli = $isCli;
-    }
+    public function __construct(protected bool $isCli) {}
 
     public function register(): void
     {
@@ -71,7 +66,7 @@ class ExceptionHandler implements LoggerAwareInterface
         echo json_encode(
             [
                 'error' => $exception->getMessage(),
-                'code' => $exception->getCode() ?: 500
+                'code' => $exception->getCode() ?: $this->getHttpStatusCode($exception)
             ]
         );
     }

@@ -12,21 +12,33 @@ class TcpServerConnector extends AbstractConnector
     /**
      * @throws ConnectorException
      */
-    protected function setConnector(string $host, int $port = 9761, float $timeout = null): void
+    protected function setConnector(string $host, int $port = 9761, ?float $timeout = null): void
     {
         $this->connector = stream_socket_server(
             "tcp://$host:$port",
             $errorCode,
-            $errorMessage
+            $errorMessage,
         );
 
         if ($this->connector === false) {
             throw new ConnectorException(
                 'Cannot initialise TCP Server Socket Connector: '
                 . $errorMessage
-                . ' Error Code: '
+                . '. Error Code: '
                 . $errorCode
             );
+        }
+    }
+
+    public function listenMirrored($server, ?float $timeout = 5): void
+    {
+        while (true) {
+            $listener = stream_socket_accept($server, $timeout);
+            $inputStream = fread($listener, 32);
+            fwrite($listener, $inputStream);
+
+            stream_socket_shutdown($listener, STREAM_SHUT_RDWR);
+            fclose($listener);
         }
     }
 }

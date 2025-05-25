@@ -6,12 +6,12 @@ namespace Autodoctor\ModuleSocket\Enums;
 
 trait Helper
 {
-    public static function allowedInput(): array
+    private static function allowedInput(): array
     {
         return range(static::INPUT_START_NUMBER, static::INPUT_END_NUMBER);
     }
 
-    public static function allowedRelay(): array
+    private static function allowedRelay(): array
     {
         return range(static::RELAY_START_NUMBER, static::RELAY_END_NUMBER);
     }
@@ -26,7 +26,7 @@ trait Helper
         return in_array($relayNumber, static::allowedRelay(), true);
     }
 
-    public static function commands(): array
+    private static function commands(): array
     {
         return array_column(static::cases(), 'value');
     }

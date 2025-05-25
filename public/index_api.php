@@ -26,6 +26,6 @@ $queryString = getValue($_REQUEST, 'query');
 
 $controlCommand = Console::make(
     commandName: $command,
-    queryString: $queryString
+    queryString: $queryString,
 );
 echo $controlCommand->invoke();

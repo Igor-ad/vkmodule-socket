@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Autodoctor\ModuleSocket\Connectors;
+namespace Autodoctor\ModuleSocket\Connectors\Clients;
 
+use Autodoctor\ModuleSocket\Connectors\Connector;
 use GuzzleHttp\Client;
 
 class HttpConnector implements Connector

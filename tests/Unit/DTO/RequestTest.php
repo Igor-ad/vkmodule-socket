@@ -21,8 +21,10 @@ class RequestTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-        $command = Files::TcpServer->getPath() . " >/dev/null 2>&1 &";
+        $port = 9761;
+        $command = Files::TcpServer->getPath() . " '$port' >/dev/null 2>&1 &";
         exec($command);
+        usleep(300 * 1000);
     }
 
     protected function tearDown(): void

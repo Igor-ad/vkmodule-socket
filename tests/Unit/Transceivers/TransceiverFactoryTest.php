@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Transceivers;
 
-use Autodoctor\ModuleSocket\Connectors\HttpConnector;
+use Autodoctor\ModuleSocket\Connectors\Clients\HttpConnector;
 use Autodoctor\ModuleSocket\Transceivers\HttpTransceiver;
 use Autodoctor\ModuleSocket\Transceivers\TcpTransceiver;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;

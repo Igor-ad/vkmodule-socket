@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Transceivers;
 
+use Autodoctor\ModuleSocket\Connectors\Clients\HttpConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
-use Autodoctor\ModuleSocket\Connectors\HttpConnector;
 
 class TransceiverFactory
 {

@@ -19,6 +19,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $logger = new Logger(Files::CliLogFile->getPath());
 
 $handler = new ExceptionHandler(true);
+
 $handler->setLogger($logger);
 $handler->register();
 
