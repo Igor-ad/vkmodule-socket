@@ -8,8 +8,6 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 
 class Configurator
 {
-    public const CONFIG_FILE = __DIR__ . '/../../config/vk_module.php';
-
     private static ?Configurator $instance = null;
     private array $config = [];
 
@@ -24,7 +22,7 @@ class Configurator
     /**
      * @throws ConfiguratorException
      */
-    public static function instance(string $configFile = self::CONFIG_FILE): self
+    public static function instance(string $configFile): self
     {
         self::$instance = self::$instance ?? new self($configFile);
 

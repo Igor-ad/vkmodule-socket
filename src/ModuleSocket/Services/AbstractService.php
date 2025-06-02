@@ -27,6 +27,7 @@ abstract class AbstractService implements LoggerAwareInterface, Service
     {
         return function () use ($command) {
             $this->transceiver->setStreamData($command->toStream());
+            $this->transceiver->write($this->transceiver->getStreamData());
             $response = Response::getDto($this->transceiver->getStreamContent());
             $response->success = $this->isSuccess($command, $response);
 

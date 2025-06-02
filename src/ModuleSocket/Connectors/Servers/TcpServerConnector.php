@@ -30,15 +30,34 @@ class TcpServerConnector extends AbstractConnector
         }
     }
 
-    public function listenMirrored($server, ?float $timeout = 5): void
+    public function listenMirrored($server, ?float $timeout = 5, ?string $outputStream = null): void
     {
         while (true) {
-            $listener = stream_socket_accept($server, $timeout);
+            $listener = stream_socket_accept($server, $timeout ??= $this->timeout);
             $inputStream = fread($listener, 32);
-            fwrite($listener, $inputStream);
+            $outputStream ??= $inputStream;
+            fwrite($listener, $outputStream);
 
             stream_socket_shutdown($listener, STREAM_SHUT_RDWR);
             fclose($listener);
         }
+    }
+
+    public function listenOnce($server, ?float $timeout = 5, ?string $outputStream = null): void
+    {
+        if (!is_resource($server)) {
+            throw new \InvalidArgumentException('Invalid server socket.' . PHP_EOL);
+        }
+
+        $listener = stream_socket_accept($server, $timeout);
+        if ($listener === false) {
+            throw new \RuntimeException('Failed to accept connection.' . PHP_EOL);
+        }
+
+        $inputStream = fread($listener, 32);
+        $outputStream ??= $inputStream;
+        fwrite($listener, $outputStream);
+        stream_socket_shutdown($listener, STREAM_SHUT_RDWR);
+        fclose($listener);
     }
 }

@@ -7,12 +7,12 @@ namespace Tests\Unit\Transceivers;
 use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Connectors\FileConnector;
-use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\Transceivers\TcpTransceiver;
 use Autodoctor\ModuleSocket\Transceivers\Transceiver;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
+use Tests\LocalSocketServerInit;
 
 #[CoversNothing]
 class TransceiverInit extends TestCase
@@ -26,7 +26,7 @@ class TransceiverInit extends TestCase
      * @throws ModuleException
      * FileConnector is used
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
         $this->fileName = tempnam('/tmp', '_');
         chmod($this->fileName, 0755);
@@ -37,15 +37,13 @@ class TransceiverInit extends TestCase
     /**
      * @return void
      * TcpConnector is used
+     * class TransceiverInit extends LocalSocketServerInit
      */
     public function setUp_Tcp(): void
     {
-        $port = 9761;
-        $command = Files::TcpServer->getPath() . " '$port' >/dev/null 2>&1 &";
-        exec($command);
-        usleep(300 * 1000);
+        parent::setUp();
 
-        $this->connectorStub = new TcpConnector('localhost', $port, 5);
+        $this->connectorStub = new TcpConnector('localhost', $this->port, 5);
         $this->transceiver = new TcpTransceiver($this->connectorStub);
     }
 

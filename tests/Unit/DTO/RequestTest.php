@@ -6,7 +6,6 @@ namespace Tests\Unit\DTO;
 
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;
-use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
@@ -14,24 +13,11 @@ use Autodoctor\ModuleSocket\ValueObjects\Module;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
+use Tests\LocalSocketServerInit;
 
 #[CoversClass(Request::class)]
-class RequestTest extends TestCase
+class RequestTest extends LocalSocketServerInit
 {
-    public static function setUpBeforeClass(): void
-    {
-        $port = 9761;
-        $command = Files::TcpServer->getPath() . " '$port' >/dev/null 2>&1 &";
-        exec($command);
-        usleep(300 * 1000);
-    }
-
-    protected function tearDown(): void
-    {
-        gc_collect_cycles();
-    }
-
     public static function requestDataProvider(): array
     {
         return [

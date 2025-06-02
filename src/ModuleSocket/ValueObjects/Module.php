@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\ValueObjects;
 
 use Autodoctor\ModuleSocket\Configurator;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Validator;
 
@@ -28,17 +29,17 @@ final readonly class Module
 
     private function setHost(?string $host): string
     {
-        return $host ?? Configurator::instance()->get('host');
+        return $host ?? Configurator::instance(Files::ConfigFile->getPath())->get('host');
     }
 
     private function setPort(?int $port): int
     {
-        return $port ?? Configurator::instance()->get('port') ?? self::DEFAULT_PORT;
+        return $port ?? Configurator::instance(Files::ConfigFile->getPath())->get('port') ?? self::DEFAULT_PORT;
     }
 
     private function setType(?string $type): string
     {
-        return $type ?? Configurator::instance()->get('type');
+        return $type ?? Configurator::instance(Files::ConfigFile->getPath())->get('type');
     }
 
     public function isEqual(Module $anotherModule): bool

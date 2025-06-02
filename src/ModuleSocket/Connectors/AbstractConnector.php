@@ -6,27 +6,21 @@ namespace Autodoctor\ModuleSocket\Connectors;
 
 abstract class AbstractConnector implements Connector
 {
-    protected const CONNECT_TIMEOUT = 10;
+    protected const CONNECT_TIMEOUT = 2;
 
     /**
      * @var false|resource $connector
      */
     protected $connector;
+    protected float $timeout;
 
     public function __construct(string $host, int $port = 9761, ?float $timeout = null)
     {
-        $timeout ??= $this->getTimeout();
-        $this->setConnector($host, $port, $timeout);
+        $this->timeout = $timeout ?? static::CONNECT_TIMEOUT;
+        $this->setConnector($host, $port, $this->timeout);
     }
 
     abstract protected function setConnector(string $host, int $port = 9761, ?float $timeout = null): void;
-
-    protected function getTimeout(): float
-    {
-        $timeout = ini_get('default_socket_timeout') ?: static::CONNECT_TIMEOUT;
-
-        return (float)$timeout;
-    }
 
     public function getConnector()
     {

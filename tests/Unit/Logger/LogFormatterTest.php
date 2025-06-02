@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Logger;
 
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Logger\Logger;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,7 @@ class LogFormatterTest extends TestCase
 {
     public function testGetExceptionContext(): void
     {
-        $testLogFile = __DIR__ . '/../../log/socket_test.log';
+        $testLogFile = Files::TestCliLogFile->getPath();
         $logger = new Logger($testLogFile);
         $e = new \Exception();
         $context = $logger->getExceptionContext($e);

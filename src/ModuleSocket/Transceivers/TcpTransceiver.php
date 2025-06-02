@@ -9,8 +9,8 @@ use Autodoctor\ModuleSocket\Exceptions\TransmitException;
 
 class TcpTransceiver extends AbstractTransceiver
 {
-    public const ATTEMPT = 5;
-    public const SLEEP_INTERVAL = 5;
+    public const ATTEMPT = 3;
+    public const SLEEP_INTERVAL = 2;
 
     /**
      * @throws TransmitException

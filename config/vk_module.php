@@ -1,6 +1,7 @@
 <?php
 
 return [
+//    'host' => 'localhost',
     'host' => '192.168.4.191',
     'port' => 9761,
 //    'type' => 'Socket-1',
@@ -10,5 +11,4 @@ return [
 //    'type' => 'Socket-5',
 //    'type' => 'Socket-Giant',
     'connector' => 'TCP',
-    'log_file' => '/log/socket_module.log',
 ];

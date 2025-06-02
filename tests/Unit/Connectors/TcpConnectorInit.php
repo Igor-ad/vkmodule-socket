@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Connectors;
 
+use Autodoctor\ModuleSocket\Configurator;
 use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Enums\Files;
-use PHPUnit\Framework\TestCase;
+use Tests\LocalSocketServerInit;
 
-class TcpConnectorInit extends TestCase
+class TcpConnectorInit extends LocalSocketServerInit
 {
     protected Connector $connectorObject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
-        $port = 9761;
-        $command = Files::TcpServer->getPath() . " '$port' >/dev/null 2>&1 &";
-        exec($command);
-        usleep(300 * 1000);
+        parent::setUp();
+        $host = Configurator::instance(Files::TestConfigFile->getPath())->get('host');
+        $port = Configurator::instance(Files::TestConfigFile->getPath())->get('port');
+        $timeout = Configurator::instance(Files::TestConfigFile->getPath())->get('timeout');
 
-        @$this->connectorObject = new TcpConnector('localhost', 9761, 5);
+        @$this->connectorObject = new TcpConnector($host, $port, $timeout);
     }
 }

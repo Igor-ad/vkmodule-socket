@@ -43,7 +43,7 @@ class Response
             'success' => $this->success,
             'event' => [
                 'id' => $this->id,
-                'description' => toPascalCase(Commands::description($this->id)),
+                'description' => Commands::description($this->id),
                 'data' => $this->data ?: null,
             ],
         ];

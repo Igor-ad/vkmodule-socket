@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Autodoctor\ModuleSocket\Configurator;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -16,7 +17,14 @@ use ReflectionMethod;
 class ConfiguratorTest extends TestCase
 {
     protected array $config;
-    protected string $testConfigFile = __DIR__ . '/../config/test_config.php';
+    protected string $testConfigFile;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->testConfigFile = Files::TestConfigFile->getPath();
+    }
 
     public function test__construct(): void
     {

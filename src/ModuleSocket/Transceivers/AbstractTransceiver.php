@@ -21,6 +21,11 @@ abstract class AbstractTransceiver implements Transceiver
 
     abstract public function getStreamContent(): string;
 
+    public function getStreamData(): string
+    {
+        return $this->streamData;
+    }
+
     public function setStreamData(string $streamData): void
     {
         $this->streamData = $streamData;

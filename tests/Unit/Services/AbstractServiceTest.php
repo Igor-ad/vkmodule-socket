@@ -27,6 +27,8 @@ class AbstractServiceTest extends TransceiverInit
             ->onlyMethods(['getResponse'])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->response = new Response('01');
+        $this->command = new Command(new CommandID('01'));
     }
 
     public function test__construct(): void
@@ -36,9 +38,6 @@ class AbstractServiceTest extends TransceiverInit
 
     public function testGetResponse(): void
     {
-        $this->response = new Response('01');
-        $this->command = new Command(new CommandID('01'));
-
         $this->service->expects($this->once())
             ->method('getResponse')
             ->with($this->command)

@@ -8,6 +8,8 @@ use Autodoctor\ModuleSocket\DTO\Response;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
+ * {"command":{"data":{"relayGroup":{"relayGroupAction":"aaaa"}}}}
+ *
  * Data:
  *      0 Byte Relay 15...8 Control
  *          x000 0000 Relay #15 Control Bit: 0–Off; 1–On;

@@ -9,8 +9,6 @@ use Autodoctor\ModuleSocket\Exceptions\ConnectorException;
 
 class TcpConnector extends AbstractConnector
 {
-    protected const CONNECT_TIMEOUT = 5;
-
     /**
      * @throws ConnectorException
      */
@@ -20,7 +18,7 @@ class TcpConnector extends AbstractConnector
             "tcp://$host:$port",
             $errorCode,
             $errorMessage,
-            $timeout,
+            $this->timeout,
         );
 
         if ($this->connector === false) {

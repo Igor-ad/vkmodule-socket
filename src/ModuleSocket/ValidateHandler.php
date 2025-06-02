@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket;
 
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Enums\Socket1;
 use Autodoctor\ModuleSocket\Enums\Socket2;
 use Autodoctor\ModuleSocket\Enums\Socket3;
@@ -19,7 +20,7 @@ trait ValidateHandler
      */
     private function getCommandIdRule(string $moduleType = null): array
     {
-        $moduleType = $moduleType ?? Configurator::instance()->get('type');
+        $moduleType = $moduleType ?? Configurator::instance(Files::ConfigFile->getPath())->get('type');
 
         return match ($moduleType) {
             Socket1::TYPE => Socket1::getModuleCommands(),
@@ -37,7 +38,7 @@ trait ValidateHandler
      */
     private function resolveInput(int $inputNumber, string $moduleType = null): bool
     {
-        $moduleType = $moduleType ?? Configurator::instance()->get('type');
+        $moduleType = $moduleType ?? Configurator::instance(Files::ConfigFile->getPath())->get('type');
 
         return match ($moduleType) {
             Socket1::TYPE => Socket1::resolveInput($inputNumber),
@@ -53,7 +54,7 @@ trait ValidateHandler
      */
     private function resolveRelay(int $relayNumber, string $moduleType = null): bool
     {
-        $moduleType = $moduleType ?? Configurator::instance()->get('type');
+        $moduleType = $moduleType ?? Configurator::instance(Files::ConfigFile->getPath())->get('type');
 
         return match ($moduleType) {
             Socket2::TYPE => Socket2::resolveRelay($relayNumber),
