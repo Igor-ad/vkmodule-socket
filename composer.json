@@ -21,11 +21,7 @@
             "Autodoctor\\ModuleSocket\\": "src/ModuleSocket"
         },
         "files": [
-            "src/helpers.php",
-            "config/vk_module.php",
-            "console/cli.php",
-            "console/server.php",
-            "public/index_api.php"
+            "src/helpers.php"
         ]
     },
     "autoload-dev": {
