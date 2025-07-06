@@ -8,7 +8,7 @@ use Autodoctor\ModuleSocket\Enums\Files;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Feature\ProxyLocalSocketServerInit;
 
-abstract class AbstractCommand extends ProxyLocalSocketServerInit
+abstract class BaseCommandTestCase extends ProxyLocalSocketServerInit
 {
     abstract public static function commandDataProvider(): array;
 
@@ -31,6 +31,15 @@ abstract class AbstractCommand extends ProxyLocalSocketServerInit
         string $outgoingStream,
         string $expectedString,
     ): void {
+        $this->baseTestCommand($command, $queryString, $outgoingStream, $expectedString);
+    }
+
+    public function baseTestCommand(
+        string $command,
+        string $queryString,
+        string $outgoingStream,
+        string $expectedString,
+    ): void {
         $cli = Files::CliFile->getPath() . " '" . $command . "' '" . $queryString . "'";
         $output = [];
         $returnVar = 1;
@@ -43,5 +52,20 @@ abstract class AbstractCommand extends ProxyLocalSocketServerInit
 
         $this->assertEquals(0, $returnVar);
         $this->assertTrue(str_contains($actualString, $expectedString));
+    }
+
+    public function baseExceptionTestCommand(
+        string $command,
+        string $queryString,
+        string $outgoingStream,
+    ): void {
+        $cli = Files::CliFile->getPath() . " '" . $command . "' '" . $queryString . "'";
+        $output = [];
+        $returnVar = 0;
+
+        $this->proxyServerInit($this->setOutgoingStream($outgoingStream));
+        exec($cli, $output, $returnVar);
+
+        $this->assertEquals(1, $returnVar);
     }
 }

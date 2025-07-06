@@ -7,13 +7,15 @@ namespace Autodoctor\ModuleSocket\Console;
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\DTO\RequestDto;
 use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
+use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Logger\Logger;
+use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\AbstractCommandDataFactory;
 use Autodoctor\ModuleSocket\Services\CliService;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;
-use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\AbstractCommandDataFactory;
 use Autodoctor\ModuleSocket\Validator;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\CommandData;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
@@ -25,12 +27,18 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
     public const START_MSG = 'Start';
     public const END_MSG = 'End';
 
-    protected Request $requestDto;
+    protected Request $request;
+    protected RequestDto $requestDto;
     protected string $controllerMethod;
 
-    public function execute(?string $queryString = ''): int|string
+    /**
+     * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
+     * @throws InvalidRequestCommandException
+     */
+    public function execute(?string $queryString = ''): void
     {
-        return $this->handle($queryString);
+        $this->handle($queryString);
     }
 
     protected function controlClosure(?Logger $logger): \Closure
@@ -44,10 +52,16 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
         };
     }
 
-    public function handle(?string $queryString): int|string
+    /**
+     * @throws InvalidInputParameterException
+     * @throws ConfiguratorException
+     * @throws InvalidRequestCommandException
+     */
+    public function handle(?string $queryString): mixed
     {
         $logger = $this->loggerInit();
-        $this->requestDto = new Request($queryString);
+        $this->request = new Request($queryString);
+        $this->requestDto = RequestDto::fromRequest($this->request);
 
         $logger->info(self::START_MSG);
         $logger->info($this->requestDto->module->toJson());
@@ -85,8 +99,8 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
     protected function getModuleCommandData(): ?CommandData
     {
         $commandData = AbstractCommandDataFactory::getDataFactory(
-            getValue($this->requestDto->request, 'command.data'),
-            getValue($this->requestDto->request, 'command.id')
+            getValue($this->request->request, 'command.data'),
+            getValue($this->request->request, 'command.id')
         )->make();
 
         if (!is_null($commandData)) {
@@ -107,7 +121,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      */
     protected function getValidInputNumber(): int
     {
-        $inputNumber = getValue($this->requestDto->request, 'command.data.input.inputNumber');
+        $inputNumber = getValue($this->request->request, 'command.data.input.inputNumber');
 
         return Validator::instance()->validateInput($inputNumber, $this->requestDto->module->type);
     }
@@ -118,7 +132,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      */
     protected function getValidRelayNumber(): int
     {
-        $relayNumber = getValue($this->requestDto->request, 'command.data.relay.relayNumber');
+        $relayNumber = getValue($this->request->request, 'command.data.relay.relayNumber');
 
         return Validator::instance()->validateRelay($relayNumber, $this->requestDto->module->type);
     }

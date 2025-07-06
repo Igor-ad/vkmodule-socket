@@ -19,7 +19,7 @@ class CliFullControl extends AbstractConsoleCommand
     protected function controlClosure(?Logger $logger): \Closure
     {
         return function () use ($logger) {
-            $this->controllerMethod = $this->resolve($this->requestDto->command->ID->id);
+            $this->controllerMethod = $this->resolve($this->requestDto->command->ID?->id);
 
             $transceiver = TransceiverFactory::transceiverInit($this->requestDto->connector);
             $service = new CliService($transceiver);

@@ -18,24 +18,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(CommandFactory::class)]
 class CommandFactoryTest extends TestCase
 {
-    public function test__construct(): void
-    {
-        $factory = new CommandFactory([]);
-
-        $this->assertInstanceOf(CommandFactory::class, $factory);
-    }
-
-    public function testInstance(): void
-    {
-        $factory = CommandFactory::instance([]);
-
-        $this->assertInstanceOf(CommandFactory::class, $factory);
-    }
-
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function testMake(): void
+    public function testMakeId_01(): void
     {
         $request = [
             'command' => [
@@ -47,7 +30,10 @@ class CommandFactoryTest extends TestCase
                 ],
             ]
         ];
-        $command = CommandFactory::instance($request)->make();
+        $command = CommandFactory::make(
+            getValue($request, 'command.id'),
+            getValue($request, 'command.data')
+        );
         $anotherCommand = new Command(
             new CommandID(getValue($request, 'command.id')),
             new InputStatus(
@@ -56,7 +42,13 @@ class CommandFactoryTest extends TestCase
         );
 
         $this->assertTrue($command->isEqual($anotherCommand));
+    }
 
+    /**
+     * @throws InvalidInputParameterException
+     */
+    public function testMakeId_20(): void
+    {
         $request = [
             'command' => [
                 'id' => '20',
@@ -69,7 +61,10 @@ class CommandFactoryTest extends TestCase
                 ],
             ]
         ];
-        $command = CommandFactory::instance($request)->make();
+        $command = CommandFactory::make(
+            getValue($request, 'command.id'),
+            getValue($request, 'command.data')
+        );
         $anotherCommand = new Command(
             new CommandID(getValue($request, 'command.id')),
             new Input(
@@ -81,6 +76,13 @@ class CommandFactoryTest extends TestCase
 
         $this->assertTrue($command->isEqual($anotherCommand));
 
+    }
+
+    /**
+     * @throws InvalidInputParameterException
+     */
+    public function testMakeId_43(): void
+    {
         $request = [
             'command' => [
                 'id' => '43',
@@ -93,7 +95,10 @@ class CommandFactoryTest extends TestCase
                 ],
             ]
         ];
-        $command = CommandFactory::instance($request)->make();
+        $command = CommandFactory::make(
+            getValue($request, 'command.id'),
+            getValue($request, 'command.data')
+        );
         $anotherCommand = new Command(
             new CommandID(getValue($request, 'command.id')),
             new Relay(
@@ -104,7 +109,13 @@ class CommandFactoryTest extends TestCase
         );
 
         $this->assertTrue($command->isEqual($anotherCommand));
+    }
 
+    /**
+     * @throws InvalidInputParameterException
+     */
+    public function testMakeId_25(): void
+    {
         $request = [
             'command' => [
                 'id' => '25',
@@ -115,7 +126,10 @@ class CommandFactoryTest extends TestCase
                 ],
             ]
         ];
-        $command = CommandFactory::instance($request)->make();
+        $command = CommandFactory::make(
+            getValue($request, 'command.id'),
+            getValue($request, 'command.data')
+        );
         $anotherCommand = new Command(
             new CommandID(getValue($request, 'command.id')),
             new RelayGroup(

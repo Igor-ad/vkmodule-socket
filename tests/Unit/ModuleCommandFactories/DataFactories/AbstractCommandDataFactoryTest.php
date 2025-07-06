@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ModuleCommandFactories\DataFactories;
 
+use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\AbstractCommandDataFactory;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\InputSetupDataFactory;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\InputStatusDataFactory;
@@ -23,7 +24,7 @@ class AbstractCommandDataFactoryTest extends TestCase
         $this->assertInstanceOf(NullCommandDataFactory::class, $factory);
     }
 
-    public function testGetDataFactory()
+    public function testGetInputSetupDataFactory()
     {
         $commandData = [
             'input' => [
@@ -35,7 +36,10 @@ class AbstractCommandDataFactoryTest extends TestCase
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
 
         $this->assertInstanceOf(InputSetupDataFactory::class, $factory);
+    }
 
+    public function testGetRelayDataFactory()
+    {
         $commandData = [
             'relay' => [
                 'relayNumber' => 0,
@@ -46,16 +50,22 @@ class AbstractCommandDataFactoryTest extends TestCase
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
 
         $this->assertInstanceOf(RelayControlDataFactory::class, $factory);
+    }
 
+    public function testGetInputStatusDataFactory()
+    {
         $commandData = [
             'input' => [
                 'inputNumber' => 0,
             ]
         ];
-        $factory = AbstractCommandDataFactory::getDataFactory($commandData, '21');
+        $factory = AbstractCommandDataFactory::getDataFactory($commandData, Commands::GetInput->value);
 
         $this->assertInstanceOf(InputStatusDataFactory::class, $factory);
+    }
 
+    public function testGetRelayGroupControlDataFactory()
+    {
         $commandData = [
             'relayGroup' => [
                 'relayGroupAction' => 'ffff',
@@ -64,7 +74,10 @@ class AbstractCommandDataFactoryTest extends TestCase
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
 
         $this->assertInstanceOf(RelayGroupControlDataFactory::class, $factory);
+    }
 
+    public function testGetNullCommandDataFactory()
+    {
         $commandData = null;
         $factory = AbstractCommandDataFactory::getDataFactory($commandData, null);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Console;
 
-class SocketGiantCommandTest extends AbstractCommand
+class SocketGiantCommandTest extends BaseCommandTestCase
 {
     public static function commandDataProvider(): array
     {

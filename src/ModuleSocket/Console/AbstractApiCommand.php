@@ -6,6 +6,7 @@ namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\DTO\Request;
+use Autodoctor\ModuleSocket\DTO\RequestDto;
 use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
@@ -33,8 +34,7 @@ abstract class AbstractApiCommand extends AbstractConsoleCommand
      */
     public function handle(?string $queryString): int|string
     {
-        $this->requestDto = new Request($queryString);
-
+        $this->requestDto = RequestDto::fromRequest(new Request($queryString));
         $closure = $this->controlClosure(null);
         $controller = $closure();
 

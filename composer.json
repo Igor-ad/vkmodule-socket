@@ -5,6 +5,12 @@
     "homepage": "https://github.com/Igor-ad/vkmodule-socket",
     "keywords": ["vkmodule", "smart-home", "remote-control", "php-driver", "library", "Client"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor",
+            "email": "igor@autodoctor.od.ua"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "psr/log": "^3.0",
@@ -15,7 +21,11 @@
             "Autodoctor\\ModuleSocket\\": "src/ModuleSocket"
         },
         "files": [
-            "src/helpers.php"
+            "src/helpers.php",
+            "config/vk_module.php",
+            "console/cli.php",
+            "console/server.php",
+            "public/index_api.php"
         ]
     },
     "autoload-dev": {
@@ -23,7 +33,10 @@
             "Tests\\": "tests/",
             "Tests\\Unit\\": "tests/Unit",
             "Tests\\Feature\\": "tests/Feature"
-        }
+        },
+        "files": [
+            "console/test_server.php"
+        ]
     },
     "require-dev": {
         "phpunit/phpunit": "^11"

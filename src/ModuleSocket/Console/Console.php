@@ -19,11 +19,10 @@ class Console
         $this->setCommand($commandClassName);
     }
 
-    public function invoke(): int|string
+    public function invoke(): void
     {
-        return $this->command->execute($this->queryString);
+        $this->command->execute($this->queryString);
     }
-
 
     /**
      * @throws ClassNotFoundException
