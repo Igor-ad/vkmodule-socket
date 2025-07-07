@@ -6,6 +6,7 @@ namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
+use Autodoctor\ModuleSocket\DTO\CommandIdResolver;
 use Autodoctor\ModuleSocket\DTO\Request;
 use Autodoctor\ModuleSocket\DTO\RequestDto;
 use Autodoctor\ModuleSocket\Enums\Files;
@@ -13,14 +14,9 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Logger\Logger;
-use Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories\AbstractCommandDataFactory;
 use Autodoctor\ModuleSocket\Services\CliService;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;
 use Autodoctor\ModuleSocket\Validator;
-use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\CommandData;
-use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
-use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
-use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
 abstract class AbstractConsoleCommand implements ConsoleCommand
 {
@@ -36,9 +32,9 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
-    public function execute(?string $queryString = ''): void
+    public function execute(string $commandName, ?string $queryString = ''): void
     {
-        $this->handle($queryString);
+        $this->handle($commandName, $queryString);
     }
 
     protected function controlClosure(?Logger $logger): \Closure
@@ -57,10 +53,10 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
-    public function handle(?string $queryString): mixed
+    public function handle(string $commandName, ?string $queryString): mixed
     {
         $logger = $this->loggerInit();
-        $this->request = new Request($queryString);
+        $this->request = new Request($commandName, $queryString);
         $this->requestDto = RequestDto::fromRequest($this->request);
 
         $logger->info(self::START_MSG);
@@ -87,7 +83,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      */
     protected function run(ControllerInterface $controller): string
     {
-        $commandData = $this->getModuleCommandData();
+        $commandData = $this->requestDto->command->commandData;
 
         return $controller->{$this->controllerMethod}($commandData);
     }
@@ -96,32 +92,9 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      * @throws InvalidInputParameterException
      * @throws ConfiguratorException
      */
-    protected function getModuleCommandData(): ?CommandData
-    {
-        $commandData = AbstractCommandDataFactory::getDataFactory(
-            getValue($this->request->request, 'command.data'),
-            getValue($this->request->request, 'command.id')
-        )->make();
-
-        if (!is_null($commandData)) {
-            if ($commandData::class === Relay::class) {
-                $this->getValidRelayNumber();
-            }
-
-            if ($commandData::class === Input::class || $commandData::class === InputStatus::class) {
-                $this->getValidInputNumber();
-            }
-        }
-        return $commandData;
-    }
-
-    /**
-     * @throws InvalidInputParameterException
-     * @throws ConfiguratorException
-     */
     protected function getValidInputNumber(): int
     {
-        $inputNumber = getValue($this->request->request, 'command.data.input.inputNumber');
+        $inputNumber = getValue($this->requestDto->command->commandData->toArray(), 'input.inputNumber');
 
         return Validator::instance()->validateInput($inputNumber, $this->requestDto->module->type);
     }
@@ -132,7 +105,7 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      */
     protected function getValidRelayNumber(): int
     {
-        $relayNumber = getValue($this->request->request, 'command.data.relay.relayNumber');
+        $relayNumber = getValue($this->requestDto->command->commandData->toArray(), 'relay.relayNumber');
 
         return Validator::instance()->validateRelay($relayNumber, $this->requestDto->module->type);
     }

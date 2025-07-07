@@ -13,7 +13,10 @@ class Console
     /**
      * @throws ClassNotFoundException
      */
-    public function __construct(string $commandName, protected ?string $queryString = '')
+    public function __construct(
+        protected string $commandName,
+        protected ?string $queryString,
+    )
     {
         $commandClassName = toPascalCase($commandName);
         $this->setCommand($commandClassName);
@@ -21,7 +24,7 @@ class Console
 
     public function invoke(): void
     {
-        $this->command->execute($this->queryString);
+        $this->command->execute($this->commandName, $this->queryString);
     }
 
     /**

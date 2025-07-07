@@ -32,9 +32,9 @@ abstract class AbstractApiCommand extends AbstractConsoleCommand
      * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
      */
-    public function handle(?string $queryString): int|string
+    public function handle(string $commandName, ?string $queryString): int|string
     {
-        $this->requestDto = RequestDto::fromRequest(new Request($queryString));
+        $this->requestDto = RequestDto::fromRequest(new Request($commandName, $queryString));
         $closure = $this->controlClosure(null);
         $controller = $closure();
 

@@ -6,5 +6,5 @@ namespace Autodoctor\ModuleSocket\Console;
 
 interface ConsoleCommand
 {
-    public function execute(?string $queryString): void;
+    public function execute(string $commandName, ?string $queryString): void;
 }

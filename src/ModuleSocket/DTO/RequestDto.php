@@ -29,11 +29,13 @@ readonly class RequestDto
     public static function fromRequest(Request $request): RequestDto
     {
         $module = $request->makeModule($request->request);
+        $moduleCommandId = $request->resolveNameToCommandId($request->commandName, $module->type)
+            ?? getValue($request->request, 'command.id');
 
         return new self(
             command: $request->makeCommand(
                 $module->type,
-                getValue($request->request, 'command.id'),
+                $moduleCommandId,
                 getValue($request->request, 'command.data'),
             ),
             connector: ConnectorFactory::connectInit(

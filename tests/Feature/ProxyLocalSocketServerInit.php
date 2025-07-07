@@ -12,8 +12,6 @@ class ProxyLocalSocketServerInit extends TestCase
 {
     public function proxyServerInit(string $outgoingStream): void
     {
-//        parent::setUpBeforeClass();
-
         $port = Configurator::instance(Files::TestConfigFile->getPath())->get('port');
         $timeout = Configurator::instance(Files::TestConfigFile->getPath())->get('timeout');
         // base64_encode() - the hack to overcome passing null bytes as an argument
@@ -24,7 +22,7 @@ class ProxyLocalSocketServerInit extends TestCase
         if ($resource === false) {
             $serverCmd = Files::TestTcpServer->getPath() . " '$port' '$timeout' '$encodeOutgoingStream' >/dev/null 2>&1 &";
             exec($serverCmd);
-            usleep(400 * 1000);
+            usleep(150 * 1000);
         }
     }
 }

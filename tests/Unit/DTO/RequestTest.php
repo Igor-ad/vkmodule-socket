@@ -20,27 +20,33 @@ class RequestTest extends TestCase
     public static function requestDataProviderOfModule(): array
     {
         return array_merge(
-            [['{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}']],
-            self::requestDataProvider()
+            [[
+                'command' => 'reboot',
+                'queryString' => '{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}',
+            ]],
+            self::requestDataProvider(),
         );
     }
 
     #[DataProvider('requestDataProviderOfModule')]
-    public function test__construct(string $queryString): void
+    public function test__construct(string $command, string $queryString): void
     {
-        $request = new Request($queryString);
+        $request = new Request($command, $queryString);
 
         $this->assertInstanceOf(Request::class, $request);
     }
 
     #[DataProvider('requestDataProvider')]
-    public function testMakeCommand(string $queryString): void
+    public function testMakeCommand(string $command, string $queryString): void
     {
-        $request = new Request($queryString);
+        $request = new Request($command, $queryString);
+        $module = $request->makeModule($request->request);
+        $moduleCommandId = $request->resolveNameToCommandId($request->commandName, $module->type)
+            ?? getValue($request->request, 'command.id');
 
         $this->assertInstanceOf(Command::class, $request->makeCommand(
-            getValue($request->request, 'module.type'),
-            getValue($request->request, 'command.id'),
+            $module->type,
+            $moduleCommandId,
             getValue($request->request, 'command.data'),
         ));
     }
@@ -49,9 +55,9 @@ class RequestTest extends TestCase
      * @throws InvalidInputParameterException
      */
     #[DataProvider('requestDataProviderOfModule')]
-    public function testMakeModule(string $queryString): void
+    public function testMakeModule(string $command, string $queryString): void
     {
-        $request = new Request($queryString);
+        $request = new Request($command, $queryString);
 
         $this->assertInstanceOf(Module::class, $request->makeModule($request->request));
     }

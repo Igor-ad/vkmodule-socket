@@ -42,9 +42,9 @@ class RequestDtoTest extends LocalSocketServerInit
      * @throws InvalidRequestCommandException
      */
     #[DataProvider('requestDataProvider')]
-    public function testFromRequest(string $queryString): void
+    public function testFromRequest(string $command, string $queryString): void
     {
-        $request = new Request($queryString);
+        $request = new Request($command, $queryString);
 
         $this->assertInstanceOf(RequestDto::class, RequestDto::fromRequest($request));
     }

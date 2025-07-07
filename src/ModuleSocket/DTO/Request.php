@@ -14,10 +14,13 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 
 readonly class Request
 {
+    use CommandIdResolver;
+
     public array $request;
 
     public function __construct(
-        ?string $queryString,
+        public string $commandName,
+        ?string       $queryString,
     ) {
         $this->request = json_decode($queryString ?? '', true) ?? [];
     }
