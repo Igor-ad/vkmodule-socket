@@ -29,7 +29,7 @@ class Response
 
     public function dataToHexString(): string
     {
-        return substr($this->responseData, 2);
+        return implode('', $this->data ?: []);
     }
 
     public function getItem(int $key): mixed

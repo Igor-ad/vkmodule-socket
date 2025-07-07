@@ -31,9 +31,6 @@ readonly class Request
      */
     public function makeCommand(string $moduleType, string $commandId, ?array $commandData): ?Command
     {
-        if (is_null($commandId)) {
-            return null;
-        }
         Validator::instance()->validateModuleCommandId($commandId, $moduleType);
 
         return CommandFactory::make($commandId, $commandData);

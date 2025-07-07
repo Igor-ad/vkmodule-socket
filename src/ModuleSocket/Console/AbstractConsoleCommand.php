@@ -6,7 +6,6 @@ namespace Autodoctor\ModuleSocket\Console;
 
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
-use Autodoctor\ModuleSocket\DTO\CommandIdResolver;
 use Autodoctor\ModuleSocket\DTO\Request;
 use Autodoctor\ModuleSocket\DTO\RequestDto;
 use Autodoctor\ModuleSocket\Enums\Files;
