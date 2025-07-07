@@ -22,9 +22,9 @@ class Console
         $this->setCommand($commandClassName);
     }
 
-    public function invoke(): void
+    public function invoke(): mixed
     {
-        $this->command->execute($this->commandName, $this->queryString);
+        return $this->command->execute($this->commandName, $this->queryString);
     }
 
     /**

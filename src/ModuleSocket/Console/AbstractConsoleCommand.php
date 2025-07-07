@@ -32,9 +32,9 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
      * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
-    public function execute(string $commandName, ?string $queryString = ''): void
+    public function execute(string $commandName, ?string $queryString = ''): mixed
     {
-        $this->handle($commandName, $queryString);
+        return $this->handle($commandName, $queryString);
     }
 
     protected function controlClosure(?Logger $logger): \Closure

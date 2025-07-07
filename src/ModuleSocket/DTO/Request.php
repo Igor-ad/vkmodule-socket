@@ -29,7 +29,7 @@ readonly class Request
      * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
-    public function makeCommand(string $moduleType, ?string $commandId, ?array $commandData): ?Command
+    public function makeCommand(string $moduleType, string $commandId, ?array $commandData): ?Command
     {
         if (is_null($commandId)) {
             return null;

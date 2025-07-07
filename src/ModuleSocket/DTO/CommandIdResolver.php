@@ -36,22 +36,23 @@ trait CommandIdResolver
     public function resolveNameToCommandId(string $moduleCommandName, string $moduleType): ?string
     {
         return match ($moduleCommandName) {
-            'connection' => Common::Connect->value,
-            'firmware' => Common::Firmware->value,
-            'reboot' => Common::Reboot->value,
-            'uid' => Common::Uid->value,
-            'input_analog' => Socket2::GetAnalogInput->value,
-            'input_setup' => $moduleType === ModuleTypes::Socket1->value
+            'connection', 'api_connection' => Common::Connect->value,
+            'firmware', 'api_firmware' => Common::Firmware->value,
+            'reboot', 'api_reboot' => Common::Reboot->value,
+            'uid', 'api_uid' => Common::Uid->value,
+            'input_analog', 'api_input_analog' => Socket2::GetAnalogInput->value,
+            'input_setup', 'api_input_setup' => $moduleType === ModuleTypes::Socket1->value
                 ? Socket1::SetInput->value
                 : Commands::SetInput->value,
-            'input_status' => $moduleType === ModuleTypes::Socket1->value
+            'input_status', 'api_input_status' => $moduleType === ModuleTypes::Socket1->value
                 ? Socket1::GetInput->value
                 : Commands::GetInput->value,
-            'input_temperature0' => Socket3::GetTemp0->value,
-            'input_temperature1' => Socket3::GetTemp1->value,
-            'relay_control', 'relay_off', 'relay_on' => $this->relayControlResolveCommandId($moduleType),
-            'relay_group_control' => SocketGiant::RelayGroupAction->value,
-            'status' => $this->getAllStatusResolveCommandId($moduleType),
+            'input_temperature0', 'api_input_temperature0' => Socket3::GetTemp0->value,
+            'input_temperature1', 'api_input_temperature1' => Socket3::GetTemp1->value,
+            'relay_control', 'api_relay_control', 'relay_off',
+            'api_relay_off', 'relay_on', 'api_relay_on' => $this->relayControlResolveCommandId($moduleType),
+            'relay_group_control', 'api_relay_group_control' => SocketGiant::RelayGroupAction->value,
+            'status', 'api_status' => $this->getAllStatusResolveCommandId($moduleType),
             default => null,
         };
     }
