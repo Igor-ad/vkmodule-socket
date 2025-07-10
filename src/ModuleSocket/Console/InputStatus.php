@@ -17,7 +17,7 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus as Comma
 class InputStatus extends AbstractConsoleCommand
 {
     public string $name = 'input_status';
-    protected string $controllerMethod = 'getInput';
+    protected ?string $controllerMethod = 'getInput';
 
     /**
      * @throws InvalidInputParameterException

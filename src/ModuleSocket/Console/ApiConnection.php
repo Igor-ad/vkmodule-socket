@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class ApiConnection extends AbstractApiCommand
 {
     public string $name = 'api_connection';
-    protected string $controllerMethod = 'checkConnection';
+    protected ?string $controllerMethod ='checkConnection';
 }

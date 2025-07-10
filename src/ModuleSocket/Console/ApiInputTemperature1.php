@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class ApiInputTemperature1 extends AbstractApiCommand
 {
     public string $name = 'api_input_temperature1';
-    protected string $controllerMethod = 'getSensor1';
+    protected ?string $controllerMethod = 'getSensor1';
 }

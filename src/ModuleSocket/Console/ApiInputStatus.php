@@ -12,12 +12,12 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
  * Example of a CLI query string for a single-module system:
  *      '{"command":{"data":{"input":{"inputNumber":0}}}}'
  * Or for a multi-module system:
- *      '{"module":{"ip":"192.168.4.191","port":9761,"type":"Socket-2"},"command":{"data":{"input":{"inputNumber":0}}}}'
+ *      '{"module":{"host":"192.168.4.191","port":9761,"type":"Socket-2"},"command":{"data":{"input":{"inputNumber":0}}}}'
  */
 class ApiInputStatus extends AbstractApiCommand
 {
     public string $name = 'api_input_status';
-    protected string $controllerMethod = 'getInput';
+    protected ?string $controllerMethod = 'getInput';
 
     /**
      * @throws InvalidInputParameterException

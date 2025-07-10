@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class ApiFirmware extends AbstractApiCommand
 {
     public string $name = 'api_firmware';
-    protected string $controllerMethod = 'getModuleFirmware';
+    protected ?string $controllerMethod ='getModuleFirmware';
 }

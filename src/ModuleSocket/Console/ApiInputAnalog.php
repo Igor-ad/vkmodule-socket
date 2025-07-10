@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class ApiInputAnalog extends AbstractApiCommand
 {
     public string $name = 'api_input_analog';
-    protected string $controllerMethod = 'getAnalogInput';
+    protected ?string $controllerMethod = 'getAnalogInput';
 }

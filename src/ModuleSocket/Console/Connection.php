@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class Connection extends AbstractConsoleCommand
 {
     public string $name = 'connection';
-    protected string $controllerMethod = 'checkConnection';
+    protected ?string $controllerMethod = 'checkConnection';
 }

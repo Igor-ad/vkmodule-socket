@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class Firmware extends AbstractConsoleCommand
 {
     public string $name = 'firmware';
-    protected string $controllerMethod = 'getModuleFirmware';
+    protected ?string $controllerMethod = 'getModuleFirmware';
 }

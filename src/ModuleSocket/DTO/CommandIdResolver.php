@@ -30,6 +30,7 @@ use Autodoctor\ModuleSocket\Enums\SocketGiant;
  * relay_off *          | Socket-(2,3,4,5,Giant)    | turn off relay
  * relay_on *           | Socket-(2,3,4,5,Giant)    | turn on relay
  * status               | for all types of modules  | get the state of all inputs/outputs
+ * api_full_control     | for all types of modules  | any module command by ID
  */
 trait CommandIdResolver
 {

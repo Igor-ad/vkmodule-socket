@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class Status extends AbstractConsoleCommand
 {
     public string $name = 'status';
-    protected string $controllerMethod = 'getAllStatus';
+    protected ?string $controllerMethod = 'getAllStatus';
 }

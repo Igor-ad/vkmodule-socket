@@ -7,5 +7,5 @@ namespace Autodoctor\ModuleSocket\Console;
 class ApiReboot extends AbstractApiCommand
 {
     public string $name = 'api_reboot';
-    protected string $controllerMethod = 'rebootModule';
+    protected ?string $controllerMethod = 'rebootModule';
 }

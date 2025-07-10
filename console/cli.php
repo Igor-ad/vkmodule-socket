@@ -31,7 +31,8 @@ $controlCommand = Console::make(
     queryString: $queryString,
 );
 
-(!str_contains($command, 'api_'))
-    ? $controlCommand->invoke()
-    : print $controlCommand->invoke();
-
+if ((!str_contains($command, 'api_'))) {
+    return $controlCommand->invoke();
+} else {
+    print $controlCommand->invoke();
+}

@@ -16,8 +16,7 @@ class Console
     public function __construct(
         protected string $commandName,
         protected ?string $queryString,
-    )
-    {
+    ) {
         $commandClassName = toPascalCase($commandName);
         $this->setCommand($commandClassName);
     }
