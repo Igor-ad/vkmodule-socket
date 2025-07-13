@@ -32,7 +32,7 @@ use Autodoctor\ModuleSocket\Enums\SocketGiant;
  * status               | for all types of modules  | get the state of all inputs/outputs
  * api_full_control     | for all types of modules  | any module command by ID
  */
-trait CommandIdResolver
+trait ConsoleCommandMapper
 {
     public function resolveNameToCommandId(string $moduleCommandName, string $moduleType): ?string
     {

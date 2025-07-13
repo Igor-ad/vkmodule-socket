@@ -14,7 +14,7 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 
 readonly class Request
 {
-    use CommandIdResolver;
+    use ConsoleCommandMapper;
 
     public array $request;
 
