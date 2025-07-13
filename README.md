@@ -8,7 +8,7 @@ PHP driver library for use with VKmodule 'Socket-N' type electronic devices. Con
 
 ![License MIT](https://img.shields.io/badge/License-MIT-blue)
 [![Supported PHP Versions](https://img.shields.io/badge/PHP-8.2,%208.3,%208.4-blue)](https://github.com/Igor-ad/VKmodule-php-client-library/)
-![GitHub release](https://img.shields.io/badge/Release-Beta_0.9.8-green)
+![GitHub release](https://img.shields.io/badge/Release-Beta_0.9.9-green)
 
 
 Home page of the manufacturer of Socket-N controller modules -
@@ -212,6 +212,10 @@ Commands for control and monitoring of modules:
 ```
  name of command     |  modules types support	 |  description
 _____________________|___________________________|_____________________________________	
+connection           | for all types of modules  | check connection
+firmware             | for all types of modules  | get firmware of module
+reboot               | for all types of modules  | reboot module
+uid                  | for all types of modules  | get uid of module 
 cli_full_control **  | for all types of modules	 | any command by ID
 input_analog         | Socket-2W only            | analog input voltage value
 input_setup *        | Socket-(1,2,5,Giant)      | configure digital input 

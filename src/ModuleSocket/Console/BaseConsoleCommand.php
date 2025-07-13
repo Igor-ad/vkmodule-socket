@@ -9,35 +9,22 @@ use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 use Autodoctor\ModuleSocket\Controllers\ControllerMethodsResolver;
 use Autodoctor\ModuleSocket\DTO\Request;
 use Autodoctor\ModuleSocket\DTO\RequestDto;
-use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
-use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
-use Autodoctor\ModuleSocket\Logger\Logger;
-use Autodoctor\ModuleSocket\Services\CliService;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;
 use Autodoctor\ModuleSocket\Validator;
 use Psr\Log\LoggerInterface;
 
-abstract class AbstractConsoleCommand implements ConsoleCommand
+abstract class BaseConsoleCommand implements ConsoleCommand
 {
     use ControllerMethodsResolver;
-
-    public const START_MSG = 'Start';
-    public const END_MSG = 'End';
 
     protected Request $request;
     protected RequestDto $requestDto;
     protected ?string $controllerMethod = null;
-    protected string $service = CliService::class;
+    protected string $service;
 
-    /**
-     * @throws InvalidInputParameterException
-     * @throws ConfiguratorException
-     * @throws InvalidRequestCommandException
-     * @throws ModuleException
-     */
     public function execute(string $commandName, ?string $queryString = ''): int|string
     {
         return $this->handle($commandName, $queryString);
@@ -57,36 +44,6 @@ abstract class AbstractConsoleCommand implements ConsoleCommand
 
             return ControllerFactory::make($service, $this->requestDto->module->type);
         };
-    }
-
-    /**
-     * @throws InvalidInputParameterException
-     * @throws ConfiguratorException
-     * @throws InvalidRequestCommandException
-     * @throws ModuleException
-     */
-    public function handle(string $commandName, ?string $queryString): int|string
-    {
-        $logger = $this->loggerInit();
-        $this->request = new Request($commandName, $queryString);
-        $this->requestDto = RequestDto::fromRequest($this->request);
-
-        $logger->info(self::START_MSG);
-        $logger->info($this->requestDto->module->toJson());
-
-        $closure = $this->controlClosure($logger);
-        $controller = $closure();
-        $response = $this->run($controller);
-
-        $logger->info('ResponseToJson: ' . $response);
-        $logger->info(self::END_MSG);
-
-        return 0;
-    }
-
-    protected function loggerInit(): LoggerInterface
-    {
-        return new Logger(Files::CliLogFile->getPath());
     }
 
     /**

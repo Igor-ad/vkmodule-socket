@@ -14,7 +14,7 @@ use Autodoctor\ModuleSocket\Services\ApiService;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-abstract class AbstractApiCommand extends AbstractConsoleCommand
+class ApiConsoleCommand extends BaseConsoleCommand
 {
     protected string $service = ApiService::class;
 
@@ -24,7 +24,7 @@ abstract class AbstractApiCommand extends AbstractConsoleCommand
      * @throws ModuleException
      * @throws InvalidRequestCommandException
      */
-    public function handle(string $commandName, ?string $queryString): int|string
+    public function handle(string $commandName, ?string $queryString): string
     {
         $logger = $this->loggerInit();
         $this->requestDto = RequestDto::fromRequest(new Request($commandName, $queryString));
