@@ -40,14 +40,14 @@ class Socket2CommandTest extends BaseCommandTestCase
                 'expectedString' => '{"success":true,"event":{"id":"22","description":"RelayAction","data":{"relay":{"relayNumber":1,"action":"On","interval":5}}}}',
             ],
             'RelayActionOn' => [
-                'command' => 'relay_control',
-                'queryString' => '{"command":{"data":{"relay":{"relayNumber":1,"action":1,"interval":0}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
+                'command' => 'relay_on',
+                'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
                 'outgoingStream' => '22010100',
                 'expectedString' => '{"success":true,"event":{"id":"22","description":"RelayAction","data":{"relay":{"relayNumber":1,"action":"On","interval":0}}}}',
             ],
             'RelayActionOff' => [
-                'command' => 'relay_control',
-                'queryString' => '{"command":{"data":{"relay":{"relayNumber":1,"action":0,"interval":0}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
+                'command' => 'relay_off',
+                'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
                 'outgoingStream' => '22010000',
                 'expectedString' => '{"success":true,"event":{"id":"22","description":"RelayAction","data":{"relay":{"relayNumber":1,"action":"Off","interval":0}}}}',
             ],
