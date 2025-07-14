@@ -11,8 +11,8 @@ class TransceiverFactory
 {
     public static function transceiverInit(
         Connector $connector,
-        string    $streamData = '',
-        int       $attempts = 3
+        string $streamData = '',
+        int $attempts = 3
     ): Transceiver {
         return match ($connector::class) {
             HttpConnector::class => new HttpTransceiver($connector, $streamData, $attempts),

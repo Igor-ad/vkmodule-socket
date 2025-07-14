@@ -49,11 +49,6 @@ final readonly class Relay implements CommandData
         ];
     }
 
-    public function toJson(): string
-    {
-        return json_encode($this->toArray());
-    }
-
     public function toStream(): string
     {
         return chr($this->relayNumber) . chr($this->action) . chr($this->interval);

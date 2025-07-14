@@ -180,7 +180,8 @@ class Validator
      */
     public function validateHost(string $host): string
     {
-        if (!(filter_var($host, FILTER_VALIDATE_IP)
+        if (
+            !(filter_var($host, FILTER_VALIDATE_IP)
                 || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME))
         ) {
             throw new InvalidInputParameterException(
@@ -239,7 +240,8 @@ class Validator
         if (is_null($command->commandData)) {
             return Validator::instance()->validateEventId($command->ID->id, $response->id);
         }
-        if ($command->ID->id === Commands::GetInput->value
+        if (
+            $command->ID->id === Commands::GetInput->value
             || $command->ID->id === Commands::Socket1GetInput->value
         ) {
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);

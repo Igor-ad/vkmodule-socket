@@ -10,8 +10,6 @@ interface CommandData
 
     public function toArray(): array;
 
-    public function toJson(): string;
-
     public function toStream(): string;
 
     public function toString(): string;

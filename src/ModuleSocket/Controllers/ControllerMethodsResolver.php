@@ -12,7 +12,7 @@ trait ControllerMethodsResolver
     /**
      * @throws ModuleException
      */
-    protected function resolve(string $commandId): string
+    protected function resolve(?string $commandId): string
     {
         return match ($commandId) {
             Commands::CheckConnect->value, => 'checkConnection',

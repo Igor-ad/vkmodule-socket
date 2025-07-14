@@ -13,7 +13,9 @@ class ExceptionHandler implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function __construct(protected bool $isCli) {}
+    public function __construct(protected bool $isCli)
+    {
+    }
 
     public function register(): void
     {

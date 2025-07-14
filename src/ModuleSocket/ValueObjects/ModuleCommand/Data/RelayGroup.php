@@ -34,10 +34,10 @@ final readonly class RelayGroup implements CommandData
         $sequence = range(15, 0);
 
         return array_map(
-        /**
-         * @throws InvalidInputParameterException
-         */
-            fn($key): Relay => $this->makeRelayObject($key, bitMask($data, $key)),
+            /**
+             * @throws InvalidInputParameterException
+             */
+            fn ($key): Relay => $this->makeRelayObject($key, bitMask($data, $key)),
             $sequence
         );
     }
@@ -54,11 +54,6 @@ final readonly class RelayGroup implements CommandData
                 'relayGroupAction' => $this->data,
             ]
         ];
-    }
-
-    public function toJson(): string
-    {
-        return json_encode($this->toArray());
     }
 
     public function toStream(): string

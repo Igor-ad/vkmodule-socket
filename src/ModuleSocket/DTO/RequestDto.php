@@ -16,9 +16,9 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 readonly class RequestDto
 {
     public function __construct(
-        public ?Command  $command,
+        public ?Command $command,
         public Connector $connector,
-        public Module    $module,
+        public Module $module,
     ) {
     }
 

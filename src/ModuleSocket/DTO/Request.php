@@ -20,7 +20,7 @@ readonly class Request
 
     public function __construct(
         public string $commandName,
-        ?string       $queryString,
+        ?string $queryString,
     ) {
         $this->request = json_decode($queryString ?? '', true) ?? [];
     }

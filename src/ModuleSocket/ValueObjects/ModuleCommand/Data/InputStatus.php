@@ -28,11 +28,6 @@ final readonly class InputStatus implements CommandData
         ];
     }
 
-    public function toJson(): string
-    {
-        return json_encode($this->toArray());
-    }
-
     public function toStream(): string
     {
         return chr($this->inputNumber);

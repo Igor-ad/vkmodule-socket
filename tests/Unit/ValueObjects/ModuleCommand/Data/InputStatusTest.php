@@ -41,13 +41,6 @@ class InputStatusTest extends TestCase
         $this->assertSame($expected, $this->inputStatus->toArray());
     }
 
-    public function testToJson(): void
-    {
-        $expected = '{"input":{"inputNumber":0}}';
-
-        $this->assertSame($expected, $this->inputStatus->toJson());
-    }
-
     public function testToStream(): void
     {
         $expected = chr(0);

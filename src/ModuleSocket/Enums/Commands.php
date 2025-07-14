@@ -51,6 +51,6 @@ enum Commands: string
 
     public static function description(string $id): string
     {
-        return self::tryFrom($id)->name ?? sprintf('"%s" is an invalid module command ID', $id);
+        return self::tryFrom($id)->name ?? sprintf(" '%s' is an invalid module command ID", $id);
     }
 }

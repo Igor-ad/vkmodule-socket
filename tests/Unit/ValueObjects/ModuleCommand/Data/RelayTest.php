@@ -53,13 +53,6 @@ class RelayTest extends TestCase
         $this->assertSame($expected, $this->relay->toArray());
     }
 
-    public function testToJson(): void
-    {
-        $expected = '{"relay":{"relayNumber":0,"action":1,"interval":10}}';
-
-        $this->assertSame($expected, $this->relay->toJson());
-    }
-
     public function testToStream(): void
     {
         $expected = chr(0) . chr(1) . chr(10);

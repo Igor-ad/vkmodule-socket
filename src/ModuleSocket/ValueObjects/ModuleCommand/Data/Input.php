@@ -49,11 +49,6 @@ final readonly class Input implements CommandData
         ];
     }
 
-    public function toJson(): string
-    {
-        return json_encode($this->toArray());
-    }
-
     public function toStream(): string
     {
         return chr($this->inputNumber) . chr($this->action) . chr($this->antiBounce);

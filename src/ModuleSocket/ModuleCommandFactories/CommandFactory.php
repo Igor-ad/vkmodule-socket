@@ -10,23 +10,11 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
 
 class CommandFactory
 {
-    public function __construct(
-        protected array $request
-    ) {
-    }
-
-    public static function instance(array $request): static
+    public static function make(string $commandId, ?array $commandData): Command
     {
-        return new static($request);
-    }
-
-    public function make(): Command
-    {
-        $commandId = getValue($this->request, 'command.id');
         return new Command(
             new CommandID($commandId),
-            AbstractCommandDataFactory::getDataFactory(getValue($this->request, 'command.data'), $commandId)
-                ->make(),
+            AbstractCommandDataFactory::getDataFactory($commandData, $commandId)->make(),
         );
     }
 }

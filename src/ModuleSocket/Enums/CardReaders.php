@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
-class CardReaders
+enum CardReaders: string
 {
-    public const EM_MARINE_CARD = Commands::EmMarineCard->value;
-    public const MIFARE_CARD = Commands::MifareCard->value;
-    public const MANAGING_ONLINE_STATUS = Commands::ManagingOnlineStatus->value;
-    public const MANAGING_OFFLINE_STATUS = Commands::ManagingOfflineStatus->value;
-    public const MANAGING_RESPONSE_WAITING = Commands::ManagingResponseWaiting->value;
-    public const MANAGING_RESPONSE_STATUS = Commands::ManagingResponseStatus->value;
+    case EmMarineCard = Commands::EmMarineCard->value;
+    case MifareCard = Commands::MifareCard->value;
+    case ManagingOnlineStatus = Commands::ManagingOnlineStatus->value;
+    case ManagingOfflineStatus = Commands::ManagingOfflineStatus->value;
+    case ManagingResponseWaiting = Commands::ManagingResponseWaiting->value;
+    case ManagingResponseStatus = Commands::ManagingResponseStatus->value;
 }

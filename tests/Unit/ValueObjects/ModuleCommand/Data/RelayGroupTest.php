@@ -45,13 +45,6 @@ class RelayGroupTest extends TestCase
         $this->assertTrue($this->relayGroup->isEqual($anotherRelayGroup));
     }
 
-    public function testToJson(): void
-    {
-        $expected = '{"relayGroup":{"relayGroupAction":"0000"}}';
-
-        $this->assertSame($expected, $this->relayGroup->toJson());
-    }
-
     public function testToStream(): void
     {
         $expected = chr(hexdec('0000'));

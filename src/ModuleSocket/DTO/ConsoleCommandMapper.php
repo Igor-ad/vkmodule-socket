@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\DTO;
 
+use Autodoctor\ModuleSocket\Enums\ApiCommands;
+use Autodoctor\ModuleSocket\Enums\CliCommands;
 use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\Enums\Common;
 use Autodoctor\ModuleSocket\Enums\ModuleTypes;
@@ -37,23 +39,38 @@ trait ConsoleCommandMapper
     public function resolveNameToCommandId(string $moduleCommandName, string $moduleType): ?string
     {
         return match ($moduleCommandName) {
-            'connection', 'api_connection' => Common::Connect->value,
-            'firmware', 'api_firmware' => Common::Firmware->value,
-            'reboot', 'api_reboot' => Common::Reboot->value,
-            'uid', 'api_uid' => Common::Uid->value,
-            'input_analog', 'api_input_analog' => Socket2::GetAnalogInput->value,
-            'input_setup', 'api_input_setup' => $moduleType === ModuleTypes::Socket1->value
+            CliCommands::Connection->value,
+            ApiCommands::ApiConnection->value => Common::Connect->value,
+            CliCommands::Firmware->value,
+            ApiCommands::ApiFirmware->value => Common::Firmware->value,
+            CliCommands::Reboot->value,
+            ApiCommands::ApiReboot->value => Common::Reboot->value,
+            CliCommands::Uid->value,
+            ApiCommands::ApiUid->value => Common::Uid->value,
+            CliCommands::InputAnalog->value,
+            ApiCommands::ApiInputAnalog->value => Socket2::GetAnalogInput->value,
+            CliCommands::InputSetup->value,
+            ApiCommands::ApiInputSetup->value => $moduleType === ModuleTypes::Socket1->value
                 ? Socket1::SetInput->value
                 : Commands::SetInput->value,
-            'input_status', 'api_input_status' => $moduleType === ModuleTypes::Socket1->value
+            CliCommands::InputStatus->value,
+            ApiCommands::ApiInputStatus->value => $moduleType === ModuleTypes::Socket1->value
                 ? Socket1::GetInput->value
                 : Commands::GetInput->value,
-            'input_temperature0', 'api_input_temperature0' => Socket3::GetTemp0->value,
-            'input_temperature1', 'api_input_temperature1' => Socket3::GetTemp1->value,
-            'relay_control', 'api_relay_control', 'relay_off',
-            'api_relay_off', 'relay_on', 'api_relay_on' => $this->relayControlResolveCommandId($moduleType),
-            'relay_group_control', 'api_relay_group_control' => SocketGiant::RelayGroupAction->value,
-            'status', 'api_status' => $this->getAllStatusResolveCommandId($moduleType),
+            CliCommands::InputTemperature0->value,
+            ApiCommands::ApiInputTemperature0->value => Socket3::GetTemp0->value,
+            CliCommands::InputTemperature1->value,
+            ApiCommands::ApiInputTemperature1->value => Socket3::GetTemp1->value,
+            CliCommands::RelayControl->value,
+            CliCommands::RelayOff->value,
+            CliCommands::RelayOn->value,
+            ApiCommands::ApiRelayControl->value,
+            ApiCommands::ApiRelayOff->value,
+            ApiCommands::ApiRelayOn->value => $this->relayControlResolveCommandId($moduleType),
+            CliCommands::RelayGroupControl->value,
+            ApiCommands::ApiRelayGroupControl->value => SocketGiant::RelayGroupAction->value,
+            CliCommands::Status->value,
+            ApiCommands::ApiStatus->value => $this->getAllStatusResolveCommandId($moduleType),
             default => null,
         };
     }

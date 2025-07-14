@@ -46,7 +46,8 @@ if (!function_exists('toPascalCase')) {
     function toPascalCase(string $string): string
     {
         return str_replace(
-            ' ', '',
+            ' ',
+            '',
             ucwords(str_replace(['_', '-'], ' ', $string))
         );
     }

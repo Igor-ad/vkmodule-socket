@@ -31,8 +31,8 @@ class MifareResource extends BaseResource
     public function getCardFlag(string $id): string
     {
         return match ($id) {
-            CardReaders::EM_MARINE_CARD => 'EM-marine',
-            CardReaders::MIFARE_CARD => 'Mifare',
+            CardReaders::EmMarineCard->value => 'EM-marine',
+            CardReaders::MifareCard->value => 'Mifare',
             default => 'UnknownFlag'
         };
     }
