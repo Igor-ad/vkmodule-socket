@@ -96,7 +96,7 @@ The executable file for console commands is  `./console/cli.php`
 
 Syntax: `./console/cli.php <command> <JSON query string (optional)>`
 
-Command and module response debug logs will be written to the log file `./log/socket_module.log`
+Command and module response debug logs will be written to the log file `./log/cli_module.log`
 
 ### Available console commands.
 
