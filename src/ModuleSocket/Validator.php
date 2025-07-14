@@ -23,7 +23,9 @@ class Validator
 
     private static ?Validator $instance = null;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     public static function instance(): static
     {
@@ -178,10 +180,8 @@ class Validator
      */
     public function validateHost(string $host): string
     {
-        if (
-            !(filter_var($host, FILTER_VALIDATE_IP)
-                || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)
-            )
+        if (!(filter_var($host, FILTER_VALIDATE_IP)
+                || filter_var($host, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME))
         ) {
             throw new InvalidInputParameterException(
                 sprintf('Module host "%s" is not valid', $host)
@@ -239,8 +239,7 @@ class Validator
         if (is_null($command->commandData)) {
             return Validator::instance()->validateEventId($command->ID->id, $response->id);
         }
-        if (
-            $command->ID->id === Commands::GetInput->value
+        if ($command->ID->id === Commands::GetInput->value
             || $command->ID->id === Commands::Socket1GetInput->value
         ) {
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);

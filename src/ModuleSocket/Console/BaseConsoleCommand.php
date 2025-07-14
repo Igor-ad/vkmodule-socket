@@ -13,7 +13,6 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\Transceivers\TransceiverFactory;
-use Autodoctor\ModuleSocket\Validator;
 use Psr\Log\LoggerInterface;
 
 abstract class BaseConsoleCommand implements ConsoleCommand
@@ -55,27 +54,5 @@ abstract class BaseConsoleCommand implements ConsoleCommand
         $commandData = $this->requestDto->command->commandData;
 
         return $controller->{$this->controllerMethod}($commandData);
-    }
-
-    /**
-     * @throws InvalidInputParameterException
-     * @throws ConfiguratorException
-     */
-    protected function getValidInputNumber(): int
-    {
-        $inputNumber = getValue($this->requestDto->command->commandData->toArray(), 'input.inputNumber');
-
-        return Validator::instance()->validateInput($inputNumber, $this->requestDto->module->type);
-    }
-
-    /**
-     * @throws InvalidInputParameterException
-     * @throws ConfiguratorException
-     */
-    protected function getValidRelayNumber(): int
-    {
-        $relayNumber = getValue($this->requestDto->command->commandData->toArray(), 'relay.relayNumber');
-
-        return Validator::instance()->validateRelay($relayNumber, $this->requestDto->module->type);
     }
 }
