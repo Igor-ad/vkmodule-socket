@@ -10,14 +10,11 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
-use Autodoctor\ModuleSocket\Services\ApiService;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class ApiConsoleCommand extends BaseConsoleCommand
 {
-    protected string $service = ApiService::class;
-
     /**
      * @throws ConfiguratorException
      * @throws InvalidInputParameterException

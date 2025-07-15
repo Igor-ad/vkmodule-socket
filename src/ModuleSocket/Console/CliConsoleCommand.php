@@ -12,15 +12,12 @@ use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidRequestCommandException;
 use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use Autodoctor\ModuleSocket\Logger\Logger;
-use Autodoctor\ModuleSocket\Services\CliService;
 use Psr\Log\LoggerInterface;
 
 class CliConsoleCommand extends BaseConsoleCommand
 {
     public const START_MSG = 'Start';
     public const END_MSG = 'End';
-
-    protected string $service = CliService::class;
 
     /**
      * @throws InvalidInputParameterException

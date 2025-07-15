@@ -22,7 +22,10 @@ abstract class BaseConsoleCommand implements ConsoleCommand
     protected Request $request;
     protected RequestDto $requestDto;
     protected ?string $controllerMethod = null;
-    protected string $service;
+
+    public function __construct(protected string $service)
+    {
+    }
 
     public function execute(string $commandName, ?string $queryString = ''): int|string
     {
