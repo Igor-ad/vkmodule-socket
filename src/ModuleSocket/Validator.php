@@ -238,15 +238,15 @@ class Validator
     public function validateResponse(Command $command, Response $response): bool
     {
         if (is_null($command->commandData)) {
-            return Validator::instance()->validateEventId($command->ID->id, $response->id);
+            return Validator::instance()->validateEventId($command->commandID->id, $response->id);
         }
         if (
-            $command->ID->id === Commands::GetInput->value
-            || $command->ID->id === Commands::Socket1GetInput->value
+            $command->commandID->id === Commands::GetInput->value
+            || $command->commandID->id === Commands::Socket1GetInput->value
         ) {
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);
         }
         return $command->commandData->toString() === $response->dataToHexString()
-            && Validator::instance()->validateEventId($command->ID->id, $response->id);
+            && Validator::instance()->validateEventId($command->commandID->id, $response->id);
     }
 }

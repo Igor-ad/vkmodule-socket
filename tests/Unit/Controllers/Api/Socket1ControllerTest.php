@@ -25,7 +25,7 @@ class Socket1ControllerTest extends ControllerPrepare
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new Socket1Controller($this->service);
-        $expected = '{"success":true,"event":{"id":"30","description":"Socket1SetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
+        $expected = '{"success":true,"event":{"id":"30","description":"Socket1GetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
 
         $this->assertSame($expected, $this->controller->inputSetup($this->command->commandData));
     }
@@ -47,7 +47,7 @@ class Socket1ControllerTest extends ControllerPrepare
         $this->responseDataStub = '30000005';
         $this->createServiceMock();
         $this->controller = new Socket1Controller($this->service);
-        $expected = '{"success":true,"event":{"id":"30","description":"Socket1SetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
+        $expected = '{"success":true,"event":{"id":"30","description":"Socket1GetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
 
         $this->assertSame($expected, $this->controller->getInput($this->command->commandData));
     }

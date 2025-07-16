@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Enums;
 
-use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\Enums\Events;
-use Autodoctor\ModuleSocket\Exceptions\ModuleException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -23,16 +21,20 @@ class EventsTest extends TestCase
 
     public function testDescription(): void
     {
+        $expected = 'Socket1GetInput';
+
+        $this->assertSame($expected, Events::description('30'));
+
         $expected = 'Socket1InputStatusChanged';
 
-        $this->assertSame($expected, Events::description('31', '30'));
+        $this->assertSame($expected, Events::descriptionAutoGenerateEvent('31'));
+
+        $expected = 'GetInput';
+
+        $this->assertSame($expected, Events::description('20'));
 
         $expected = 'InputStatusChanged';
 
-        $this->assertSame($expected, Events::description('21', '20'));
-
-        $expected = 'SetInput';
-
-        $this->assertSame($expected, Events::description('20', '20'));
+        $this->assertSame($expected, Events::descriptionAutoGenerateEvent('21'));
     }
 }

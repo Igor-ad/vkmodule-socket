@@ -37,7 +37,7 @@ abstract class BaseConsoleCommand implements ConsoleCommand
      */
     protected function controlClosure(?LoggerInterface $logger): \Closure
     {
-        $this->controllerMethod = $this->controllerMethod ?? $this->resolve($this->requestDto->command->ID?->id);
+        $this->controllerMethod = $this->controllerMethod ?? $this->resolve($this->requestDto->command->commandID?->id);
 
         return function () use ($logger) {
             $transceiver = TransceiverFactory::transceiverInit($this->requestDto->connector);

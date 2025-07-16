@@ -27,7 +27,7 @@ class SocketGiantControllerTest extends ControllerPrepare
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new SocketGiantController($this->service);
-        $expected = '{"success":true,"event":{"id":"20","description":"SetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
+        $expected = '{"success":true,"event":{"id":"20","description":"GetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
 
         $this->assertSame($expected, $this->controller->inputSetup($this->command->commandData));
     }
@@ -38,7 +38,7 @@ class SocketGiantControllerTest extends ControllerPrepare
         $this->responseDataStub = '20000005';
         $this->createServiceMock();
         $this->controller = new SocketGiantController($this->service);
-        $expected = '{"success":true,"event":{"id":"20","description":"SetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
+        $expected = '{"success":true,"event":{"id":"20","description":"GetInput","data":{"input":{"inputNumber":0,"triggerAction":"Closed","antiBounce":5}}}}';
 
         $this->assertSame($expected, $this->controller->getInput($this->command->commandData));
     }

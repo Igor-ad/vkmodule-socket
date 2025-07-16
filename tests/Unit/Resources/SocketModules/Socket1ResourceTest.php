@@ -18,7 +18,7 @@ class Socket1ResourceTest extends TestCase
             'success' => true,
             'event' => [
                 'id' => '30',
-                'description' => 'Socket1SetInput',
+                'description' => 'Socket1GetInput',
                 'data' => [
                     'input' => [
                         'inputNumber' => 0,

@@ -13,13 +13,13 @@ class Socket2CommandTest extends BaseCommandTestCase
                 'command' => 'input_setup',
                 'queryString' => '{"command":{"data":{"input":{"inputNumber":0,"action":1,"antiBounce":5}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
                 'outgoingStream' => '20000105',
-                'expectedString' => '{"success":true,"event":{"id":"20","description":"SetInput","data":{"input":{"inputNumber":0,"triggerAction":"Open","antiBounce":5}}}}',
+                'expectedString' => '{"success":true,"event":{"id":"20","description":"GetInput","data":{"input":{"inputNumber":0,"triggerAction":"Open","antiBounce":5}}}}',
             ],
             'SetInput1' => [
                 'command' => 'input_setup',
                 'queryString' => '{"command":{"data":{"input":{"inputNumber":1,"action":1,"antiBounce":5}}},"module":{"host":"localhost","port":9761,"type":"Socket-2"}}',
                 'outgoingStream' => '20010105',
-                'expectedString' => '{"success":true,"event":{"id":"20","description":"SetInput","data":{"input":{"inputNumber":1,"triggerAction":"Open","antiBounce":5}}}}',
+                'expectedString' => '{"success":true,"event":{"id":"20","description":"GetInput","data":{"input":{"inputNumber":1,"triggerAction":"Open","antiBounce":5}}}}',
             ],
             'GetInput' => [
                 'command' => 'input_status',

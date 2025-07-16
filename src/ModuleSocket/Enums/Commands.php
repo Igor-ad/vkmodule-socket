@@ -15,12 +15,12 @@ enum Commands: string
 
     // Socket-1
     case Socket1SetInput = '30';
-    case Socket1GetInput = '31'; // event id = 30; event id = 31(auto generate with out request)
+    case Socket1GetInput = '31'; // event id = 30; event id = 31(auto generate without request)
     case GetAllInput = '32';
 
     // Socket-2, Socket-2W, Socket-4, Socket-5, Socket-Giant
     case SetInput = '20';
-    case GetInput = '21'; // event id = 20; event id = 21(auto generate with out request)
+    case GetInput = '21'; // event id = 20; event id = 21(auto generate without request)
     case RelayAction = '22';
     case GetAllStatus = '23';
 

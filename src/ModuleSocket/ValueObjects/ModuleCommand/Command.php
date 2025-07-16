@@ -10,27 +10,27 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\CommandData;
 final readonly class Command
 {
     public function __construct(
-        public CommandID    $ID,
+        public CommandID $commandID,
         public ?CommandData $commandData = null,
     ) {
     }
 
     public function toStream(): string
     {
-        return $this->ID->toStream() . $this->commandData?->toStream();
+        return $this->commandID->toStream() . $this->commandData?->toStream();
     }
 
     public function toString(): string
     {
-        return $this->ID->toString() . $this->commandData?->toString();
+        return $this->commandID->toString() . $this->commandData?->toString();
     }
 
     public function toArray(): array
     {
         return [
             'command' => [
-                'id' => $this->ID->id,
-                'description' => toPascalCase(Commands::description($this->ID->id)),
+                'id' => $this->commandID->id,
+                'description' => toPascalCase(Commands::description($this->commandID->id)),
                 'data' => $this->commandData?->toArray(),
             ],
         ];
