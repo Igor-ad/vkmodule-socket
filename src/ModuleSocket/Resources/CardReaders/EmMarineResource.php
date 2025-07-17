@@ -19,9 +19,9 @@ class EmMarineResource extends MifareResource
     {
         return [
             'data' => [
-                'cardFlag' => $this->getCardFlag($response->id),
-                'cardVendor' => $response->getItem(0),
-                'cardId' => implode(array_slice($response->data, 1, 4)),
+                'cardFlag' => $this->getCardFlag($response->getEventId()),
+                'cardVendor' => $response->getEventDataItem(0),
+                'cardId' => implode(array_slice($response->getEventData(), 1, 4)),
             ],
         ];
     }

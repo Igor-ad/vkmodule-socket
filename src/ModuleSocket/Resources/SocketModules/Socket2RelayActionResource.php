@@ -20,9 +20,9 @@ class Socket2RelayActionResource extends BaseResource
         return [
             'data' => [
                 'relay' => [
-                    'relayNumber' => hexdec($response->getItem(0)),
-                    'action' => $this->relayStatusToSting($response->getItem(1)),
-                    'interval' => hexdec($response->getItem(2)),
+                    'relayNumber' => hexdec($response->getEventDataItem(0)),
+                    'action' => $this->relayStatusToSting($response->getEventDataItem(1)),
+                    'interval' => hexdec($response->getEventDataItem(2)),
                 ],
             ]
         ];

@@ -21,16 +21,16 @@ class MifareResource extends BaseResource
     {
         return [
             'data' => [
-                'cardFlag' => $this->getCardFlag($response->id),
-                'cardType' => $this->getCardType(implode(array_slice($response->data, 0, 2))),
-                'cardId' => $this->getCardId(array_slice($response->data, 2, 7)),
+                'cardFlag' => $this->getCardFlag($response->getEventId()),
+                'cardType' => $this->getCardType(implode(array_slice($response->getEventData(), 0, 2))),
+                'cardId' => $this->getCardId(array_slice($response->getEventData(), 2, 7)),
             ]
         ];
     }
 
-    public function getCardFlag(string $id): string
+    public function getCardFlag(string $eventId): string
     {
-        return match ($id) {
+        return match ($eventId) {
             CardReaders::EmMarineCard->value => 'EM-marine',
             CardReaders::MifareCard->value => 'Mifare',
             default => 'UnknownFlag'

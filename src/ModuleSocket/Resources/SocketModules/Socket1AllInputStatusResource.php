@@ -14,10 +14,10 @@ class Socket1AllInputStatusResource extends BaseResource
         return [
             'data' => [
                 'input' => [
-                    'input0' => $this->inputStatusToSting($response->getItem(0)),
-                    'input1' => $this->inputStatusToSting($response->getItem(1)),
-                    'input2' => $this->inputStatusToSting($response->getItem(2)),
-                    'input3' => $this->inputStatusToSting($response->getItem(3)),
+                    'input0' => $this->inputStatusToSting($response->getEventDataItem(0)),
+                    'input1' => $this->inputStatusToSting($response->getEventDataItem(1)),
+                    'input2' => $this->inputStatusToSting($response->getEventDataItem(2)),
+                    'input3' => $this->inputStatusToSting($response->getEventDataItem(3)),
                 ]
             ]
         ];

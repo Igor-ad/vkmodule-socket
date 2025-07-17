@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(CommandID::class)]
 class CommandIDTest extends TestCase
 {
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(CommandID::class, new CommandID('20'));
     }

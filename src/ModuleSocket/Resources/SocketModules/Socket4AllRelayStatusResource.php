@@ -25,14 +25,14 @@ class Socket4AllRelayStatusResource extends BaseResource
         return [
             'data' => [
                 'relay' => [
-                    'relay0' => $this->relayStatusToSting($response->getItem(0)),
-                    'relay1' => $this->relayStatusToSting($response->getItem(1)),
-                    'relay2' => $this->relayStatusToSting($response->getItem(2)),
-                    'relay3' => $this->relayStatusToSting($response->getItem(3)),
-                    'relay4' => $this->relayStatusToSting($response->getItem(4)),
-                    'relay5' => $this->relayStatusToSting($response->getItem(5)),
-                    'relay6' => $this->relayStatusToSting($response->getItem(6)),
-                    'relay7' => $this->relayStatusToSting($response->getItem(7)),
+                    'relay0' => $this->relayStatusToSting($response->getEventDataItem(0)),
+                    'relay1' => $this->relayStatusToSting($response->getEventDataItem(1)),
+                    'relay2' => $this->relayStatusToSting($response->getEventDataItem(2)),
+                    'relay3' => $this->relayStatusToSting($response->getEventDataItem(3)),
+                    'relay4' => $this->relayStatusToSting($response->getEventDataItem(4)),
+                    'relay5' => $this->relayStatusToSting($response->getEventDataItem(5)),
+                    'relay6' => $this->relayStatusToSting($response->getEventDataItem(6)),
+                    'relay7' => $this->relayStatusToSting($response->getEventDataItem(7)),
                 ]
             ]
         ];

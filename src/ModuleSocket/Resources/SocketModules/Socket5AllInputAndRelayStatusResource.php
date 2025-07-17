@@ -25,16 +25,16 @@ class Socket5AllInputAndRelayStatusResource extends BaseResource
         return [
             'data' => [
                 'input' => [
-                    'input0' => $this->inputStatusToSting($response->getItem(0)),
-                    'input1' => $this->inputStatusToSting($response->getItem(1)),
-                    'input2' => $this->inputStatusToSting($response->getItem(2)),
-                    'input3' => $this->inputStatusToSting($response->getItem(3)),
+                    'input0' => $this->inputStatusToSting($response->getEventDataItem(0)),
+                    'input1' => $this->inputStatusToSting($response->getEventDataItem(1)),
+                    'input2' => $this->inputStatusToSting($response->getEventDataItem(2)),
+                    'input3' => $this->inputStatusToSting($response->getEventDataItem(3)),
                 ],
                 'relay' => [
-                    'relay0' => $this->relayStatusToSting($response->getItem(4)),
-                    'relay1' => $this->relayStatusToSting($response->getItem(5)),
-                    'relay2' => $this->relayStatusToSting($response->getItem(6)),
-                    'relay3' => $this->relayStatusToSting($response->getItem(7)),
+                    'relay0' => $this->relayStatusToSting($response->getEventDataItem(4)),
+                    'relay1' => $this->relayStatusToSting($response->getEventDataItem(5)),
+                    'relay2' => $this->relayStatusToSting($response->getEventDataItem(6)),
+                    'relay3' => $this->relayStatusToSting($response->getEventDataItem(7)),
 
                 ]
             ]

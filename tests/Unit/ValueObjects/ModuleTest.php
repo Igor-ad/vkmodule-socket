@@ -22,7 +22,7 @@ class ModuleTest extends TestCase
         $this->module = new Module('localhost', 9761, 'Socket-1');
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Module::class, $this->module);
         $this->assertSame('localhost', $this->module->host);

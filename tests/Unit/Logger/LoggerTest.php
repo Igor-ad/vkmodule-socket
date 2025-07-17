@@ -22,7 +22,7 @@ class LoggerTest extends TestCase
         $this->logger = new Logger($this->testLogFile);
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Logger::class, $this->logger);
     }

@@ -29,7 +29,7 @@ class RequestTest extends TestCase
     }
 
     #[DataProvider('requestDataProviderOfModule')]
-    public function test__construct(string $command, string $queryString): void
+    public function testConstruct(string $command, string $queryString): void
     {
         $request = new Request($command, $queryString);
 

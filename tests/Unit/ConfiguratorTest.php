@@ -26,7 +26,7 @@ class ConfiguratorTest extends TestCase
         $this->testConfigFile = Files::TestConfigFile->getPath();
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $method = new ReflectionMethod(Configurator::class, '__construct');
 

@@ -20,7 +20,7 @@ class Socket2wAnalogInputStatusResource extends BaseResource
         return [
             'data' => [
                 'input' => [
-                    'voltage' => hexdec($response->getItem(0) . $response->getItem(1)) / 1024,
+                    'voltage' => hexdec($response->getEventDataItem(0) . $response->getEventDataItem(1)) / 1024,
                 ]
             ]
         ];

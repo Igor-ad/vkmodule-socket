@@ -36,7 +36,7 @@ class ResponseTest extends TestCase
     }
 
     #[DataProvider('responseDataProvider')]
-    public function test__construct(string $responseData): void
+    public function testConstruct(string $responseData): void
     {
         $response = new Response($responseData);
 
@@ -45,11 +45,21 @@ class ResponseTest extends TestCase
     }
 
     #[DataProvider('responseDataProvider')]
-    public function testGetItem(string $responseData): void
+    public function testGetEventId(string $responseData): void
     {
-        $data0 = Response::getDto($responseData)->getItem(0);
+        $eventId = substr($responseData, 0, 2);
 
-        $this->assertTrue($data0 === '00' || $data0 === '02' || is_null($data0));
+        $this->assertSame($eventId, Response::getDto($responseData)->getEventId());
+    }
+
+    #[DataProvider('responseDataProvider')]
+    public function testGetEventDataItem(string $responseData): void
+    {
+        $expected = substr($responseData, 2, 2);
+        $expectedData0 = $expected ?: null;
+        $actualData0 = Response::getDto($responseData)->getEventDataItem(0);
+
+        $this->assertEquals($expectedData0, $actualData0);
     }
 
     #[DataProvider('responseDataProvider')]

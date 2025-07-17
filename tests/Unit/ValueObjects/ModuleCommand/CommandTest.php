@@ -19,7 +19,7 @@ class CommandTest extends TestCase
         $this->command = new Command(new CommandID('01'));
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Command::class, $this->command);
     }

@@ -28,7 +28,7 @@ class AbstractTransceiverTest extends TransceiverInit
         };
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Transceiver::class, $this->transceiver);
     }

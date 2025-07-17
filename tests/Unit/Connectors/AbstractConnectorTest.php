@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(TcpConnector::class)]
 class AbstractConnectorTest extends TcpConnectorInit
 {
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Connector::class, $this->connectorObject);
     }

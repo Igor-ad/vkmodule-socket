@@ -4,49 +4,51 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\DTO;
 
-use Autodoctor\ModuleSocket\Enums\Commands;
+use Autodoctor\ModuleSocket\ValueObjects\ModuleEvent\Event;
 
 class Response
 {
-    public readonly string $id;
-    public readonly ?array $data;
+    public readonly Event $event;
     public bool $success;
 
     public function __construct(
-        public string $responseData,
+        public readonly string $responseData,
     ) {
         $data = str_split($responseData, 2);
-
-        $this->id = array_shift($data);
-        $this->data = count($data) ? $data : null;
+        $eventId = array_shift($data);
+        $eventData = count($data) ? $data : null;
+        $this->event = new Event($eventId, $eventData);
         $this->success = true;
     }
 
-    public static function getDto(string $responseData): Response
+    public static function getDto(string $responseData): self
     {
-        return new Response($responseData);
+        return new self($responseData);
     }
 
     public function dataToHexString(): string
     {
-        return implode('', $this->data ?: []);
+        return implode('', $this->event->data ?: []);
     }
 
-    public function getItem(int $key): mixed
+    public function getEventData(): ?array
     {
-        return $this->data[$key] ?? null;
+        return $this->event->data;
+    }
+
+    public function getEventId(): string
+    {
+        return $this->event->eventID;
+    }
+
+    public function getEventDataItem(int $key): mixed
+    {
+        return $this->event->data[$key] ?? null;
     }
 
     public function toArray(): array
     {
-        return [
-            'success' => $this->success,
-            'event' => [
-                'id' => $this->id,
-                'description' => Commands::description($this->id),
-                'data' => $this->data ?: null,
-            ],
-        ];
+        return array_merge(['success' => $this->success], $this->event->toArray());
     }
 
     public function toJson(): string

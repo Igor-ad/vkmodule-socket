@@ -18,7 +18,7 @@ class BaseResource extends AbstractResource
 
     public function dataToArray(Response $response): array
     {
-        return ['data' => $response->data];
+        return ['data' => $response->getEventData()];
     }
 
     public function inputStatusToSting(int|string $status): string

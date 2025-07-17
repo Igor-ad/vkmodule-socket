@@ -22,7 +22,7 @@ class InputTest extends TestCase
         $this->input = new Input(0, 1, 5);
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Input::class, $this->input);
 

@@ -27,10 +27,10 @@ class FirmwareResource extends BaseResource
     {
         return [
             'data' => [
-                'controllerType' => $this->getControllerType($response->getItem(0)),
-                'version' => implode('', array_slice($response->data ?? [], 1, 2)),
-                'firmwareType' => $this->getFirmwareType($response->getItem(3)),
-                'firmware' => implode('', $response->data ?? []),
+                'controllerType' => $this->getControllerType($response->getEventDataItem(0)),
+                'version' => implode('', array_slice($response->getEventData() ?? [], 1, 2)),
+                'firmwareType' => $this->getFirmwareType($response->getEventDataItem(3)),
+                'firmware' => implode('', $response->getEventData() ?? []),
             ],
         ];
     }

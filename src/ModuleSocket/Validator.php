@@ -238,7 +238,7 @@ class Validator
     public function validateResponse(Command $command, Response $response): bool
     {
         if (is_null($command->commandData)) {
-            return Validator::instance()->validateEventId($command->commandID->id, $response->id);
+            return Validator::instance()->validateEventId($command->commandID->id, $response->getEventId());
         }
         if (
             $command->commandID->id === Commands::GetInput->value
@@ -247,6 +247,6 @@ class Validator
             return $command->commandData->toString() === substr($response->dataToHexString(), 0, 2);
         }
         return $command->commandData->toString() === $response->dataToHexString()
-            && Validator::instance()->validateEventId($command->commandID->id, $response->id);
+            && Validator::instance()->validateEventId($command->commandID->id, $response->getEventId());
     }
 }

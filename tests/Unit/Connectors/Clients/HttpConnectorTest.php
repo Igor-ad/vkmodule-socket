@@ -19,7 +19,7 @@ class HttpConnectorTest extends TestCase
         $this->connector = new HttpConnector('google.com');
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(HttpConnector::class, $this->connector);
     }

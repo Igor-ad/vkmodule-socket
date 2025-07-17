@@ -22,7 +22,7 @@ class RelayTest extends TestCase
         $this->relay = new Relay(0, 1, 10);
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Relay::class, $this->relay);
     }

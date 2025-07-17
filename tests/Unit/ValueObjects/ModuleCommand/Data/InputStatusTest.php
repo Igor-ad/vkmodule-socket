@@ -18,7 +18,7 @@ class InputStatusTest extends TestCase
         $this->inputStatus = new InputStatus(0);
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(InputStatus::class, $this->inputStatus);
     }

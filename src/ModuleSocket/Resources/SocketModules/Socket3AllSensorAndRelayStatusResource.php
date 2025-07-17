@@ -29,23 +29,23 @@ class Socket3AllSensorAndRelayStatusResource extends BaseResource
             'data' => [
                 'input' => [
                     'sensor0' => [
-                        'sign' => $this->signToString($response->getItem(0)),
+                        'sign' => $this->signToString($response->getEventDataItem(0)),
                         'temperature' => Validator::instance()->validateTemperature(
-                            data: hexdec($response->getItem(0)) & 127,
-                            sign: $this->getSign($response->getItem(0))
+                            data: hexdec($response->getEventDataItem(0)) & 127,
+                            sign: $this->getSign($response->getEventDataItem(0))
                         ),
                     ],
                     'sensor1' => [
-                        'sign' => $this->signToString($response->getItem(1)),
+                        'sign' => $this->signToString($response->getEventDataItem(1)),
                         'temperature' => Validator::instance()->validateTemperature(
-                            data: hexdec($response->getItem(1)) & 127,
-                            sign: $this->getSign($response->getItem(1))
+                            data: hexdec($response->getEventDataItem(1)) & 127,
+                            sign: $this->getSign($response->getEventDataItem(1))
                         ),
                     ],
                 ],
                 'relay' => [
-                    'relay0' => $this->relayStatusToSting($response->getItem(2)),
-                    'relay1' => $this->relayStatusToSting($response->getItem(3)),
+                    'relay0' => $this->relayStatusToSting($response->getEventDataItem(2)),
+                    'relay1' => $this->relayStatusToSting($response->getEventDataItem(3)),
                 ]
             ]
         ];

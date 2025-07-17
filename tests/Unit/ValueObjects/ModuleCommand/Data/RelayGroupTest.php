@@ -19,7 +19,7 @@ class RelayGroupTest extends TestCase
         $this->relayGroup = new RelayGroup('0000');
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(RelayGroup::class, $this->relayGroup);
 

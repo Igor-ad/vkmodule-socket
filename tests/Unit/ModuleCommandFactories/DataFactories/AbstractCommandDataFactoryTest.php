@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(AbstractCommandDataFactory::class)]
 class AbstractCommandDataFactoryTest extends TestCase
 {
-    public function test__construct()
+    public function testConstruct()
     {
         $factory = new NullCommandDataFactory();
 

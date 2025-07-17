@@ -23,12 +23,31 @@ class RequestDtoTest extends LocalSocketServerInit
 {
     use RequestDataProvider;
 
-    public function test__construct(): void
+    public static function requestDataProviderOfDto(): array
+    {
+        return array_merge(
+            [
+                [
+                    'command' => 'relay_on',
+                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"ip":"localhost","port":9761,"type":"Socket-3"}}',
+                ],
+                [
+                    'command' => 'relay_off',
+                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"ip":"localhost","port":9761,"type":"Socket-3"}}',
+                ],
+            ],
+            self::requestDataProvider(),
+        );
+    }
+
+    public function testConstruct(): void
     {
         $requestDto = new RequestDto(
             command: new Command(new CommandID(Commands::CheckConnect->value)),
-            connector: new class implements Connector {
-                public function getConnector() {}
+            connector: new class () implements Connector {
+                public function getConnector()
+                {
+                }
             },
             module: new Module(),
         );
@@ -41,8 +60,8 @@ class RequestDtoTest extends LocalSocketServerInit
      * @throws ConfiguratorException
      * @throws InvalidRequestCommandException
      */
-    #[DataProvider('requestDataProvider')]
-    public function testFromRequest(string $command, string $queryString): void
+    #[DataProvider('requestDataProviderOfDto')]
+    public function testFromRequest(string $command, ?string $queryString): void
     {
         $request = new Request($command, $queryString);
 

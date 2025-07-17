@@ -24,7 +24,8 @@ class ApiConsoleCommand extends BaseConsoleCommand
     public function handle(string $commandName, ?string $queryString): string
     {
         $logger = $this->loggerInit();
-        $this->requestDto = RequestDto::fromRequest(new Request($commandName, $queryString));
+        $this->request = new Request($commandName, $queryString);
+        $this->requestDto = RequestDto::fromRequest($this->request);
         $closure = $this->controlClosure($logger);
         $controller = $closure();
 

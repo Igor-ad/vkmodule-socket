@@ -17,7 +17,7 @@ class UidResource extends BaseResource
     {
         return [
             'data' => [
-                'uid' => hexdec($response->getItem(0) . $response->getItem(1)),
+                'uid' => hexdec($response->getEventDataItem(0) . $response->getEventDataItem(1)),
             ],
         ];
     }

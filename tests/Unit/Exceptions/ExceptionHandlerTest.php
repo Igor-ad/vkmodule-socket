@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ExceptionHandlerTest extends TestCase
 {
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $handler = new ExceptionHandler(true);
 

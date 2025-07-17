@@ -31,7 +31,7 @@ class AbstractServiceTest extends TransceiverInit
         $this->command = new Command(new CommandID('01'));
     }
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(Service::class, $this->service);
     }

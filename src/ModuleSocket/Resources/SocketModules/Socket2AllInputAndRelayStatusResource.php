@@ -14,12 +14,12 @@ class Socket2AllInputAndRelayStatusResource extends BaseResource
         return [
             'data' => [
                 'input' => [
-                    'input0' => $this->inputStatusToSting($response->getItem(0)),
-                    'input1' => $this->inputStatusToSting($response->getItem(1)),
+                    'input0' => $this->inputStatusToSting($response->getEventDataItem(0)),
+                    'input1' => $this->inputStatusToSting($response->getEventDataItem(1)),
                 ],
                 'relay' => [
-                    'relay0' => $this->relayStatusToSting($response->getItem(2)),
-                    'relay1' => $this->relayStatusToSting($response->getItem(3)),
+                    'relay0' => $this->relayStatusToSting($response->getEventDataItem(2)),
+                    'relay1' => $this->relayStatusToSting($response->getEventDataItem(3)),
                 ]
             ]
         ];

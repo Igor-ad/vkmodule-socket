@@ -259,7 +259,7 @@ Response:
     }
 }
 ```
-Only a complete and formatted query string:
+The complete and formatted query string:
 ```
 {
     "command": {
@@ -520,4 +520,4 @@ api_status
 
 ### Unit Tests
 
-In progress, coverage is about 80%.
+In progress, coverage is about 84%.

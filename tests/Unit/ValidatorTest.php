@@ -24,7 +24,7 @@ class ValidatorTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $object = Validator::instance();
         $method = new ReflectionMethod($object, '__construct');

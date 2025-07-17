@@ -13,7 +13,7 @@ class FileConnectorTest extends TestCase
     /**
      * @throws ModuleException
      */
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $fileName = tempnam('/tmp', '_');
 

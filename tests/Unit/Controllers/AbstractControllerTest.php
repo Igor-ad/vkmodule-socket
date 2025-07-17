@@ -8,7 +8,7 @@ use Autodoctor\ModuleSocket\Controllers\ControllerInterface;
 
 class AbstractControllerTest extends ControllerInit
 {
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->assertInstanceOf(ControllerInterface::class, $this->controller);
     }
