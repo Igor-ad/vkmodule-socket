@@ -12,7 +12,7 @@ class Console
         protected string $commandName,
         protected ?string $queryString,
     ) {
-        $this->setCommand();
+        $this->initCommand();
     }
 
     public function invoke(): int|string
@@ -25,10 +25,15 @@ class Console
         return new self($commandName, $queryString);
     }
 
-    public function setCommand(): void
+    private function initCommand(): void
     {
         $isCli = !str_contains($this->commandName, 'api_');
 
         $this->command = ConsoleCommandFactory::makeConsoleCommand($isCli);
+    }
+
+    public function setCommand(ConsoleCommand $command): void
+    {
+        $this->command = $command;
     }
 }
