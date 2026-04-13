@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProvider;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
+use Autodoctor\ModuleSocket\Validation\Validator;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -14,28 +18,36 @@ class InputTest extends TestCase
 {
     protected Input $input;
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     protected function setUp(): void
     {
-        $this->input = new Input(0, 1, 5);
+        parent::setUp();
+        $this->input = Input::fromArray(['inputNumber' => 0, 'action' => 1, 'antiBounce' => 5]);
     }
 
     public function testConstruct(): void
     {
         $this->assertInstanceOf(Input::class, $this->input);
-
-        $this->expectException(InvalidInputParameterException::class);
-        new Input(0, 10, 512);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
+    public function testValidatorRejectsInvalidInputAction(): void
+    {
+        $validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
+
+        $this->expectException(InvalidInputParameterException::class);
+        $validator->validateInputAction(10);
+    }
+
+    public function testValidatorRejectsInvalidAntiBounce(): void
+    {
+        $validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
+
+        $this->expectException(InvalidInputParameterException::class);
+        $validator->validateAntiBounce(512);
+    }
+
     public function testIsEqual(): void
     {
-        $anotherInput = new Input(0, 1, 5);
+        $anotherInput = Input::fromArray(['inputNumber' => 0, 'action' => 1, 'antiBounce' => 5]);
 
         $this->assertTrue($this->input->isEqual($anotherInput));
     }
@@ -43,7 +55,7 @@ class InputTest extends TestCase
     public function testToArray(): void
     {
         $expected = [
-            'input' => [
+            CommandDataRootKey::Input->value => [
                 'inputNumber' => 0,
                 'action' => 1,
                 'antiBounce' => 5,

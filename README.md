@@ -8,8 +8,9 @@ PHP driver library for use with VKmodule 'Socket-N' type electronic devices. Con
 
 ![License MIT](https://img.shields.io/badge/License-MIT-blue)
 [![Supported PHP Versions](https://img.shields.io/badge/PHP-8.2,%208.3,%208.4-blue)](https://github.com/Igor-ad/VKmodule-php-client-library/)
-![GitHub release](https://img.shields.io/badge/Release-Beta_0.9.9-green)
+![GitHub release](https://img.shields.io/badge/Release_1.5.0-green)
 
+**1.5.0** — same JSON for commands as before. Fixes so relay/input limits use **`module.type` from the request** when you run several module types (not only the default line in the config file).
 
 Home page of the manufacturer of Socket-N controller modules -
 https://vkmodule.com.ua/Ethernet_ua.html
@@ -21,6 +22,7 @@ https://vkmodule.com.ua/Ethernet_ua.html
      * [System requirements](#system-requirements)
      * [Compatibility with devices](#compatibility-with-devices)
      * [Protocols](#protocols-tcpip-http)
+     * [Command and response event IDs](#command-and-response-event-ids)
      * [System Configuration](#system-configuration)
      * [Installation](#installation)
    * [CLI](#cli)
@@ -63,6 +65,12 @@ Working with modules is not yet supported:
 
 The above modules are equipped with a built-in HTTP server for configuring operating modes and network parameters. Therefore, the library does not currently implement the HTTP protocol. Only the TCP/IP protocol is used.
 
+#### Command and response event IDs.
+
+**Integrators and contributors should know this.** The library checks the **sent command** and **received response** together in `Validator::validateResponse(Command $command, Response $response): bool` (payload where applicable, and event IDs via `validateEventId()`). For most commands, the **event ID** in the response matches the **command ID** you sent. The firmware documents **two special cases** for *digital input read*: the response may carry the wire IDs for **set input** (`20` on Socket-2 family modules, `30` on Socket-1) even though the request used **get input** (`21` / `31`); that pairing is allowed inside `validateEventId()` using `ModuleCommandRegistry::isWireSetInputCommandId()`.
+
+The **module reboot** command (`02`) is handled **without reading** a frame back from the TCP stream—the client supplies a synthetic stream for the rest of the pipeline (`TcpTransceiver::getStreamContent()`).
+
 #### System configuration.
 
 To control a system with a single-module implementation, it is enough to specify the module parameters in the configuration file -
@@ -81,7 +89,7 @@ mkdir projects
 cd projects
 git clone https://github.com/Igor-ad/vkmodule-socket.git
 cd ./vkmodule-socket
-chmode +x ./console/cli.php
+chmod +x ./console/cli.php
 composer install
 composer dump-autoload
 ```
@@ -518,6 +526,30 @@ api_status
 ```
 [* Notes](#notes)
 
-### Unit Tests
+### Unit tests
 
-In progress, coverage is about 86%.
+The repository includes **PHPUnit** suites under `tests/Unit` and `tests/Feature`. From the project root:
+
+```bash
+vendor/bin/phpunit -c phpunit.xml
+```
+
+To print **line coverage** in the terminal, enable **PCOV** or **Xdebug** in PHP, then run:
+
+```bash
+vendor/bin/phpunit -c phpunit.xml --coverage-text
+```
+
+equivalently: `composer coverage-text`.
+
+For an **HTML** report (highlighted per file and line—useful to find gaps and raise coverage), with PCOV or Xdebug enabled:
+
+```bash
+vendor/bin/phpunit -c phpunit.xml --coverage-html public/coverage
+```
+
+equivalently: `composer coverage-html`. Open **`public/coverage/index.html`** in a browser after the run. The `public/coverage` tree is generated output and is listed in `.gitignore`.
+
+Last measured on Linux (2026-04-13): **644** tests, **991** assertions, all passing; coverage summary **classes 91.95%** (80/87), **methods 97.30%** (288/296), **lines 98.17%** (1019/1038) with `--coverage-text` (PCOV or Xdebug). Figures depend on extensions and tree state—re-run after changes.
+
+Developer-oriented changes between the previous beta and **1.5.0** are listed in [CHANGELOG.md](CHANGELOG.md).

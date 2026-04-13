@@ -15,9 +15,9 @@ class FilesTest extends TestCase
     {
         $path = dirname(__DIR__, 3);
 
-        $this->assertEquals(
-            expected: Files::ConfigFile->getPath(),
-            actual: $path . Files::ConfigFile->value
+        $this->assertSame(
+            $path . DIRECTORY_SEPARATOR . ltrim(Files::ConfigFile->value, '/'),
+            Files::ConfigFile->getPath(),
         );
     }
 }

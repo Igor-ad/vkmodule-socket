@@ -1,6 +1,7 @@
 /.phpunit.cache
 /log/socket_module.log
 /public/build
+/public/coverage
 /public/storage
 /storage/*.key
 /vendor

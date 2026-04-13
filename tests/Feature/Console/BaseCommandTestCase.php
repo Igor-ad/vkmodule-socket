@@ -19,7 +19,7 @@ abstract class BaseCommandTestCase extends ProxyLocalSocketServerInit
         }
 
         $outgoingStreamData = str_split($outgoingStream, 2);
-        $byteCharacters = array_map(fn($hexPair) => chr(hexdec($hexPair)), $outgoingStreamData);
+        $byteCharacters = array_map(fn ($hexPair) => chr(hexdec($hexPair)), $outgoingStreamData);
 
         return implode('', $byteCharacters);
     }

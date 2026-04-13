@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\SocketGiantAllInputAndRelayStatusResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class SocketGiantAllInputAndRelayStatusResourceTest extends TestCase
                 'id' => '23',
                 'description' => 'GetAllStatus',
                 'data' => [
-                    'input' => [
+                    CommandDataRootKey::Input->value => [
                         'input0' => 'Closed',
                         'input1' => 'Closed',
                         'input2' => 'Closed',
@@ -38,7 +39,7 @@ class SocketGiantAllInputAndRelayStatusResourceTest extends TestCase
                         'input14' => 'Closed',
                         'input15' => 'Closed',
                     ],
-                    'relay' => [
+                    CommandDataRootKey::Relay->value => [
                         'relay0' => 'Off',
                         'relay1' => 'Off',
                         'relay2' => 'Off',

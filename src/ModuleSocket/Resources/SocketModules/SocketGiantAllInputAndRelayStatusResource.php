@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -35,7 +36,7 @@ class SocketGiantAllInputAndRelayStatusResource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'input0' => $this->inputStatusToSting(bitMask($response->getEventDataItem(0), 7)),
                     'input1' => $this->inputStatusToSting(bitMask($response->getEventDataItem(0), 6)),
                     'input2' => $this->inputStatusToSting(bitMask($response->getEventDataItem(0), 5)),
@@ -53,7 +54,7 @@ class SocketGiantAllInputAndRelayStatusResource extends BaseResource
                     'input14' => $this->inputStatusToSting(bitMask($response->getEventDataItem(1), 1)),
                     'input15' => $this->inputStatusToSting(bitMask($response->getEventDataItem(1), 0)),
                 ],
-                'relay' => [
+                CommandDataRootKey::Relay->value => [
                     'relay0' => $this->relayStatusToSting(bitMask($response->getEventDataItem(2), 7)),
                     'relay1' => $this->relayStatusToSting(bitMask($response->getEventDataItem(2), 6)),
                     'relay2' => $this->relayStatusToSting(bitMask($response->getEventDataItem(2), 5)),

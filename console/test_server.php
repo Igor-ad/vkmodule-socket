@@ -1,5 +1,7 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
+
+declare(strict_types=1);
 
 use Autodoctor\ModuleSocket\Connectors\Servers\TcpServerConnector;
 
@@ -11,11 +13,20 @@ if (!is_file(dirname(__DIR__) . '/vendor/autoload.php')) {
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$port = (int)getByKey($argv, 1);
-$timeout = (float)getByKey($argv, 2);
+$port = (int) getByKey($argv, 1);
+$timeout = (float) getByKey($argv, 2);
 $outgoingStream = getByKey($argv, 3);
 
-$tcpServerConnector = new TcpServerConnector('localhost', $port, $timeout);
+$decoded = base64_decode((string) $outgoingStream, true);
+if ($decoded === false) {
+    throw new InvalidArgumentException('Invalid base64 outbound stream.');
+}
+
+$tcpServerConnector = new TcpServerConnector('127.0.0.1', $port, $timeout);
 $server = $tcpServerConnector->getConnector();
-// base64_decode() - the hack to overcome passing null bytes as an argument
-$tcpServerConnector->listenOnce($server, $timeout, base64_decode($outgoingStream));
+
+while (is_resource($server)) {
+    if (!$tcpServerConnector->listenOnce($server, $timeout, $decoded)) {
+        usleep(50_000);
+    }
+}

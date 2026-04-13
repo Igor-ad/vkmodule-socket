@@ -28,4 +28,5 @@ $controlCommand = Console::make(
     commandName: $command,
     queryString: $queryString,
 );
+
 echo $controlCommand->invoke();

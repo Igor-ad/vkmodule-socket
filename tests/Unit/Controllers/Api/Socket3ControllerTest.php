@@ -53,7 +53,7 @@ class Socket3ControllerTest extends ControllerPrepare
      */
     public function testRelayAction(): void
     {
-        $this->command = new Command(new CommandID('43'), new Relay(0, 1, 5));
+        $this->command = new Command(new CommandID('43'), Relay::fromArray(['relayNumber' => 0, 'action' => 1, 'interval' => 5]));
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new Socket3Controller($this->service);

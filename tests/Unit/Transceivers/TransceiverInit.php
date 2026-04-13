@@ -28,7 +28,7 @@ class TransceiverInit extends TestCase
      */
     public function setUp(): void
     {
-        $this->fileName = tempnam('/tmp', '_');
+        $this->fileName = tempnam(sys_get_temp_dir(), 'ms_');
         chmod($this->fileName, 0755);
         $this->connectorStub = new FileConnector($this->fileName, 'wb+');
         $this->transceiver = new TcpTransceiver($this->connectorStub);
@@ -43,7 +43,7 @@ class TransceiverInit extends TestCase
     {
         parent::setUp();
 
-        $this->connectorStub = new TcpConnector('localhost', $this->port, 5);
+        $this->connectorStub = new TcpConnector('127.0.0.1', $this->port, 5);
         $this->transceiver = new TcpTransceiver($this->connectorStub);
     }
 

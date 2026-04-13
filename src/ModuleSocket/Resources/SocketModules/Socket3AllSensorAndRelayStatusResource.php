@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
-use Autodoctor\ModuleSocket\Validator;
 
 /**
  * data:
@@ -27,23 +27,23 @@ class Socket3AllSensorAndRelayStatusResource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'sensor0' => [
                         'sign' => $this->signToString($response->getEventDataItem(0)),
-                        'temperature' => Validator::instance()->validateTemperature(
+                        'temperature' => $this->validation()->validateTemperature(
                             data: hexdec($response->getEventDataItem(0)) & 127,
                             sign: $this->getSign($response->getEventDataItem(0))
                         ),
                     ],
                     'sensor1' => [
                         'sign' => $this->signToString($response->getEventDataItem(1)),
-                        'temperature' => Validator::instance()->validateTemperature(
+                        'temperature' => $this->validation()->validateTemperature(
                             data: hexdec($response->getEventDataItem(1)) & 127,
                             sign: $this->getSign($response->getEventDataItem(1))
                         ),
                     ],
                 ],
-                'relay' => [
+                CommandDataRootKey::Relay->value => [
                     'relay0' => $this->relayStatusToSting($response->getEventDataItem(2)),
                     'relay1' => $this->relayStatusToSting($response->getEventDataItem(3)),
                 ]

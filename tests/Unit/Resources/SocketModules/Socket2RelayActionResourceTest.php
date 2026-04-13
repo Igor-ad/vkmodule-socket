@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2RelayActionResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket2RelayActionResourceTest extends TestCase
                 'id' => '22',
                 'description' => 'RelayAction',
                 'data' => [
-                    'relay' => [
+                    CommandDataRootKey::Relay->value => [
                         'relayNumber' => 0,
                         'action' => 'On',
                         'interval' => 80,

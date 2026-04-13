@@ -12,7 +12,7 @@ class InputStatusDataFactory extends InputSetupDataFactory
     public function make(): ?CommandData
     {
         return new InputStatus(
-            inputNumber: getValue($this->commandData, 'input.inputNumber')
+            inputNumber: getValue($this->commandData, 'input.inputNumber'),
         );
     }
 }

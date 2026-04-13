@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -19,7 +20,7 @@ class Socket2RelayActionResource extends BaseResource
     {
         return [
             'data' => [
-                'relay' => [
+                CommandDataRootKey::Relay->value => [
                     'relayNumber' => hexdec($response->getEventDataItem(0)),
                     'action' => $this->relayStatusToSting($response->getEventDataItem(1)),
                     'interval' => hexdec($response->getEventDataItem(2)),

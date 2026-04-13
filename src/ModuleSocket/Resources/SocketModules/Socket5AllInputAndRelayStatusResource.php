@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -24,13 +25,13 @@ class Socket5AllInputAndRelayStatusResource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'input0' => $this->inputStatusToSting($response->getEventDataItem(0)),
                     'input1' => $this->inputStatusToSting($response->getEventDataItem(1)),
                     'input2' => $this->inputStatusToSting($response->getEventDataItem(2)),
                     'input3' => $this->inputStatusToSting($response->getEventDataItem(3)),
                 ],
-                'relay' => [
+                CommandDataRootKey::Relay->value => [
                     'relay0' => $this->relayStatusToSting($response->getEventDataItem(4)),
                     'relay1' => $this->relayStatusToSting($response->getEventDataItem(5)),
                     'relay2' => $this->relayStatusToSting($response->getEventDataItem(6)),

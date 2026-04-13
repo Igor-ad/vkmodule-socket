@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket4AllRelayStatusResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket4AllRelayStatusResourceTest extends TestCase
                 'id' => '23',
                 'description' => 'GetAllStatus',
                 'data' => [
-                    'relay' => [
+                    CommandDataRootKey::Relay->value => [
                         'relay0' => 'Off',
                         'relay1' => 'Off',
                         'relay2' => 'Off',

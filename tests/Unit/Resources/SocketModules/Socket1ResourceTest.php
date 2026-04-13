@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket1Resource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket1ResourceTest extends TestCase
                 'id' => '30',
                 'description' => 'Socket1GetInput',
                 'data' => [
-                    'input' => [
+                    CommandDataRootKey::Input->value => [
                         'inputNumber' => 0,
                         'triggerAction' => 'Open',
                         'antiBounce' => 5

@@ -19,20 +19,20 @@ class ModuleTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->module = new Module('localhost', 9761, 'Socket-1');
+        $this->module = new Module('127.0.0.1', 9761, 'Socket-1');
     }
 
     public function testConstruct(): void
     {
         $this->assertInstanceOf(Module::class, $this->module);
-        $this->assertSame('localhost', $this->module->host);
+        $this->assertSame('127.0.0.1', $this->module->host);
         $this->assertSame(9761, $this->module->port);
         $this->assertSame('Socket-1', $this->module->type);
     }
 
     public function testToJson(): void
     {
-        $expected = '{"module":{"host":"localhost","port":9761,"type":"Socket-1"}}';
+        $expected = '{"module":{"host":"127.0.0.1","port":9761,"type":"Socket-1"}}';
 
         $this->assertSame($expected, $this->module->toJson());
     }
@@ -42,7 +42,7 @@ class ModuleTest extends TestCase
      */
     public function testIsEqual(): void
     {
-        $anotherModule = new Module('localhost', 9761, 'Socket-1');
+        $anotherModule = new Module('127.0.0.1', 9761, 'Socket-1');
 
         $this->assertTrue($this->module->isEqual($anotherModule));
 
@@ -54,7 +54,7 @@ class ModuleTest extends TestCase
     {
         $expected = [
             'module' => [
-                'host' => 'localhost',
+                'host' => '127.0.0.1',
                 'port' => 9761,
                 'type' => 'Socket-1',
             ]

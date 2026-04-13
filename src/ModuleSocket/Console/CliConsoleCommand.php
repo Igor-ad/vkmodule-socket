@@ -20,15 +20,15 @@ class CliConsoleCommand extends BaseConsoleCommand
     public const END_MSG = 'End';
 
     /**
-     * @throws InvalidInputParameterException
      * @throws ConfiguratorException
+     * @throws InvalidInputParameterException
      * @throws InvalidRequestCommandException
      * @throws ModuleException
      */
     public function handle(string $commandName, ?string $queryString): int
     {
         $logger = $this->loggerInit();
-        $this->request = new Request($commandName, $queryString);
+        $this->request = Request::fromInput($commandName, $queryString);
         $this->requestDto = RequestDto::fromRequest($this->request);
 
         $logger->info(self::START_MSG);

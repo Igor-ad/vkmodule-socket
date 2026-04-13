@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +34,7 @@ class InputStatusTest extends TestCase
     public function testToArray(): void
     {
         $expected = [
-            'input' => [
+            CommandDataRootKey::Input->value => [
                 'inputNumber' => 0,
             ]
         ];

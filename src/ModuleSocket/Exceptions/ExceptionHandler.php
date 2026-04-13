@@ -25,6 +25,15 @@ class ExceptionHandler implements LoggerAwareInterface
 
     public function handle(Throwable $exception): void
     {
+        $this->report($exception);
+        exit(1);
+    }
+
+    /**
+     * Log and render like {@see handle()} but without terminating the process (used from tests and tooling).
+     */
+    public function report(Throwable $exception): void
+    {
         $this->logger->error(
             sprintf(
                 '%s: %s in %s:%d',
@@ -37,8 +46,6 @@ class ExceptionHandler implements LoggerAwareInterface
         );
 
         $this->isCli ? $this->renderCli($exception) : $this->renderApi($exception);
-
-        exit(1);
     }
 
     /**

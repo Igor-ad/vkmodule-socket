@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\ModuleTypes;
 
 /**
  * data:
@@ -37,15 +38,15 @@ class FirmwareResource extends BaseResource
 
     public function getControllerType(?string $controllerTypeId): string
     {
-        return match ((int)$controllerTypeId) {
+        return match ((int) $controllerTypeId) {
             1 => 'VRD-E',
-            2 => 'Socket-2',
-            3 => 'Socket-1',
-            4 => 'Socket-3',
-            5 => 'Socket-4',
-            6 => 'Socket-5',
-            7 => 'Socket-Giant',
-            default => 'UnknownModuleType'
+            2 => ModuleTypes::Socket2->value,
+            3 => ModuleTypes::Socket1->value,
+            4 => ModuleTypes::Socket3->value,
+            5 => ModuleTypes::Socket4->value,
+            6 => ModuleTypes::Socket5->value,
+            7 => ModuleTypes::SocketGiant->value,
+            default => 'UnknownModuleType',
         };
     }
 

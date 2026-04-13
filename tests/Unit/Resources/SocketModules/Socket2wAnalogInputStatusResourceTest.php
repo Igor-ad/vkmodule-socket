@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2wAnalogInputStatusResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket2wAnalogInputStatusResourceTest extends TestCase
                 'id' => '24',
                 'description' => 'GetAnalogInput',
                 'data' => [
-                    'input' => [
+                    CommandDataRootKey::Input->value => [
                         'voltage' => 0.5,
                     ]
                 ]

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
+use Autodoctor\ModuleSocket\Controllers\AbstractModuleController;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\CommandData;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket5Formatter;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket5AllInputAndRelayStatusResource;
@@ -13,14 +14,14 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
-class Socket5Controller extends Controller
+class Socket5Controller extends AbstractModuleController
 {
     public function getAllStatus(): string
     {
         $command = Socket5Formatter::getAllStatus();
         $response = $this->service->getResponse($command);
 
-        return Socket5AllInputAndRelayStatusResource::make()->toJson($response);
+        return Socket5AllInputAndRelayStatusResource::make($this->service->getValidator())->toJson($response);
     }
 
     public function getInput(InputStatus|CommandData $commandData): string
@@ -28,7 +29,7 @@ class Socket5Controller extends Controller
         $command = Socket5Formatter::getInputStatus($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket5Resource::make()->toJson($response);
+        return Socket5Resource::make($this->service->getValidator())->toJson($response);
     }
 
     public function inputSetup(Input|CommandData $commandData): string
@@ -36,7 +37,7 @@ class Socket5Controller extends Controller
         $command = Socket5Formatter::inputSetup($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket5Resource::make()->toJson($response);
+        return Socket5Resource::make($this->service->getValidator())->toJson($response);
     }
 
     public function relayAction(Relay|CommandData $commandData): string
@@ -44,6 +45,6 @@ class Socket5Controller extends Controller
         $command = Socket5Formatter::relayAction($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket5RelayActionResource::make()->toJson($response);
+        return Socket5RelayActionResource::make($this->service->getValidator())->toJson($response);
     }
 }

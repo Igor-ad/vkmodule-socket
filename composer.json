@@ -28,10 +28,17 @@
         "psr-4": {
             "Tests\\": "tests/",
             "Tests\\Unit\\": "tests/Unit",
-            "Tests\\Feature\\": "tests/Feature"
+            "Tests\\Feature\\": "tests/Feature",
+            "Tests\\Support\\": "tests/Support"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^11"
+        "phpunit/phpunit": "^11",
+        "friendsofphp/php-cs-fixer": "^3.82"
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml",
+        "coverage-html": "phpunit -c phpunit.xml --coverage-html public/coverage",
+        "coverage-text": "phpunit -c phpunit.xml --coverage-text"
     }
 }

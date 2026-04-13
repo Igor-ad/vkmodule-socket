@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -19,7 +20,7 @@ class Socket2wAnalogInputStatusResource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'voltage' => hexdec($response->getEventDataItem(0) . $response->getEventDataItem(1)) / 1024,
                 ]
             ]

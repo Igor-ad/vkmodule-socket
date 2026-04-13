@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ValueObjects\ModuleCommand\Data;
 
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProvider;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
+use Autodoctor\ModuleSocket\Validation\Validator;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -14,12 +18,10 @@ class RelayTest extends TestCase
 {
     protected Relay $relay;
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     protected function setUp(): void
     {
-        $this->relay = new Relay(0, 1, 10);
+        parent::setUp();
+        $this->relay = Relay::fromArray(['relayNumber' => 0, 'action' => 1, 'interval' => 10]);
     }
 
     public function testConstruct(): void
@@ -27,23 +29,33 @@ class RelayTest extends TestCase
         $this->assertInstanceOf(Relay::class, $this->relay);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
     public function testIsEqual(): void
     {
-        $anotherRelay = new Relay(0, 1, 10);
+        $anotherRelay = Relay::fromArray(['relayNumber' => 0, 'action' => 1, 'interval' => 10]);
 
         $this->assertTrue($this->relay->isEqual($anotherRelay));
+    }
+
+    public function testValidatorRejectsInvalidRelayAction(): void
+    {
+        $validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
 
         $this->expectException(InvalidInputParameterException::class);
-        new Relay(0, 10, 512);
+        $validator->validateRelayAction(10);
+    }
+
+    public function testValidatorRejectsInvalidInterval(): void
+    {
+        $validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
+
+        $this->expectException(InvalidInputParameterException::class);
+        $validator->validateInterval(512);
     }
 
     public function testToArray(): void
     {
         $expected = [
-            'relay' => [
+            CommandDataRootKey::Relay->value => [
                 'relayNumber' => 0,
                 'action' => 1,
                 'interval' => 10,

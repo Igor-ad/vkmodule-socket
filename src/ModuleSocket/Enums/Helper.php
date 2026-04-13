@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Enums;
 
+use Autodoctor\ModuleSocket\Configuration\ModuleCommandRegistry;
+
 trait Helper
 {
     private static function allowedInput(): array
@@ -26,13 +28,8 @@ trait Helper
         return in_array($relayNumber, static::allowedRelay(), true);
     }
 
-    private static function commands(): array
-    {
-        return array_column(static::cases(), 'value');
-    }
-
     public static function getModuleCommands(): array
     {
-        return array_merge(Common::commands(), static::commands());
+        return ModuleCommandRegistry::allowedCommandIdsForModuleType(static::TYPE);
     }
 }

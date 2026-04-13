@@ -18,13 +18,13 @@ class ApiConsoleCommand extends BaseConsoleCommand
     /**
      * @throws ConfiguratorException
      * @throws InvalidInputParameterException
-     * @throws ModuleException
      * @throws InvalidRequestCommandException
+     * @throws ModuleException
      */
     public function handle(string $commandName, ?string $queryString): string
     {
         $logger = $this->loggerInit();
-        $this->request = new Request($commandName, $queryString);
+        $this->request = Request::fromInput($commandName, $queryString);
         $this->requestDto = RequestDto::fromRequest($this->request);
         $closure = $this->controlClosure($logger);
         $controller = $closure();

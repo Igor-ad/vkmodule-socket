@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ValueObjects;
 
-use Autodoctor\ModuleSocket\Configurator;
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProviderInterface;
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProvider;
 use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
-use Autodoctor\ModuleSocket\Validator;
+use Autodoctor\ModuleSocket\Validation\Validator;
+use Autodoctor\ModuleSocket\Validation\ValidatorInterface;
 
 final readonly class Module
 {
@@ -20,26 +22,25 @@ final readonly class Module
     /**
      * @throws InvalidInputParameterException
      */
-    public function __construct(?string $host = null, ?int $port = null, ?string $type = null)
-    {
-        $this->host = Validator::instance()->validateHost($this->setHost($host));
-        $this->port = Validator::instance()->validatePort($this->setPort($port));
-        $this->type = Validator::instance()->validateType($this->setType($type));
-    }
+    public function __construct(
+        ?string $host = null,
+        ?int $port = null,
+        ?string $type = null,
+        ?ConfigurationProviderInterface $configuration = null,
+        ?ValidatorInterface $validator = null,
+    ) {
+        $resolvedConfiguration = $configuration ?? ConfigurationProvider::fromConfigFile(Files::ConfigFile->getPath());
+        $resolvedValidator = $validator ?? new Validator($resolvedConfiguration);
 
-    private function setHost(?string $host): string
-    {
-        return $host ?? Configurator::instance(Files::ConfigFile->getPath())->get('host');
-    }
-
-    private function setPort(?int $port): int
-    {
-        return $port ?? Configurator::instance(Files::ConfigFile->getPath())->get('port') ?? self::DEFAULT_PORT;
-    }
-
-    private function setType(?string $type): string
-    {
-        return $type ?? Configurator::instance(Files::ConfigFile->getPath())->get('type');
+        $this->host = $resolvedValidator->validateHost(
+            $host ?? (string) $resolvedConfiguration->get('host')
+        );
+        $this->port = $resolvedValidator->validatePort(
+            $port ?? (int) ($resolvedConfiguration->get('port') ?? self::DEFAULT_PORT)
+        );
+        $this->type = $resolvedValidator->validateType(
+            $type ?? (string) $resolvedConfiguration->get('type')
+        );
     }
 
     public function isEqual(Module $anotherModule): bool

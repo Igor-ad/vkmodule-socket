@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers\Api;
 
-use Autodoctor\ModuleSocket\Controllers\Api\Controller;
+use Autodoctor\ModuleSocket\Controllers\Api\FallbackModuleController;
 use Autodoctor\ModuleSocket\Controllers\Api\ControllerFactory;
 use Autodoctor\ModuleSocket\Controllers\Api\Socket1Controller;
 use Autodoctor\ModuleSocket\Controllers\Api\Socket2Controller;
@@ -46,6 +46,6 @@ class ControllerFactoryTest extends ControllerInit
 
         $controller = ControllerFactory::make($this->service, '');
 
-        $this->assertInstanceOf(Controller::class, $controller);
+        $this->assertInstanceOf(FallbackModuleController::class, $controller);
     }
 }

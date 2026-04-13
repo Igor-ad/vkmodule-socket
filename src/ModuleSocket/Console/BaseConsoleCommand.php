@@ -32,16 +32,14 @@ abstract class BaseConsoleCommand implements ConsoleCommand
         return $this->handle($commandName, $queryString);
     }
 
-    /**
-     * @throws ModuleException
-     */
+    /** @throws ModuleException */
     protected function controlClosure(?LoggerInterface $logger): \Closure
     {
         $this->controllerMethod = $this->controllerMethod ?? $this->resolve($this->requestDto->command->commandID?->id);
 
         return function () use ($logger) {
             $transceiver = TransceiverFactory::transceiverInit($this->requestDto->connector);
-            $service = new $this->service($transceiver);
+            $service = new $this->service($transceiver, $this->request->validator());
             $service->setLogger($logger);
 
             return ControllerFactory::make($service, $this->requestDto->module->type);

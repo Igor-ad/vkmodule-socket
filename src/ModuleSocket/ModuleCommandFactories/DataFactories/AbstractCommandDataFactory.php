@@ -4,36 +4,41 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ModuleCommandFactories\DataFactories;
 
-use Autodoctor\ModuleSocket\Enums\Commands;
+use Autodoctor\ModuleSocket\Configuration\ModuleCommandRegistry;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
+use Autodoctor\ModuleSocket\Validation\ValidatorInterface;
 
 abstract class AbstractCommandDataFactory implements CommandDataFactory
 {
     public function __construct(
-        protected ?array $commandData = [],
+        protected ?array $commandData,
+        protected ValidatorInterface $validator,
     ) {
     }
 
-    public static function getDataFactory(?array $commandData, ?string $commandId): CommandDataFactory
-    {
+    public static function getDataFactory(
+        ?array $commandData,
+        ?string $commandId,
+        ValidatorInterface $validator,
+    ): CommandDataFactory {
         if (
             is_null($commandId)
-            && getByKey(array_keys($commandData ?? []), 0) === 'input'
+            && getByKey(array_keys($commandData ?? []), 0) === CommandDataRootKey::Input->value
         ) {
-            return new InputSetupDataFactory($commandData);
+            return new InputSetupDataFactory($commandData, $validator);
         }
         return match (getByKey(array_keys($commandData ?? []), 0)) {
-            'input' => (self::resolveCommand($commandId))
-                ? new InputStatusDataFactory($commandData)
-                : new InputSetupDataFactory($commandData),
-            'relay' => new RelayControlDataFactory($commandData),
-            'relayGroup' => new RelayGroupControlDataFactory($commandData),
+            CommandDataRootKey::Input->value => (self::resolveCommand($commandId))
+                ? new InputStatusDataFactory($commandData, $validator)
+                : new InputSetupDataFactory($commandData, $validator),
+            CommandDataRootKey::Relay->value => new RelayControlDataFactory($commandData, $validator),
+            CommandDataRootKey::RelayGroup->value => new RelayGroupControlDataFactory($commandData, $validator),
             default => new NullCommandDataFactory(),
         };
     }
 
-    private static function resolveCommand(string $commandId): bool
+    private static function resolveCommand(?string $commandId): bool
     {
-        return $commandId === Commands::Socket1GetInput->value
-            || $commandId === Commands::GetInput->value;
+        return $commandId !== null && ModuleCommandRegistry::isInputStatusCommandId($commandId);
     }
 }

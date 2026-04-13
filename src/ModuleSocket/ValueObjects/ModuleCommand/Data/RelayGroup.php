@@ -4,29 +4,27 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data;
 
-use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
-use Autodoctor\ModuleSocket\Validator;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 
+/**
+ * `relayGroupAction` must satisfy {@see \Autodoctor\ModuleSocket\Validation\ValidatorInterface::validateRelayGroupControlData()}
+ * before {@see self::fromArray()}.
+ */
 final readonly class RelayGroup implements CommandData
 {
     public string $data;
+
     public array $relayGroup;
 
-    /**
-     * @throws InvalidInputParameterException
-     */
-    public function __construct(string $data)
+    private function __construct(string $data)
     {
-        $this->data = Validator::instance()->validateRelayGroupControlData($data);
+        $this->data = $data;
         $this->relayGroup = $this->iterate($this->data);
     }
 
-    /**
-     * @throws InvalidInputParameterException
-     */
-    private function makeRelayObject($relayNumber, $action): Relay
+    public static function fromArray(array $relayGroup): self
     {
-        return new Relay(relayNumber: $relayNumber, action: $action, interval: 0);
+        return new self(data: $relayGroup['relayGroupAction']);
     }
 
     private function iterate(string $data): array
@@ -34,10 +32,11 @@ final readonly class RelayGroup implements CommandData
         $sequence = range(15, 0);
 
         return array_map(
-            /**
-             * @throws InvalidInputParameterException
-             */
-            fn ($key): Relay => $this->makeRelayObject($key, bitMask($data, $key)),
+            fn (int $key): Relay => Relay::fromArray([
+                'relayNumber' => $key,
+                'action' => bitMask($data, $key),
+                'interval' => 0,
+            ]),
             $sequence
         );
     }
@@ -50,9 +49,9 @@ final readonly class RelayGroup implements CommandData
     public function toArray(): array
     {
         return [
-            'relayGroup' => [
+            CommandDataRootKey::RelayGroup->value => [
                 'relayGroupAction' => $this->data,
-            ]
+            ],
         ];
     }
 

@@ -15,8 +15,18 @@ class RelayGroupControlDataFactory extends AbstractCommandDataFactory
      */
     public function make(): ?CommandData
     {
-        return new RelayGroup(
-            getValue($this->commandData, 'relayGroup.relayGroupAction')
-        );
+        return RelayGroup::fromArray([
+            'relayGroupAction' => $this->validatedRelayGroupHex(),
+        ]);
+    }
+
+    /**
+     * @throws InvalidInputParameterException
+     */
+    private function validatedRelayGroupHex(): string
+    {
+        $raw = getValue($this->commandData, 'relayGroup.relayGroupAction');
+
+        return $this->validator->validateRelayGroupControlData($raw);
     }
 }

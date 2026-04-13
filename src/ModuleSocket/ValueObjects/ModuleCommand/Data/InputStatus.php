@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data;
 
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
+
 final readonly class InputStatus implements CommandData
 {
     /**
@@ -22,9 +24,9 @@ final readonly class InputStatus implements CommandData
     public function toArray(): array
     {
         return [
-            'input' => [
+            CommandDataRootKey::Input->value => [
                 'inputNumber' => $this->inputNumber,
-            ]
+            ],
         ];
     }
 

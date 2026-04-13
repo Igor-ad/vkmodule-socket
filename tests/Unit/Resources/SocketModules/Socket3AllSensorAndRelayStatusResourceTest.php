@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket3AllSensorAndRelayStatusResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket3AllSensorAndRelayStatusResourceTest extends TestCase
                 'id' => '44',
                 'description' => 'Socket3GetAllStatus',
                 'data' => [
-                    'input' => [
+                    CommandDataRootKey::Input->value => [
                         'sensor0' => [
                             'sign' => '+',
                             'temperature' => 19,
@@ -30,7 +31,7 @@ class Socket3AllSensorAndRelayStatusResourceTest extends TestCase
                             'temperature' => 24,
                         ],
                     ],
-                    'relay' => [
+                    CommandDataRootKey::Relay->value => [
                         'relay0' => 'Off',
                         'relay1' => 'Off',
                     ]

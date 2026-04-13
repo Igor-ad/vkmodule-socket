@@ -69,6 +69,16 @@ class ResponseTest extends TestCase
     }
 
     #[DataProvider('responseDataProvider')]
+    public function testGetEventData(string $responseData): void
+    {
+        $dto = Response::getDto($responseData);
+        $tail = substr($responseData, 2);
+        $expected = $tail === '' ? null : str_split($tail, 2);
+
+        $this->assertSame($expected, $dto->getEventData());
+    }
+
+    #[DataProvider('responseDataProvider')]
     public function testDataToHexString(string $responseData): void
     {
         $this->assertSame(substr($responseData, 2), Response::getDto($responseData)->dataToHexString());

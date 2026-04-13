@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use Autodoctor\ModuleSocket\Configurator;
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProvider;
 use Autodoctor\ModuleSocket\Enums\Files;
 use PHPUnit\Framework\TestCase;
+use Tests\Support\TestTcpServer;
 
 class ProxyLocalSocketServerInit extends TestCase
 {
     public function proxyServerInit(string $outgoingStream): void
     {
-        $port = Configurator::instance(Files::TestConfigFile->getPath())->get('port');
-        $timeout = Configurator::instance(Files::TestConfigFile->getPath())->get('timeout');
-        // base64_encode() - the hack to overcome passing null bytes as an argument
+        $configuration = ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath());
+        $port = (int) $configuration->get('port');
+        $timeout = (string) $configuration->get('timeout');
         $encodeOutgoingStream = base64_encode($outgoingStream);
 
-        $resource = @fsockopen('localhost', $port);
-
-        if ($resource === false) {
-            $serverCmd = Files::TestTcpServer->getPath() . " '$port' '$timeout' '$encodeOutgoingStream' >/dev/null 2>&1 &";
-            exec($serverCmd);
-            usleep(150 * 1000);
+        try {
+            TestTcpServer::ensure($port, $timeout, $encodeOutgoingStream);
+        } catch (\RuntimeException $exception) {
+            $this->markTestSkipped($exception->getMessage());
         }
     }
 }

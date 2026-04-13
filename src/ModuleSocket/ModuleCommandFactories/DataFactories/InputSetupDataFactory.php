@@ -15,10 +15,25 @@ class InputSetupDataFactory extends AbstractCommandDataFactory
      */
     public function make(): ?CommandData
     {
-        return new Input(
-            inputNumber: getValue($this->commandData, 'input.inputNumber'),
-            action: getValue($this->commandData, 'input.action'),
-            antiBounce: getValue($this->commandData, 'input.antiBounce'),
-        );
+        return Input::fromArray($this->validatedInputSetupPayload());
+    }
+
+    /**
+     * @throws InvalidInputParameterException
+     */
+    private function validatedInputSetupPayload(): array
+    {
+        $inputNumber = getValue($this->commandData, 'input.inputNumber');
+        $action = getValue($this->commandData, 'input.action');
+        $antiBounce = getValue($this->commandData, 'input.antiBounce');
+
+        $this->validator->validateInputAction($action);
+        $this->validator->validateAntiBounce($antiBounce);
+
+        return [
+            'inputNumber' => $inputNumber,
+            'action' => $action,
+            'antiBounce' => $antiBounce,
+        ];
     }
 }

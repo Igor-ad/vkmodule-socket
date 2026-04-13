@@ -21,7 +21,7 @@ class Socket1ControllerTest extends ControllerPrepare
      */
     public function testInputSetup(): void
     {
-        $this->command = new Command(new CommandID('30'), new Input(0, 0, 5));
+        $this->command = new Command(new CommandID('30'), Input::fromArray(['inputNumber' => 0, 'action' => 0, 'antiBounce' => 5]));
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new Socket1Controller($this->service);

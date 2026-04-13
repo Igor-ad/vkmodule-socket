@@ -16,7 +16,7 @@ trait LogFormatter
             $pid,
             $level,
             $message,
-            empty($this->contextToString($context)) ? '' :  PHP_EOL . $this->contextToString($context),
+            empty($this->contextToString($context)) ? '' : PHP_EOL . $this->contextToString($context),
             PHP_EOL
         );
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket3TemperatureSensorResource;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class Socket3TemperatureSensorResourceTest extends TestCase
                 'id' => '41',
                 'description' => 'GetTemperatureSensor0',
                 'data' => [
-                    'input' => [
+                    CommandDataRootKey::Input->value => [
                         'sensor0' => [
                             'sign' => '+',
                             'temperature' => 21,

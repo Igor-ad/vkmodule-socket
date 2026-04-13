@@ -44,7 +44,7 @@ class Socket5ControllerTest extends ControllerPrepare
      */
     public function testInputSetup(): void
     {
-        $this->command = new Command(new CommandID('20'), new Input(0, 0, 5));
+        $this->command = new Command(new CommandID('20'), Input::fromArray(['inputNumber' => 0, 'action' => 0, 'antiBounce' => 5]));
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new Socket5Controller($this->service);
@@ -58,7 +58,7 @@ class Socket5ControllerTest extends ControllerPrepare
      */
     public function testRelayAction(): void
     {
-        $this->command = new Command(new CommandID('22'), new Relay(0, 1, 5));
+        $this->command = new Command(new CommandID('22'), Relay::fromArray(['relayNumber' => 0, 'action' => 1, 'interval' => 5]));
         $this->responseDataStub = $this->command->toString();
         $this->createServiceMock();
         $this->controller = new Socket5Controller($this->service);

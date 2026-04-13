@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 class Socket1AllInputStatusResource extends BaseResource
@@ -13,7 +14,7 @@ class Socket1AllInputStatusResource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'input0' => $this->inputStatusToSting($response->getEventDataItem(0)),
                     'input1' => $this->inputStatusToSting($response->getEventDataItem(1)),
                     'input2' => $this->inputStatusToSting($response->getEventDataItem(2)),

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Connectors;
 
-use Autodoctor\ModuleSocket\Configurator;
 use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 use Autodoctor\ModuleSocket\Connectors\Connector;
-use Autodoctor\ModuleSocket\Enums\Files;
 use Tests\LocalSocketServerInit;
 
 class TcpConnectorInit extends LocalSocketServerInit
@@ -17,9 +15,9 @@ class TcpConnectorInit extends LocalSocketServerInit
     public function setUp(): void
     {
         parent::setUp();
-        $host = Configurator::instance(Files::TestConfigFile->getPath())->get('host');
-        $port = Configurator::instance(Files::TestConfigFile->getPath())->get('port');
-        $timeout = Configurator::instance(Files::TestConfigFile->getPath())->get('timeout');
+        $host = $this->testConfiguration->get('host');
+        $port = $this->testConfiguration->get('port');
+        $timeout = $this->testConfiguration->get('timeout');
 
         @$this->connectorObject = new TcpConnector($host, $port, $timeout);
     }

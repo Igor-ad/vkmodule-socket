@@ -30,6 +30,11 @@ class TcpServerConnector extends AbstractConnector
         }
     }
 
+    /**
+     * Long-running accept loop for ad-hoc tooling, not used by the library TCP client path.
+     *
+     * @codeCoverageIgnore
+     */
     public function listenMirrored($server, ?float $timeout = 5, ?string $outputStream = null): void
     {
         while (true) {
@@ -43,15 +48,18 @@ class TcpServerConnector extends AbstractConnector
         }
     }
 
-    public function listenOnce($server, ?float $timeout = 5, ?string $outputStream = null): void
+    /**
+     * @return bool True when a client was accepted and handled; false on accept timeout (no connection).
+     */
+    public function listenOnce($server, ?float $timeout = 5, ?string $outputStream = null): bool
     {
         if (!is_resource($server)) {
             throw new \InvalidArgumentException('Invalid server socket.' . PHP_EOL);
         }
 
-        $listener = stream_socket_accept($server, $timeout);
+        $listener = @stream_socket_accept($server, $timeout);
         if ($listener === false) {
-            throw new \RuntimeException('Failed to accept connection.' . PHP_EOL);
+            return false;
         }
 
         $inputStream = fread($listener, 32);
@@ -59,5 +67,7 @@ class TcpServerConnector extends AbstractConnector
         fwrite($listener, $outputStream);
         stream_socket_shutdown($listener, STREAM_SHUT_RDWR);
         fclose($listener);
+
+        return true;
     }
 }

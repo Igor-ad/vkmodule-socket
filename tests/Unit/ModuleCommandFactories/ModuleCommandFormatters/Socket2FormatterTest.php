@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ModuleCommandFactories\ModuleCommandFormatters;
 
+use Autodoctor\ModuleSocket\Configuration\ConfigurationProvider;
+use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
+use Autodoctor\ModuleSocket\Validation\Validator;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket2Formatter;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Command;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\CommandID;
@@ -17,6 +20,14 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Socket2Formatter::class)]
 class Socket2FormatterTest extends TestCase
 {
+    private Validator $validator;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
+    }
+
     public function testGetAllStatus(): void
     {
         $command = Socket2Formatter::getAllStatus();
@@ -36,13 +47,13 @@ class Socket2FormatterTest extends TestCase
      */
     public function testInputSetup(): void
     {
-        $input = new Input(0, 1, 5);
+        $input = Input::fromArray(['inputNumber' => 0, 'action' => 1, 'antiBounce' => 5]);
         $command = Socket2Formatter::inputSetup($input);
 
         $this->assertTrue($command->isEqual(new Command(new CommandID('20'), $input)));
 
         $this->expectException(InvalidInputParameterException::class);
-        new Input(0, 10, 512);
+        $this->validator->validateInputAction(10);
     }
 
     public function testGetInputStatus(): void
@@ -58,12 +69,12 @@ class Socket2FormatterTest extends TestCase
      */
     public function testRelayAction(): void
     {
-        $relay = new Relay(0, 1, 10);
+        $relay = Relay::fromArray(['relayNumber' => 0, 'action' => 1, 'interval' => 10]);
         $command = Socket2Formatter::relayAction($relay);
 
         $this->assertTrue($command->isEqual(new Command(new CommandID('22'), $relay)));
 
         $this->expectException(InvalidInputParameterException::class);
-        new Relay(0, 10, 512);
+        $this->validator->validateRelayAction(10);
     }
 }

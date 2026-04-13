@@ -24,7 +24,7 @@ class TcpTransceiver extends AbstractTransceiver
         $response = $this->read();
 
         if ($response === false && $this->try($this->attemptsToReceive)) {
-            $this->getStreamContent();
+            return $this->getStreamContent();
         }
 
         if (!$response) {
@@ -40,6 +40,16 @@ class TcpTransceiver extends AbstractTransceiver
 
     public function write(string $data, ?int $length = null): int|false
     {
-        return fwrite(stream: $this->connector->getConnector(), data: $data, length: $length);
+        $stream = $this->connector->getConnector();
+        $written = fwrite(stream: $stream, data: $data, length: $length);
+        if (
+            $written !== false
+            && is_resource($stream)
+            && stream_get_meta_data($stream)['seekable']
+        ) {
+            rewind($stream);
+        }
+
+        return $written;
     }
 }

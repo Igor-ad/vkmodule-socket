@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -19,7 +20,7 @@ class Socket1Resource extends BaseResource
     {
         return [
             'data' => [
-                'input' => [
+                CommandDataRootKey::Input->value => [
                     'inputNumber' => hexdec($response->getEventDataItem(0)),
                     'triggerAction' => $this->inputStatusToSting($response->getEventDataItem(1)),
                     'antiBounce' => hexdec($response->getEventDataItem(2)),

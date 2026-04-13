@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Controllers\Api;
 
+use Autodoctor\ModuleSocket\Controllers\AbstractModuleController;
 use Autodoctor\ModuleSocket\ModuleCommandFactories\ModuleCommandFormatters\Socket2Formatter;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2AllInputAndRelayStatusResource;
 use Autodoctor\ModuleSocket\Resources\SocketModules\Socket2RelayActionResource;
@@ -14,14 +15,14 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Input;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\InputStatus;
 use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\Relay;
 
-class Socket2Controller extends Controller
+class Socket2Controller extends AbstractModuleController
 {
     public function getAllStatus(): string
     {
         $command = Socket2Formatter::getAllStatus();
         $response = $this->service->getResponse($command);
 
-        return Socket2AllInputAndRelayStatusResource::make()->toJson($response);
+        return Socket2AllInputAndRelayStatusResource::make($this->service->getValidator())->toJson($response);
     }
 
     public function getAnalogInput(): string
@@ -29,7 +30,7 @@ class Socket2Controller extends Controller
         $command = Socket2Formatter::getAnalogInput();
         $response = $this->service->getResponse($command);
 
-        return Socket2wAnalogInputStatusResource::make()->toJson($response);
+        return Socket2wAnalogInputStatusResource::make($this->service->getValidator())->toJson($response);
     }
 
     public function getInput(InputStatus|CommandData $commandData): string
@@ -37,7 +38,7 @@ class Socket2Controller extends Controller
         $command = Socket2Formatter::getInputStatus($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket2Resource::make()->toJson($response);
+        return Socket2Resource::make($this->service->getValidator())->toJson($response);
     }
 
     public function relayAction(Relay|CommandData $commandData): string
@@ -45,7 +46,7 @@ class Socket2Controller extends Controller
         $command = Socket2Formatter::relayAction($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket2RelayActionResource::make()->toJson($response);
+        return Socket2RelayActionResource::make($this->service->getValidator())->toJson($response);
     }
 
     public function inputSetup(Input|CommandData $commandData): string
@@ -53,6 +54,6 @@ class Socket2Controller extends Controller
         $command = Socket2Formatter::inputSetup($commandData);
         $response = $this->service->getResponse($command);
 
-        return Socket2Resource::make()->toJson($response);
+        return Socket2Resource::make($this->service->getValidator())->toJson($response);
     }
 }

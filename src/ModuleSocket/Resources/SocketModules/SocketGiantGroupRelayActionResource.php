@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autodoctor\ModuleSocket\Resources\SocketModules;
 
 use Autodoctor\ModuleSocket\DTO\Response;
+use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Resources\BaseResource;
 
 /**
@@ -27,7 +28,7 @@ class SocketGiantGroupRelayActionResource extends BaseResource
     {
         return [
             'data' => [
-                'relay' => [
+                CommandDataRootKey::Relay->value => [
                     'relay0' => $this->relayStatusToSting(bitMask($response->getEventDataItem(0), 7)),
                     'relay1' => $this->relayStatusToSting(bitMask($response->getEventDataItem(0), 6)),
                     'relay2' => $this->relayStatusToSting(bitMask($response->getEventDataItem(0), 5)),

@@ -7,6 +7,7 @@ namespace Tests\Unit\DTO;
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\DTO\Request;
 use Autodoctor\ModuleSocket\DTO\RequestDto;
+use Autodoctor\ModuleSocket\Validation\Validator;
 use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use Autodoctor\ModuleSocket\Exceptions\InvalidInputParameterException;
@@ -29,11 +30,11 @@ class RequestDtoTest extends LocalSocketServerInit
             [
                 [
                     'command' => 'relay_on',
-                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"ip":"localhost","port":9761,"type":"Socket-3"}}',
+                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"host":"127.0.0.1","port":9761,"type":"Socket-3"}}',
                 ],
                 [
                     'command' => 'relay_off',
-                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"ip":"localhost","port":9761,"type":"Socket-3"}}',
+                    'queryString' => '{"command":{"data":{"relay":{"relayNumber":1}}},"module":{"host":"127.0.0.1","port":9761,"type":"Socket-3"}}',
                 ],
             ],
             self::requestDataProvider(),
@@ -63,7 +64,12 @@ class RequestDtoTest extends LocalSocketServerInit
     #[DataProvider('requestDataProviderOfDto')]
     public function testFromRequest(string $command, ?string $queryString): void
     {
-        $request = new Request($command, $queryString);
+        $request = Request::fromInput(
+            $command,
+            $queryString,
+            $this->testConfiguration,
+            new Validator($this->testConfiguration),
+        );
 
         $this->assertInstanceOf(RequestDto::class, RequestDto::fromRequest($request));
     }
