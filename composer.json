@@ -1,5 +1,6 @@
 {
     "name": "autodoctor/vkmodule-socket",
+    "version": "1.5.0",
     "type": "library",
     "description": "PHP driver library for use with VKmodule 'Socket-N' type electronic devices.",
     "homepage": "https://github.com/Igor-ad/vkmodule-socket",
