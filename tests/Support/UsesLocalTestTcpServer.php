@@ -9,7 +9,8 @@ use Autodoctor\ModuleSocket\Enums\Files;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Opt-in TCP test listener for a single test method (unlike {@see \Tests\LocalSocketServerInit}, which runs in setUp()).
+ * Opt-in TCP test listener for a single test method
+ * (unlike {@see \Tests\LocalSocketServerInit}, which runs in setUp()).
  *
  * @mixin TestCase
  */

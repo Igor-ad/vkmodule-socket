@@ -2,6 +2,15 @@
 
 This file summarizes **internal and test-facing** changes compared to the **previous beta** of this library. The **JSON wire format** for integrators is unchanged (same `command` / `data` keys: `input`, `relay`, `relayGroup`).
 
+## 1.6.1 (Release_1.6.1)
+
+Code style only, no behaviour change.
+
+- PSR-12 (`phpcs`) clean for `src/` and `tests/`: long lines wrapped, trailing commas in multiline argument lists,
+  camelCase test helper names (`setUpTcp`, `testMakeId01`…).
+- Added `phpcs.xml.dist` and composer scripts `cs` and `cs-fix`. Test classes with long JSON fixtures switch the line
+  length check off with an inline `phpcs:disable` comment.
+
 ## 1.6.0 (Release_1.6.0)
 
 - **`ConsoleMode`** enum (`Cli` / `Api`) and an optional `$mode` argument of `Console::make()`. Without it the mode is

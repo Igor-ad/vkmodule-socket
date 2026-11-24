@@ -10,10 +10,10 @@ use Autodoctor\ModuleSocket\Connectors\Clients\TcpConnector;
 class ConnectorFactory
 {
     public static function connectInit(
-        string  $host,
-        int     $port = 9761,
+        string $host,
+        int $port = 9761,
         ?string $connectorType = 'TCP',
-        ?int    $timeOut = 5,
+        ?int $timeOut = 5,
     ): Connector {
         return match ($connectorType) {
             'HTTP' => new HttpConnector($host, $timeOut),

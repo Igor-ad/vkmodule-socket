@@ -10,8 +10,8 @@ abstract class AbstractTransceiver implements Transceiver
 {
     public function __construct(
         protected Connector $connector,
-        protected string    $streamData = '',
-        public int          $attemptsToReceive = self::ATTEMPT,
+        protected string $streamData = '',
+        public int $attemptsToReceive = self::ATTEMPT,
     ) {
     }
 

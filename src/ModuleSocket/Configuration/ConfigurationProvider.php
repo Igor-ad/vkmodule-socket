@@ -8,10 +8,12 @@ use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
 use JsonException;
 
 /**
- * Loads key/value configuration used by {@see \Autodoctor\ModuleSocket\Validation\Validator} and defaults (e.g. module host).
+ * Loads key/value configuration used by {@see \Autodoctor\ModuleSocket\Validation\Validator}
+ * and defaults (e.g. module host).
  *
  * PHP project configs typically `return [ ... ];` — that is executable PHP, so {@see fromConfigFile()} uses `include`
- * (same as a manual `require` in bootstrap). There is no safe way to read arbitrary PHP array files without executing them.
+ * (same as a manual `require` in bootstrap).
+ * There is no safe way to read arbitrary PHP array files without executing them.
  * For non-executable config, use {@see fromJsonFile()} with `file_get_contents` + `json_decode`.
  */
 final readonly class ConfigurationProvider implements ConfigurationProviderInterface

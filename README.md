@@ -8,7 +8,9 @@ PHP driver library for use with VKmodule 'Socket-N' type electronic devices. Con
 
 ![License MIT](https://img.shields.io/badge/License-MIT-blue)
 [![Supported PHP Versions](https://img.shields.io/badge/PHP-8.2,%208.3,%208.4-blue)](https://github.com/Igor-ad/VKmodule-php-client-library/)
-![GitHub release](https://img.shields.io/badge/Release_1.6.0-green)
+![GitHub release](https://img.shields.io/badge/Release_1.6.1-green)
+
+**1.6.1** — code style fixes only (PSR-12 checked with `composer cs`), no changes in behaviour.
 
 **1.6.0** — the `api_` prefix of a command name is now only an alias (`api_relay_on` and `relay_on` are the same command). New `--json` flag of `./console/cli.php` prints the JSON response for any command name; `Console::make()` accepts an explicit `ConsoleMode`. Command JSON is unchanged, so existing integrations keep working. Details in [CHANGELOG.md](CHANGELOG.md).
 
@@ -563,6 +565,6 @@ vendor/bin/phpunit -c phpunit.xml --coverage-html public/coverage
 
 equivalently: `composer coverage-html`. Open **`public/coverage/index.html`** in a browser after the run. The `public/coverage` tree is generated output and is listed in `.gitignore`.
 
-Last measured on Linux (2026-04-13): **644** tests, **991** assertions, all passing; coverage summary **classes 91.95%** (80/87), **methods 97.30%** (288/296), **lines 98.17%** (1019/1038) with `--coverage-text` (PCOV or Xdebug). Figures depend on extensions and tree state—re-run after changes.
+Last measured (2026-11-24): **679** tests, **1034** assertions, all passing; coverage summary **classes 93.18%** (82/88), **methods 97.56%** (280/287), **lines 98.22%** (994/1012) with `--coverage-text` (PCOV or Xdebug). Figures depend on extensions and tree state—re-run after changes.
 
-Developer-oriented changes up to **1.6.0** are listed in [CHANGELOG.md](CHANGELOG.md).
+Developer-oriented changes up to **1.6.1** are listed in [CHANGELOG.md](CHANGELOG.md).

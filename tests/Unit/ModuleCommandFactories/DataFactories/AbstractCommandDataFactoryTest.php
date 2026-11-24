@@ -71,7 +71,11 @@ class AbstractCommandDataFactoryTest extends TestCase
                 'inputNumber' => 0,
             ]
         ];
-        $factory = AbstractCommandDataFactory::getDataFactory($commandData, Commands::GetInput->value, $this->validator);
+        $factory = AbstractCommandDataFactory::getDataFactory(
+            $commandData,
+            Commands::GetInput->value,
+            $this->validator,
+        );
 
         $this->assertInstanceOf(InputStatusDataFactory::class, $factory);
     }

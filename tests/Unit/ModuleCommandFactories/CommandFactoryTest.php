@@ -30,7 +30,7 @@ class CommandFactoryTest extends TestCase
         $this->validator = new Validator(ConfigurationProvider::fromConfigFile(Files::TestConfigFile->getPath()));
     }
 
-    public function testMakeId_01(): void
+    public function testMakeId01(): void
     {
         $request = [
             'command' => [
@@ -60,7 +60,7 @@ class CommandFactoryTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMakeId_20(): void
+    public function testMakeId20(): void
     {
         $request = [
             'command' => [
@@ -89,13 +89,12 @@ class CommandFactoryTest extends TestCase
         );
 
         $this->assertTrue($command->isEqual($anotherCommand));
-
     }
 
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMakeId_43(): void
+    public function testMakeId43(): void
     {
         $request = [
             'command' => [
@@ -129,7 +128,7 @@ class CommandFactoryTest extends TestCase
     /**
      * @throws InvalidInputParameterException
      */
-    public function testMakeId_25(): void
+    public function testMakeId25(): void
     {
         $request = [
             'command' => [

@@ -39,7 +39,7 @@ class TransceiverInit extends TestCase
      * TcpConnector is used
      * class TransceiverInit extends LocalSocketServerInit
      */
-    public function setUp_Tcp(): void
+    public function setUpTcp(): void
     {
         parent::setUp();
 

@@ -17,8 +17,10 @@ class RelayControlDataFactory extends AbstractCommandDataFactory
     }
 
     /**
-     * Relay index vs `module.type` is enforced in {@see \Autodoctor\ModuleSocket\DTO\RequestDto::getValidRelayNumber()}, not here:
-     * {@see \Autodoctor\ModuleSocket\Validation\Validator::validateRelay()} without a module type uses the default config line.
+     * Relay index vs `module.type` is enforced in
+     * {@see \Autodoctor\ModuleSocket\DTO\RequestDto::getValidRelayNumber()}, not here:
+     * {@see \Autodoctor\ModuleSocket\Validation\Validator::validateRelay()}
+     * without a module type uses the default config line.
      *
      * @throws InvalidInputParameterException
      */

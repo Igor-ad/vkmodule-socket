@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Console;
 
+// phpcs:disable Generic.Files.LineLength -- long JSON fixtures
 class Socket2CommandTest extends BaseCommandTestCase
 {
     public static function commandDataProvider(): array

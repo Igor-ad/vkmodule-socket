@@ -49,6 +49,9 @@ class LocalSocketServerInit extends TestCase
 
         $outgoingStreamData = str_split($outgoingStream, 2);
 
-        return implode('', array_map(static fn (string $hexPair): string => chr(hexdec($hexPair)), $outgoingStreamData));
+        return implode(
+            '',
+            array_map(static fn (string $hexPair): string => chr(hexdec($hexPair)), $outgoingStreamData),
+        );
     }
 }

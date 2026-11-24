@@ -15,6 +15,7 @@ use Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data\RelayGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Unit\Controllers\ControllerPrepare;
 
+// phpcs:disable Generic.Files.LineLength -- long JSON fixtures
 #[CoversClass(SocketGiantController::class)]
 class SocketGiantControllerTest extends ControllerPrepare
 {

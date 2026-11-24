@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console;
 
+// phpcs:disable Generic.Files.LineLength -- long JSON fixtures
 trait ConsoleDataProvider
 {
     public static function commandDataProvider(): array

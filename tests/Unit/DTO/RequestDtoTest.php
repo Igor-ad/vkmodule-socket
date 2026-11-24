@@ -19,6 +19,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\LocalSocketServerInit;
 
+// phpcs:disable Generic.Files.LineLength -- long JSON fixtures
 #[CoversClass(RequestDto::class)]
 class RequestDtoTest extends LocalSocketServerInit
 {

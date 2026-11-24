@@ -43,8 +43,12 @@ final class TestTcpServer
      *
      * @throws \RuntimeException if the port never becomes ready after spawn
      */
-    public static function ensure(int $port, string $timeoutArg, string $payloadBase64, bool $reuseExisting = true): void
-    {
+    public static function ensure(
+        int $port,
+        string $timeoutArg,
+        string $payloadBase64,
+        bool $reuseExisting = true,
+    ): void {
         if (
             $reuseExisting
             && self::$lastPayloadBase64 === $payloadBase64

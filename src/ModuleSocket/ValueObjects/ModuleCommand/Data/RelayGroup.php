@@ -7,7 +7,8 @@ namespace Autodoctor\ModuleSocket\ValueObjects\ModuleCommand\Data;
 use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 
 /**
- * `relayGroupAction` must satisfy {@see \Autodoctor\ModuleSocket\Validation\ValidatorInterface::validateRelayGroupControlData()}
+ * `relayGroupAction` must satisfy
+ * {@see \Autodoctor\ModuleSocket\Validation\ValidatorInterface::validateRelayGroupControlData()}
  * before {@see self::fromArray()}.
  */
 final readonly class RelayGroup implements CommandData

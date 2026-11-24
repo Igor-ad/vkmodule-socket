@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(TcpServerConnector::class)]
 class TcpServerConnectorTest extends TestCase
 {
-
     public function testSetConnector(): void
     {
         $tcpServerConnector = new TcpServerConnector('localhost', 9760, 1);
@@ -47,7 +46,9 @@ class TcpServerConnectorTest extends TestCase
 
     public function testListenOnceAcceptsOneInboundConnection(): void
     {
-        $clientScript = dirname(__DIR__, 3) . DIRECTORY_SEPARATOR . 'Support' . DIRECTORY_SEPARATOR . 'TcpOneShotClient.php';
+        $clientScript = dirname(__DIR__, 3)
+            . DIRECTORY_SEPARATOR . 'Support'
+            . DIRECTORY_SEPARATOR . 'TcpOneShotClient.php';
         if (!is_file($clientScript)) {
             self::markTestSkipped('TcpOneShotClient.php not found at ' . $clientScript);
         }

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="vkmodule-socket">
+    <description>PSR-12 for the library. Test classes with long JSON fixtures switch the line length check off with an inline phpcs:disable comment.</description>
+
+    <file>src</file>
+    <file>tests</file>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <rule ref="PSR12"/>
+</ruleset>

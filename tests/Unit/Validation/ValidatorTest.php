@@ -289,5 +289,4 @@ class ValidatorTest extends TestCase
 
         $this->assertNotSame($first, $second);
     }
-
 }

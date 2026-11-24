@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\DTO;
 
+// phpcs:disable Generic.Files.LineLength -- long JSON fixtures
 trait RequestDataProvider
 {
     public static function requestDataProvider(): array

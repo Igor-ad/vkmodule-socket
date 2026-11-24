@@ -18,8 +18,14 @@ class ModuleCommandRegistryTest extends TestCase
 {
     public function testControllerMethodForKnownCommand(): void
     {
-        $this->assertSame('checkConnection', ModuleCommandRegistry::controllerMethodForCommandId(Commands::CheckConnect->value));
-        $this->assertSame('relayAction', ModuleCommandRegistry::controllerMethodForCommandId(Commands::Socket3RelayAction->value));
+        $this->assertSame(
+            'checkConnection',
+            ModuleCommandRegistry::controllerMethodForCommandId(Commands::CheckConnect->value),
+        );
+        $this->assertSame(
+            'relayAction',
+            ModuleCommandRegistry::controllerMethodForCommandId(Commands::Socket3RelayAction->value),
+        );
     }
 
     public function testControllerMethodForUnknownCommand(): void
@@ -68,7 +74,7 @@ class ModuleCommandRegistryTest extends TestCase
     {
         $this->assertNull(ModuleCommandRegistry::resolveSurfaceNameToWireId('no_such_command', 'Socket-2'));
         $this->assertNull(
-            ModuleCommandRegistry::resolveSurfaceNameToWireId(CliCommands::CliFullControl->value, 'Socket-2')
+            ModuleCommandRegistry::resolveSurfaceNameToWireId(CliCommands::CliFullControl->value, 'Socket-2'),
         );
     }
 
@@ -105,11 +111,19 @@ class ModuleCommandRegistryTest extends TestCase
     public function testSurfaceCommandRequiresRelayOrInputDeviceNumber(): void
     {
         $this->assertTrue(ModuleCommandRegistry::surfaceCommandRequiresRelayDeviceNumber(CliCommands::RelayOn->value));
-        $this->assertTrue(ModuleCommandRegistry::surfaceCommandRequiresRelayDeviceNumber(ApiCommands::ApiRelayControl->value));
-        $this->assertFalse(ModuleCommandRegistry::surfaceCommandRequiresRelayDeviceNumber(CliCommands::Connection->value));
+        $this->assertTrue(
+            ModuleCommandRegistry::surfaceCommandRequiresRelayDeviceNumber(ApiCommands::ApiRelayControl->value),
+        );
+        $this->assertFalse(
+            ModuleCommandRegistry::surfaceCommandRequiresRelayDeviceNumber(CliCommands::Connection->value),
+        );
 
-        $this->assertTrue(ModuleCommandRegistry::surfaceCommandRequiresInputDeviceNumber(CliCommands::InputSetup->value));
-        $this->assertTrue(ModuleCommandRegistry::surfaceCommandRequiresInputDeviceNumber(ApiCommands::ApiInputStatus->value));
+        $this->assertTrue(
+            ModuleCommandRegistry::surfaceCommandRequiresInputDeviceNumber(CliCommands::InputSetup->value),
+        );
+        $this->assertTrue(
+            ModuleCommandRegistry::surfaceCommandRequiresInputDeviceNumber(ApiCommands::ApiInputStatus->value),
+        );
         $this->assertFalse(ModuleCommandRegistry::surfaceCommandRequiresInputDeviceNumber(CliCommands::Status->value));
     }
 
