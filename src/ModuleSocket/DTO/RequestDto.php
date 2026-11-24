@@ -7,7 +7,6 @@ namespace Autodoctor\ModuleSocket\DTO;
 use Autodoctor\ModuleSocket\Configuration\ModuleCommandRegistry;
 use Autodoctor\ModuleSocket\Connectors\Connector;
 use Autodoctor\ModuleSocket\Connectors\ConnectorFactory;
-use Autodoctor\ModuleSocket\Enums\ApiCommands;
 use Autodoctor\ModuleSocket\Enums\CliCommands;
 use Autodoctor\ModuleSocket\Enums\CommandDataRootKey;
 use Autodoctor\ModuleSocket\Exceptions\ConfiguratorException;
@@ -57,11 +56,9 @@ readonly class RequestDto
     {
         $commandData = getValue($request->request, 'command.data');
 
-        return match ($request->commandName) {
-            CliCommands::RelayOn->value,
-            ApiCommands::ApiRelayOn->value => self::setActionOn($commandData),
-            CliCommands::RelayOff->value,
-            ApiCommands::ApiRelayOff->value => self::setActionOff($commandData),
+        return match (ModuleCommandRegistry::logicalName($request->commandName)) {
+            CliCommands::RelayOn->value => self::setActionOn($commandData),
+            CliCommands::RelayOff->value => self::setActionOff($commandData),
             default => $commandData,
         };
     }

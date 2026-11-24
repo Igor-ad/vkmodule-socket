@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace Autodoctor\ModuleSocket\Configuration;
 
-use Autodoctor\ModuleSocket\Enums\ApiCommands;
 use Autodoctor\ModuleSocket\Enums\CliCommands;
 use Autodoctor\ModuleSocket\Enums\Commands;
 use Autodoctor\ModuleSocket\Enums\Common;
 use Autodoctor\ModuleSocket\Enums\ModuleTypes;
 
 /**
- * Wire command ids, controller routing, domains (socket / card reader / unknown).
+ * Wire command ids, controller routing, command names resolution.
  * Input/relay index ranges per type: {@see ModuleHardwareCapabilities}.
  *
- * Data layout (on purpose not one giant table):
- * — merged {@see self::DEFINITIONS}: one row per wire id (controller, wire_domain, flags);
+ * Data layout:
+ * — {@see self::CONTROLLER_METHOD_BY_ID}: wire id => controller method (ids without a method are not routed);
+ * — {@see self::INPUT_STATUS_IDS}: wire ids of digital input reads (their response is compared by the first byte);
  * — {@see self::ALLOWED_IDS_BY_MODULE_TYPE}: which wire ids each hardware type may send;
- * — {@see self::resolveSurfaceNameToWireId()} (+ helpers): relay/input/type-dependent branches; {@see self::UNIVERSAL_SURFACE_TO_WIRE_ROWS} for commands whose wire id does not depend on module type;
- * — {@see self::surfaceCommandRequiresRelayDeviceNumber()} / {@see self::surfaceCommandRequiresInputDeviceNumber()}: which names carry relay/input indices in the request body.
+ * — {@see self::resolveSurfaceNameToWireId()}: logical name => wire id, which may depend on the module type;
+ *   the `api_` prefix of a name is an alias and is ignored, so `api_relay_on` and `relay_on` are the same command;
+ * — {@see self::surfaceCommandRequiresRelayDeviceNumber()} / {@see self::surfaceCommandRequiresInputDeviceNumber()}:
+ *   which names carry relay/input indices in the request body.
  *
- * CLI/API logical name → wire id: {@see self::resolveSurfaceNameToWireId()}. {@see \Autodoctor\ModuleSocket\DTO\Request::resolveNameToCommandId()} delegates here.
+ * CLI/API logical name → wire id: {@see self::resolveSurfaceNameToWireId()}.
+ * {@see \Autodoctor\ModuleSocket\DTO\Request::resolveNameToCommandId()} delegates here.
  *
  * Human-oriented overview (logical name / module support / meaning):
  *
@@ -47,128 +50,33 @@ use Autodoctor\ModuleSocket\Enums\ModuleTypes;
  */
 final class ModuleCommandRegistry
 {
-    public const SOCKET = 'socket';
+    /** Alias prefix of the logical command names: 'api_relay_on' is the same command as 'relay_on'. */
+    private const API_PREFIX = 'api_';
 
-    public const CARD_READER = 'card_reader';
-
-    public const UNKNOWN = 'unknown';
-
-    /** Common + unknown sentinel (01–04, 0f). */
-    private const COMMON = [
-        Commands::CheckConnect->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'checkConnection',
-        ],
-        Commands::RebootController->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'rebootModule',
-        ],
-        Commands::GetFirmware->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getModuleFirmware',
-        ],
-        Commands::GetUid->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getModuleUID',
-        ],
-        Commands::UnknownCommand->value => [
-            'wire_domain' => self::UNKNOWN,
-        ],
+    private const CONTROLLER_METHOD_BY_ID = [
+        Commands::CheckConnect->value => 'checkConnection',
+        Commands::RebootController->value => 'rebootModule',
+        Commands::GetFirmware->value => 'getModuleFirmware',
+        Commands::GetUid->value => 'getModuleUID',
+        Commands::Socket1SetInput->value => 'inputSetup',
+        Commands::Socket1GetInput->value => 'getInput',
+        Commands::GetAllInput->value => 'getAllStatus',
+        Commands::SetInput->value => 'inputSetup',
+        Commands::GetInput->value => 'getInput',
+        Commands::RelayAction->value => 'relayAction',
+        Commands::GetAllStatus->value => 'getAllStatus',
+        Commands::GetAnalogInput->value => 'getAnalogInput',
+        Commands::RelayGroupAction->value => 'relayGroupAction',
+        Commands::GetTemperatureSensor0->value => 'getSensor0',
+        Commands::GetTemperatureSensor1->value => 'getSensor1',
+        Commands::Socket3RelayAction->value => 'relayAction',
+        Commands::Socket3GetAllStatus->value => 'getAllStatus',
     ];
 
-    /** Socket-1 specific ids (30–32). */
-    private const SOCKET_1 = [
-        Commands::Socket1SetInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'inputSetup',
-        ],
-        Commands::Socket1GetInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getInput',
-            'input_status_semantics' => true,
-        ],
-        Commands::GetAllInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getAllStatus',
-        ],
+    private const INPUT_STATUS_IDS = [
+        Commands::Socket1GetInput->value,
+        Commands::GetInput->value,
     ];
-
-    /** Socket-2 / 2W / 4 / 5 / Giant shared ids (20–25). */
-    private const SOCKET_MULTI = [
-        Commands::SetInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'inputSetup',
-        ],
-        Commands::GetInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getInput',
-            'input_status_semantics' => true,
-        ],
-        Commands::RelayAction->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'relayAction',
-        ],
-        Commands::GetAllStatus->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getAllStatus',
-        ],
-        Commands::GetAnalogInput->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getAnalogInput',
-        ],
-        Commands::RelayGroupAction->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'relayGroupAction',
-        ],
-    ];
-
-    /** Socket-3 specific ids (41–44). */
-    private const SOCKET_3 = [
-        Commands::GetTemperatureSensor0->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getSensor0',
-        ],
-        Commands::GetTemperatureSensor1->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getSensor1',
-        ],
-        Commands::Socket3RelayAction->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'relayAction',
-        ],
-        Commands::Socket3GetAllStatus->value => [
-            'wire_domain' => self::SOCKET,
-            'controller' => 'getAllStatus',
-        ],
-    ];
-
-    /** Card reader wire ids. */
-    private const CARDS = [
-        Commands::EmMarineCard->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-        Commands::MifareCard->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-        Commands::ManagingOnlineStatus->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-        Commands::ManagingOfflineStatus->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-        Commands::ManagingResponseWaiting->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-        Commands::ManagingResponseStatus->value => [
-            'wire_domain' => self::CARD_READER,
-        ],
-    ];
-
-    private const DEFINITIONS = self::COMMON
-        + self::SOCKET_1
-        + self::SOCKET_MULTI
-        + self::SOCKET_3
-        + self::CARDS;
 
     private const OUTBOUND_COMMON_IDS = [
         Commands::CheckConnect->value,
@@ -222,25 +130,39 @@ final class ModuleCommandRegistry
         ],
     ];
 
+    /** Logical names that carry a relay index in the request body. */
+    private const RELAY_COMMAND_NAMES = [
+        CliCommands::RelayControl->value,
+        CliCommands::RelayOn->value,
+        CliCommands::RelayOff->value,
+    ];
+
+    /** Logical names that carry an input index in the request body. */
+    private const INPUT_COMMAND_NAMES = [
+        CliCommands::InputSetup->value,
+        CliCommands::InputStatus->value,
+    ];
+
+    /** Logical names whose wire id does not depend on the module type. */
+    private const UNIVERSAL_COMMAND_IDS = [
+        CliCommands::Connection->value => Common::Connect->value,
+        CliCommands::Firmware->value => Common::Firmware->value,
+        CliCommands::Reboot->value => Common::Reboot->value,
+        CliCommands::Uid->value => Common::Uid->value,
+        CliCommands::InputAnalog->value => Commands::GetAnalogInput->value,
+        CliCommands::InputTemperature0->value => Commands::GetTemperatureSensor0->value,
+        CliCommands::InputTemperature1->value => Commands::GetTemperatureSensor1->value,
+        CliCommands::RelayGroupControl->value => Commands::RelayGroupAction->value,
+    ];
+
     public static function controllerMethodForCommandId(string $commandId): ?string
     {
-        $row = self::row($commandId);
-
-        return $row['controller'] ?? null;
+        return self::CONTROLLER_METHOD_BY_ID[$commandId] ?? null;
     }
 
     public static function isInputStatusCommandId(string $commandId): bool
     {
-        $row = self::row($commandId);
-
-        return $row !== null && ($row['input_status_semantics'] ?? false);
-    }
-
-    public static function wireDomainForCommandId(string $commandId): ?string
-    {
-        $row = self::row($commandId);
-
-        return $row['wire_domain'] ?? null;
+        return in_array($commandId, self::INPUT_STATUS_IDS, true);
     }
 
     public static function allowedCommandIdsForModuleType(string $moduleType): array
@@ -259,165 +181,45 @@ final class ModuleCommandRegistry
             || $commandId === Commands::SetInput->value;
     }
 
-    /**
-     * Pairs of CLI/API logical names for surface commands that carry a relay index in the body.
-     * (Which wire id they map to is chosen elsewhere from {@see ModuleTypes}.)
-     *
-     * @var list<array{CliCommands, ApiCommands}>
-     */
-    private const RELAY_DEVICE_SURFACE_CLI_API_PAIRS = [
-        [CliCommands::RelayControl, ApiCommands::ApiRelayControl],
-        [CliCommands::RelayOn, ApiCommands::ApiRelayOn],
-        [CliCommands::RelayOff, ApiCommands::ApiRelayOff],
-    ];
-
-    /**
-     * Pairs of CLI/API logical names for surface commands that carry an input index in the body.
-     *
-     * @var list<array{CliCommands, ApiCommands}>
-     */
-    private const INPUT_DEVICE_SURFACE_CLI_API_PAIRS = [
-        [CliCommands::InputSetup, ApiCommands::ApiInputSetup],
-        [CliCommands::InputStatus, ApiCommands::ApiInputStatus],
-    ];
-
-    /**
-     * Logical surface commands whose wire id is the same for every module type (no Socket-1 vs Socket-3 branching).
-     * Each row: CLI name, API name, wire id — both surface names resolve to that single wire id.
-     *
-     * @var list<array{CliCommands, ApiCommands, Commands|Common}>
-     */
-    private const UNIVERSAL_SURFACE_TO_WIRE_ROWS = [
-        [CliCommands::Connection, ApiCommands::ApiConnection, Common::Connect],
-        [CliCommands::Firmware, ApiCommands::ApiFirmware, Common::Firmware],
-        [CliCommands::Reboot, ApiCommands::ApiReboot, Common::Reboot],
-        [CliCommands::Uid, ApiCommands::ApiUid, Common::Uid],
-        [CliCommands::InputAnalog, ApiCommands::ApiInputAnalog, Commands::GetAnalogInput],
-        [CliCommands::InputTemperature0, ApiCommands::ApiInputTemperature0, Commands::GetTemperatureSensor0],
-        [CliCommands::InputTemperature1, ApiCommands::ApiInputTemperature1, Commands::GetTemperatureSensor1],
-        [CliCommands::RelayGroupControl, ApiCommands::ApiRelayGroupControl, Commands::RelayGroupAction],
-    ];
-
     public static function surfaceCommandRequiresRelayDeviceNumber(string $surfaceCommandName): bool
     {
-        return in_array($surfaceCommandName, self::surfaceRelayCommandNames(), true);
+        return in_array(self::logicalName($surfaceCommandName), self::RELAY_COMMAND_NAMES, true);
     }
 
     public static function surfaceCommandRequiresInputDeviceNumber(string $surfaceCommandName): bool
     {
-        return in_array($surfaceCommandName, self::surfaceInputCommandNames(), true);
+        return in_array(self::logicalName($surfaceCommandName), self::INPUT_COMMAND_NAMES, true);
     }
 
     public static function resolveSurfaceNameToWireId(string $surfaceCommandName, string $moduleType): ?string
     {
-        if (in_array($surfaceCommandName, self::surfaceRelayCommandNames(), true)) {
-            return self::relayActionWireIdForModuleType($moduleType);
-        }
-        if (in_array($surfaceCommandName, self::surfaceInputCommandNames(), true)) {
-            return self::surfaceInputCommandToWireId($surfaceCommandName, $moduleType);
-        }
-        if (self::isSurfaceStatusCommand($surfaceCommandName)) {
-            return self::allStatusWireIdForModuleType($moduleType);
-        }
+        $name = self::logicalName($surfaceCommandName);
+        $isSocket1 = $moduleType === ModuleTypes::Socket1->value;
 
-        return self::universalSurfaceNameToWireIdMap()[$surfaceCommandName] ?? null;
-    }
-
-    private static function surfaceRelayCommandNames(): array
-    {
-        static $names = null;
-
-        return $names ??= self::surfaceStringsFromCliApiPairs(self::RELAY_DEVICE_SURFACE_CLI_API_PAIRS);
-    }
-
-    private static function surfaceInputCommandNames(): array
-    {
-        static $names = null;
-
-        return $names ??= self::surfaceStringsFromCliApiPairs(self::INPUT_DEVICE_SURFACE_CLI_API_PAIRS);
-    }
-
-    /**
-     * Expands each [CLI, API] pair into two string surface names (same order as declared).
-     * @param list<array{CliCommands, ApiCommands}> $pairs
-     */
-    private static function surfaceStringsFromCliApiPairs(array $pairs): array
-    {
-        $out = [];
-        foreach ($pairs as [$cli, $api]) {
-            $out[] = $cli->value;
-            $out[] = $api->value;
-        }
-
-        return $out;
-    }
-
-    /**
-     * Lookup built from {@see self::UNIVERSAL_SURFACE_TO_WIRE_ROWS}: surface command string → wire id.
-     */
-    private static function universalSurfaceNameToWireIdMap(): array
-    {
-        static $map = null;
-        if ($map !== null) {
-            return $map;
-        }
-        $map = [];
-        foreach (self::UNIVERSAL_SURFACE_TO_WIRE_ROWS as [$cli, $api, $wire]) {
-            $id = $wire->value;
-            $map[$cli->value] = $id;
-            $map[$api->value] = $id;
-        }
-
-        return $map;
-    }
-
-    private static function surfaceStatusCommandNames(): array
-    {
-        static $names = null;
-
-        return $names ??= self::surfaceStringsFromCliApiPairs([[CliCommands::Status, ApiCommands::ApiStatus]]);
-    }
-
-    private static function surfaceInputSetupCommandNames(): array
-    {
-        static $names = null;
-
-        return $names ??= self::surfaceStringsFromCliApiPairs([[CliCommands::InputSetup, ApiCommands::ApiInputSetup]]);
-    }
-
-    private static function isSurfaceStatusCommand(string $surfaceCommandName): bool
-    {
-        return in_array($surfaceCommandName, self::surfaceStatusCommandNames(), true);
-    }
-
-    private static function surfaceInputCommandToWireId(string $surfaceCommandName, string $moduleType): string
-    {
-        $socket1 = $moduleType === ModuleTypes::Socket1->value;
-        $isSetup = in_array($surfaceCommandName, self::surfaceInputSetupCommandNames(), true);
-
-        return $isSetup
-            ? ($socket1 ? Commands::Socket1SetInput->value : Commands::SetInput->value)
-            : ($socket1 ? Commands::Socket1GetInput->value : Commands::GetInput->value);
-    }
-
-    private static function relayActionWireIdForModuleType(string $moduleType): string
-    {
-        return $moduleType === ModuleTypes::Socket3->value
-            ? Commands::Socket3RelayAction->value
-            : Commands::RelayAction->value;
-    }
-
-    private static function allStatusWireIdForModuleType(string $moduleType): string
-    {
-        return match ($moduleType) {
-            ModuleTypes::Socket1->value => Commands::GetAllInput->value,
-            ModuleTypes::Socket3->value => Commands::Socket3GetAllStatus->value,
-            default => Commands::GetAllStatus->value,
+        return match (true) {
+            in_array($name, self::RELAY_COMMAND_NAMES, true) => $moduleType === ModuleTypes::Socket3->value
+                ? Commands::Socket3RelayAction->value
+                : Commands::RelayAction->value,
+            $name === CliCommands::InputSetup->value => $isSocket1
+                ? Commands::Socket1SetInput->value
+                : Commands::SetInput->value,
+            $name === CliCommands::InputStatus->value => $isSocket1
+                ? Commands::Socket1GetInput->value
+                : Commands::GetInput->value,
+            $name === CliCommands::Status->value => match ($moduleType) {
+                ModuleTypes::Socket1->value => Commands::GetAllInput->value,
+                ModuleTypes::Socket3->value => Commands::Socket3GetAllStatus->value,
+                default => Commands::GetAllStatus->value,
+            },
+            default => self::UNIVERSAL_COMMAND_IDS[$name] ?? null,
         };
     }
 
-    private static function row(string $commandId): ?array
+    /** Command name without the 'api_' alias prefix. */
+    public static function logicalName(string $surfaceCommandName): string
     {
-        return self::DEFINITIONS[$commandId] ?? null;
+        return str_starts_with($surfaceCommandName, self::API_PREFIX)
+            ? substr($surfaceCommandName, strlen(self::API_PREFIX))
+            : $surfaceCommandName;
     }
 }

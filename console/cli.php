@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use Autodoctor\ModuleSocket\Console\Console;
+use Autodoctor\ModuleSocket\Console\ConsoleMode;
 use Autodoctor\ModuleSocket\Enums\Files;
 use Autodoctor\ModuleSocket\Exceptions\ExceptionHandler;
 use Autodoctor\ModuleSocket\Logger\Logger;
@@ -23,16 +24,20 @@ $handler = new ExceptionHandler(true);
 $handler->setLogger($logger);
 $handler->register();
 
-$command = getByKey($argv, 1);
-$queryString = getByKey($argv, 2);
+$isJson = in_array('--json', $argv, true);
+$arguments = array_values(array_filter($argv, fn (string $argument) => $argument !== '--json'));
 
-$controlCommand = Console::make(
+$command = getByKey($arguments, 1);
+$queryString = getByKey($arguments, 2);
+
+$mode = $isJson ? ConsoleMode::Api : ConsoleMode::fromCommandName($command);
+
+$result = Console::make(
     commandName: $command,
     queryString: $queryString,
-);
+    mode: $mode,
+)->invoke();
 
-if ((!str_contains($command, 'api_'))) {
-    return $controlCommand->invoke();
-} else {
-    print $controlCommand->invoke();
+if ($mode === ConsoleMode::Api) {
+    print $result;
 }

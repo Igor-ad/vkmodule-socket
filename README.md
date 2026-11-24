@@ -8,7 +8,9 @@ PHP driver library for use with VKmodule 'Socket-N' type electronic devices. Con
 
 ![License MIT](https://img.shields.io/badge/License-MIT-blue)
 [![Supported PHP Versions](https://img.shields.io/badge/PHP-8.2,%208.3,%208.4-blue)](https://github.com/Igor-ad/VKmodule-php-client-library/)
-![GitHub release](https://img.shields.io/badge/Release_1.5.0-green)
+![GitHub release](https://img.shields.io/badge/Release_1.6.0-green)
+
+**1.6.0** — the `api_` prefix of a command name is now only an alias (`api_relay_on` and `relay_on` are the same command). New `--json` flag of `./console/cli.php` prints the JSON response for any command name; `Console::make()` accepts an explicit `ConsoleMode`. Command JSON is unchanged, so existing integrations keep working. Details in [CHANGELOG.md](CHANGELOG.md).
 
 **1.5.0** — same JSON for commands as before. Fixes so relay/input limits use **`module.type` from the request** when you run several module types (not only the default line in the config file).
 
@@ -105,6 +107,15 @@ The executable file for console commands is  `./console/cli.php`
 Syntax: `./console/cli.php <command> <JSON query string (optional)>`
 
 Command and module response debug logs will be written to the log file `./log/cli_module.log`
+
+Add the `--json` flag (in any position) to print the JSON response to the console instead of only logging it.
+The `api_` prefix of a command name does the same (see [API](#api)):
+
+```bash
+./console/cli.php status '{"module":{"host":"192.168.4.191","port":9761,"type":"Socket-3"}}' --json
+```
+
+On Windows the shebang is not used, run the file through PHP: `php console/cli.php <command> '<JSON>' --json`.
 
 ### Available console commands.
 
@@ -491,7 +502,9 @@ Functionally and in syntax, all API commands correspond to Cli commands.
 Differences:
 * there is no recording of debugging information about the command and module response in the Log file;
 * all API commands return a JSON string - the result of parsing the module response;
-* all API command names have the prefix "api_" ("Api" for command classes);
+* API command names have the prefix "api_" ("Api" for command classes); the prefix is an alias, so `api_status`
+  and `status` are the same command, and the prefix only selects the API mode when no mode is passed explicitly.
+  In PHP code pass the mode directly: `Console::make('status', $query, ConsoleMode::Api)`;
 
 
 To use the API as part of any framework or with any HTTP server, you can
@@ -552,4 +565,4 @@ equivalently: `composer coverage-html`. Open **`public/coverage/index.html`** in
 
 Last measured on Linux (2026-04-13): **644** tests, **991** assertions, all passing; coverage summary **classes 91.95%** (80/87), **methods 97.30%** (288/296), **lines 98.17%** (1019/1038) with `--coverage-text` (PCOV or Xdebug). Figures depend on extensions and tree state—re-run after changes.
 
-Developer-oriented changes between the previous beta and **1.5.0** are listed in [CHANGELOG.md](CHANGELOG.md).
+Developer-oriented changes up to **1.6.0** are listed in [CHANGELOG.md](CHANGELOG.md).

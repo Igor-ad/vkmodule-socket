@@ -2,6 +2,15 @@
 
 This file summarizes **internal and test-facing** changes compared to the **previous beta** of this library. The **JSON wire format** for integrators is unchanged (same `command` / `data` keys: `input`, `relay`, `relayGroup`).
 
+## 1.6.0 (Release_1.6.0)
+
+- **`ConsoleMode`** enum (`Cli` / `Api`) and an optional `$mode` argument of `Console::make()`. Without it the mode is
+  taken from the command name as before (leading `api_` prefix, now matched with `str_starts_with`).
+- **`console/cli.php --json`**: prints the JSON response for any command name, no `api_` prefix needed.
+- **`ModuleCommandRegistry`** simplified: flat controller map, `INPUT_STATUS_IDS`, one logical-name table;
+  `api_` is an alias handled by `ModuleCommandRegistry::logicalName()`. Removed unused `wireDomainForCommandId()`
+  and the `SOCKET`, `CARD_READER`, `UNKNOWN` constants.
+
 ## 1.5.0 (Release_1.5.0)
 
 ### Behaviour / validation

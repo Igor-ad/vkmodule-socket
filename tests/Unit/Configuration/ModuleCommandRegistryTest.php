@@ -34,30 +34,42 @@ class ModuleCommandRegistryTest extends TestCase
         $this->assertFalse(ModuleCommandRegistry::isInputStatusCommandId(Commands::SetInput->value));
     }
 
-    public function testWireDomainCoversAllCommandsEnumValues(): void
+    public function testCardReaderHasNoControllerMethod(): void
     {
-        foreach (Commands::cases() as $case) {
-            $domain = ModuleCommandRegistry::wireDomainForCommandId($case->value);
-            $this->assertNotNull($domain, $case->name);
-        }
-    }
-
-    public function testWireDomainCardReaderHasNoControllerMethod(): void
-    {
-        $this->assertSame(
-            ModuleCommandRegistry::CARD_READER,
-            ModuleCommandRegistry::wireDomainForCommandId(Commands::MifareCard->value),
-        );
         $this->assertNull(ModuleCommandRegistry::controllerMethodForCommandId(Commands::MifareCard->value));
     }
 
     public function testUnknownSentinelHasNoControllerMethod(): void
     {
-        $this->assertSame(
-            ModuleCommandRegistry::UNKNOWN,
-            ModuleCommandRegistry::wireDomainForCommandId(Commands::UnknownCommand->value),
-        );
         $this->assertNull(ModuleCommandRegistry::controllerMethodForCommandId(Commands::UnknownCommand->value));
+    }
+
+    public function testApiPrefixIsAliasOfLogicalName(): void
+    {
+        foreach (CliCommands::cases() as $cliCommand) {
+            $apiName = 'api_' . $cliCommand->value;
+
+            $this->assertSame(
+                ModuleCommandRegistry::resolveSurfaceNameToWireId($cliCommand->value, ModuleTypes::Socket3->value),
+                ModuleCommandRegistry::resolveSurfaceNameToWireId($apiName, ModuleTypes::Socket3->value),
+                $apiName,
+            );
+        }
+    }
+
+    public function testLogicalNameStripsOnlyLeadingApiPrefix(): void
+    {
+        $this->assertSame('relay_on', ModuleCommandRegistry::logicalName('api_relay_on'));
+        $this->assertSame('relay_on', ModuleCommandRegistry::logicalName('relay_on'));
+        $this->assertSame('my_api_x', ModuleCommandRegistry::logicalName('my_api_x'));
+    }
+
+    public function testResolveUnknownNameReturnsNull(): void
+    {
+        $this->assertNull(ModuleCommandRegistry::resolveSurfaceNameToWireId('no_such_command', 'Socket-2'));
+        $this->assertNull(
+            ModuleCommandRegistry::resolveSurfaceNameToWireId(CliCommands::CliFullControl->value, 'Socket-2')
+        );
     }
 
     public function testAllowedCommandIdsForUnknownModuleType(): void
